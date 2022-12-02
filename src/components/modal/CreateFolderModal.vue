@@ -18,7 +18,7 @@ import { ref, inject } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
 const apis = new GoogleAPI();
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 const $t = inject('$t');
 const props = defineProps({
     pageState: Object,
@@ -57,8 +57,8 @@ function closeHandler() {
 
 function onSeccess() {
     isNewFolder.value = false;
-    $eventBus.$emit('show-success-msg', $t('Folder create success'));
-    $eventBus.$emit('refresh-page');
+    $emitter.emit('show-success-msg', $t('Folder create success'));
+    $emitter.emit('refresh-page');
     emit('closeModal');
 }
 </script>

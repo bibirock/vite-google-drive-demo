@@ -67,7 +67,7 @@ import GoogleAPI from '@/apis/googleAPI.js';
 //全域方法
 const $globalF = inject('$globalF', () => {}, false);
 const $TYPE = inject('$TYPE');
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter', () => {}, false);
 const apis = new GoogleAPI();
 
 const folderList = ref([]);
@@ -97,13 +97,13 @@ const current = reactive({
 
 onMounted(() => {
     setCurrentPage();
-    $eventBus.$on('refresh-page', () => {
+    $emitter.on('refresh-page', () => {
         setCurrentPage();
     });
 });
 
 onBeforeUnmount(() => {
-    $eventBus.$off('refresh-page');
+    $emitter.off('refresh-page');
 });
 
 function setCurrentPage() {

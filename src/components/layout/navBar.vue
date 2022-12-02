@@ -31,7 +31,7 @@ import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import { inject } from 'vue';
 
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 const $TYPE = inject('$TYPE');
 const $globalF = inject('$globalF', () => {}, false);
 const apis = new GoogleAPI();
@@ -43,7 +43,7 @@ const searchInput = ref(null);
 const router = useRouter();
 const isFoucs = ref(false);
 
-$eventBus.$on('clear-search-input', () => {
+$emitter.on('clear-search-input', () => {
     console.log('object');
     inputValue.value = '';
 });

@@ -1,6 +1,6 @@
 //如果想在非setup函式中使用router，不能使用useRouter 要使用單獨引入的方式
 import router from '../router';
-import bus from '../bus';
+import { emitter } from '../main';
 
 export const globalFunction = {
     openFileView: (viewLink: string) => {
@@ -12,7 +12,7 @@ export const globalFunction = {
     },
 
     sendFileDatil: (mataData: string) => {
-        bus.$emit('send-file-data', mataData);
+        emitter.emit('send-file-data', mataData);
     },
 
     copyLink: (link: string) => {

@@ -26,7 +26,7 @@ import InfoMenuActivity from '@/components/layout/infoMenuItem/InfoMenuActivity.
 
 const emit = defineEmits(['closeInfoMenu']);
 
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 
 const views = reactive([
     {
@@ -52,7 +52,7 @@ function showBookmark(page) {
 }
 
 const infoData = reactive({});
-$eventBus.$on('send-file-data', (data) => {
+$emitter.on('send-file-data', (data) => {
     infoData.data = data;
 });
 
