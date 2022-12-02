@@ -44,7 +44,7 @@ const routes: RouteRecordRaw[] = [
         ],
     },
     {
-        path: '/:catchAll(.*)', //在vue3中，如果偵測到有人亂打網址，就必須使用正規表達式去捕捉，跟vue2版 path:"*" 是一樣的
+        path: '/:catchAll(.*)',
         redirect: '/',
     },
 ];
