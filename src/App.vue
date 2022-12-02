@@ -7,7 +7,7 @@ div
 <script setup>
 import { useI18n } from 'vue-i18n';
 import { provide } from 'vue';
-import { globalFunction, TYPE } from '@/globalMethods/global.js';
+import { globalFunction, TYPE } from '@/globalMethods/global.ts';
 import bus from './bus';
 
 const { t } = useI18n();
