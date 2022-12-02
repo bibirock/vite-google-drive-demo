@@ -1,9 +1,9 @@
 import mitt from 'mitt';
 
 type bus = {
-    $on?: unknown;
-    $off?: unknown;
-    $emit?: unknown;
+    $on?: any;
+    $off?: any;
+    $emit?: any;
 };
 
 const bus: bus = {};
