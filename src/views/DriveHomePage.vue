@@ -1,0 +1,40 @@
+<template lang="pug">
+.home-page.z-50.relative(:class="'h-screen overflow-hidden'")
+	nav-bar-vue(:class="'sticky top-0 z-50 bg-white shadow-md'")
+	bread-crumbs(@openInfoMenu='toggleInfoMenu()' :class="'sticky top-[60px] h-[50px]'")
+	.page-content.flex
+		side-menu-vue(:class="'shrink-0 '")
+		.conter(:class="'w-[100%] h-screen overflow-auto'")
+			router-view
+		.right-menu(v-show="isShowInfoMenu" :class="'hidden border-1px sticky top-0 md:block md:basis-[500px]'")
+			info-menu(@closeInfoMenu="isShowInfoMenu = false")
+message-modal
+upload-progress-modal
+</template>
+
+<script setup>
+import MessageModal from '@/components/modal/MessageModal.vue';
+import UploadProgressModal from '@/components/modal/UploadProgressModal.vue';
+import SideMenuVue from '@/components/pubTool/SideMenu.vue';
+import navBarVue from '@/components/pubTool/navBar.vue';
+import BreadCrumbs from '@/components/pubTool/BreadCrumbs.vue';
+import InfoMenu from '@/components/pubTool/InfoMenu.vue';
+import { ref } from 'vue';
+import { linStore } from '@/stores/lin';
+const pinia = linStore();
+
+checkLoginState();
+function checkLoginState() {
+    if (window.sessionStorage.getItem('token') == undefined) return;
+    const tokenDate = JSON.parse(window.sessionStorage.getItem('token'));
+    pinia.changeTokenData(tokenDate);
+}
+
+const isShowInfoMenu = ref(true);
+
+function toggleInfoMenu() {
+    isShowInfoMenu.value === true ? (isShowInfoMenu.value = false) : (isShowInfoMenu.value = true);
+}
+</script>
+
+<style scoped></style>
