@@ -3,7 +3,7 @@ import App from './App.vue';
 import './index.css';
 import { createPinia } from 'pinia';
 import router from './router';
-import CustomIcon from '@/assets/CustomIcon/CustomIcon.vue';
+import CustomIcon from '@/components/customIcon/CustomIcon.vue';
 import { Icon } from '@iconify/vue';
 //ant-desige-vue
 import Antd from 'ant-design-vue';

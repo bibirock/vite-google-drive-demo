@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import ContextMenuPage from '@/components/contextMenu/ContextMenuPage.vue';
+import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
 import { useRoute } from 'vue-router';
 import { inject } from 'vue';
 

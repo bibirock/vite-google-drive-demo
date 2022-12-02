@@ -52,7 +52,6 @@
 </template>
 <script setup>
 import { reactive, inject } from 'vue';
-import { Icon } from '@iconify/vue';
 const $eventBus = inject('$eventBus');
 const $t = inject('$t');
 const $TYPE = inject('$TYPE');

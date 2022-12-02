@@ -58,10 +58,10 @@ a-dropdown(:trigger="['contextmenu']" )
 <script setup>
 import { useRoute } from 'vue-router';
 import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, inject } from 'vue';
-import Loading from '@/components/pubTool/Loading.vue';
-import ContextMenuFile from '@/components/contextMenu/ContextMenuFile.vue';
-import ContextMenuFolder from '@/components/contextMenu/ContextMenuFolder.vue';
-import ContextMenuPage from '@/components/contextMenu/ContextMenuPage.vue';
+import Loading from '@/components/transitions/Loading.vue';
+import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
+import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
+import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
 import GoogleAPI from '@/apis/googleAPI.js';
 
 //全域方法

@@ -17,7 +17,7 @@ create-folder-modal(:pageState="createFolderModalProps" @closeModal="createFolde
 </template>
 
 <script setup>
-import CreateFolderModal from '../modal/CreateFolderModal.vue';
+import CreateFolderModal from '@/components/modal/CreateFolderModal.vue';
 import GoogleAPI from '@/apis/googleAPI.js';
 import { ref, reactive, inject } from 'vue';
 import { useRoute } from 'vue-router';

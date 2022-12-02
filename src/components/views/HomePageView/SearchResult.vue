@@ -19,10 +19,9 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { Icon } from '@iconify/vue';
 import { ref, watch, onMounted, inject } from 'vue';
 import GoogleAPI from '@/apis/googleAPI.js';
-import Loading from '@/components/pubTool/Loading.vue';
+import Loading from '@/components/transitions/Loading.vue';
 
 //全域方法
 const $globalF = inject('$globalF', () => {}, false);

@@ -21,7 +21,7 @@ div(v-else)
     //-         h3 1
     //-     div
     //-         h3 2
-    //-     div         
+    //-     div 
     //-         article(:class="'flex h-screen w-screen justify-center flex-col items-center'")
     //-             img(src="/vite-drive.png" :class="'mb-[20px]'")
     //-             button(:class="'border-2 border-slate-500 h-13 p-2 px-5 hover:text-sky-400 hover:border-sky-400 rounded-lg text-slate-500'" @click='loginGoogle()') {{ "登入Google以使用雲端硬碟" }}

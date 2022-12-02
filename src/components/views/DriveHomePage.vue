@@ -15,10 +15,10 @@ upload-progress-modal
 <script setup>
 import MessageModal from '@/components/modal/MessageModal.vue';
 import UploadProgressModal from '@/components/modal/UploadProgressModal.vue';
-import SideMenuVue from '@/components/pubTool/SideMenu.vue';
-import navBarVue from '@/components/pubTool/navBar.vue';
-import BreadCrumbs from '@/components/pubTool/BreadCrumbs.vue';
-import InfoMenu from '@/components/pubTool/InfoMenu.vue';
+import SideMenuVue from '@/components/layout/SideMenu.vue';
+import navBarVue from '@/components/layout/navBar.vue';
+import BreadCrumbs from '@/components/layout/BreadCrumbs.vue';
+import InfoMenu from '@/components/layout/InfoMenu.vue';
 import { ref } from 'vue';
 import { linStore } from '@/stores/lin';
 const pinia = linStore();

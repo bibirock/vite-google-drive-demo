@@ -21,8 +21,8 @@
 </template>
 <script setup>
 import { reactive, markRaw, inject } from 'vue';
-import InfoMenuDetail from '@/components/infoMenuChid/InfoMenuDetail.vue';
-import InfoMenuActivity from '@/components/infoMenuChid/InfoMenuActivity.vue';
+import InfoMenuDetail from '@/components/layout/infoMenuItem/InfoMenuDetail.vue';
+import InfoMenuActivity from '@/components/layout/infoMenuItem/InfoMenuActivity.vue';
 
 const emit = defineEmits(['closeInfoMenu']);
 
