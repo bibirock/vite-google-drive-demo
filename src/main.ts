@@ -6,7 +6,7 @@ import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import { i18n } from './locales/lang.js';
 import mitt from 'mitt';
-export const emitter = mitt();
+const emitter = mitt();
 import { globalFunction, TYPE } from './globalMethods/global';
 import './index.css';
 import { createApp } from 'vue';
@@ -20,3 +20,5 @@ app.provide('$TYPE', TYPE);
 //全域組件
 app.component('CustomIcon', CustomIcon).component('Icon', Icon);
 app.use(router).use(createPinia()).use(i18n).use(Antd).mount('#app');
+
+export { emitter };
