@@ -15,7 +15,7 @@ export default defineConfig({
             compositionOnly: true,
         }),
     ],
-    base: process.env.NODE_ENV === 'production' ? '/google-drive-demo/' : '/', //github發布版的網址需改為"/google-drive-demo/"
+    base: process.env.NODE_ENV === 'production' ? '/vite-google-drive-demo/' : '/',
     resolve: {
         alias: {
             '@': resolve(__dirname, './src'),
