@@ -19,15 +19,14 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { Icon } from '@iconify/vue';
 import { ref, watch, onMounted, inject } from 'vue';
 import GoogleAPI from '@/apis/googleAPI.js';
-import Loading from '@/components/pubTool/Loading.vue';
+import Loading from '@/components/transitions/Loading.vue';
 
 //全域方法
 const $globalF = inject('$globalF', () => {}, false);
 const $TYPE = inject('$TYPE');
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 
 const apis = new GoogleAPI();
 const fileList = ref([]);
@@ -63,8 +62,8 @@ function setPageContent(res) {
 
 function clickFolderRefreshPage(item) {
     $globalF.goToFolder(item.id);
-    $eventBus.$emit('refresh-page');
-    $eventBus.$emit('clear-search-input');
+    $emitter.emit('refresh-page');
+    $emitter.emit('clear-search-input');
 }
 </script>
 

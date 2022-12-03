@@ -18,7 +18,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
 import GoogleAPI from '@/apis/googleAPI.js';
 import { ref, inject } from 'vue';
 const apis = new GoogleAPI();
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 const $t = inject('$t');
 const props = defineProps({
     pageState: Object,
@@ -28,8 +28,8 @@ const emit = defineEmits(['closeModal']);
 
 async function deleteFile(fileId) {
     await apis.toTrashFileByAPI(fileId);
-    $eventBus.$emit('show-success-msg', $t('File moved to trash'));
-    $eventBus.$emit('refresh-page');
+    $emitter.emit('show-success-msg', $t('File moved to trash'));
+    $emitter.emit('refresh-page');
 }
 
 const inputVal = ref('');

@@ -21,7 +21,7 @@ a-modal(v-model:visible="isShowModal"
 import { ref, reactive, inject, computed } from 'vue';
 import { linStore } from '@/stores/lin';
 const pinia = linStore();
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 const strokeColor = reactive({
     '0%': '#108ee9',
     '100%': '#87d068',
@@ -33,7 +33,7 @@ const emit = defineEmits(['closeModal']);
 //控制彈窗不能點擊遮罩關閉
 const maskClosable = ref(false);
 
-$eventBus.$on('show-upload-progress', openUploadProgress);
+$emitter.on('show-upload-progress', openUploadProgress);
 
 const uploadProgress = computed(() => {
     if (pinia.getProgress === 100) {

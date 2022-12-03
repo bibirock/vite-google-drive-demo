@@ -17,12 +17,12 @@ create-folder-modal(:pageState="createFolderModalProps" @closeModal="createFolde
 </template>
 
 <script setup>
-import CreateFolderModal from '../modal/CreateFolderModal.vue';
+import CreateFolderModal from '@/components/modal/CreateFolderModal.vue';
 import GoogleAPI from '@/apis/googleAPI.js';
 import { ref, reactive, inject } from 'vue';
 import { useRoute } from 'vue-router';
 
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 const $t = inject('$t');
 const route = useRoute();
 const apis = new GoogleAPI();
@@ -54,7 +54,7 @@ async function packageRequest(fileName, data) {
 }
 
 async function uploadFileAndRefresh(fileMetadata, data) {
-    $eventBus.$emit('show-upload-progress');
+    $emitter.emit('show-upload-progress');
     const res = await apis.toUploadFileByAPI(fileMetadata, data);
     if (res.status === 200) {
         successUpload(fileMetadata);
@@ -62,8 +62,8 @@ async function uploadFileAndRefresh(fileMetadata, data) {
 }
 
 function successUpload(fileMetadata) {
-    $eventBus.$emit('refresh-page');
-    $eventBus.$emit('show-success-msg', $t('File upload success, your file name is') + ':' + fileMetadata.name);
+    $emitter.emit('refresh-page');
+    $emitter.emit('show-success-msg', $t('File upload success, your file name is') + ':' + fileMetadata.name);
 }
 
 const createFolderModalProps = reactive({

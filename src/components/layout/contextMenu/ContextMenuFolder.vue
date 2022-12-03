@@ -26,7 +26,7 @@ import UpdateFileName from '@/components/modal/UpdateFileNameModal.vue';
 import { reactive, inject } from 'vue';
 const $t = inject('$t');
 const $globalF = inject('$globalF', () => {}, false);
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 
 const props = defineProps({
     fileData: Object,
@@ -46,7 +46,7 @@ const updateFileModalProps = reactive({
 
 async function getLink() {
     await $globalF.copyLink(props.fileData.webViewLink);
-    $eventBus.$emit('show-success-msg', $t('Link copied to clipboard'));
+    $emitter.emit('show-success-msg', $t('Link copied to clipboard'));
 }
 </script>
 <style lang="scss" scoped>

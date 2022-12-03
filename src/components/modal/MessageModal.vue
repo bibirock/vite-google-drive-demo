@@ -4,9 +4,9 @@ a-space
 <script setup>
 import { inject } from 'vue';
 import { message } from 'ant-design-vue';
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 
-$eventBus.$on('show-success-msg', (msg) => {
+$emitter.on('show-success-msg', (msg) => {
     message.success(msg);
 });
 

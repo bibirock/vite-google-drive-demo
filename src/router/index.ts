@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             isRequiresAuth: false,
         },
-        component: () => import('@/views/LoginPage.vue'),
+        component: () => import('@/components/views/LoginPage.vue'),
     },
     {
         path: '/404-page',
@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             isRequiresAuth: false,
         },
-        component: () => import('@/views/404Page.vue'),
+        component: () => import('@/components/views/404Page.vue'),
     },
     {
         path: '/drive',
@@ -23,28 +23,28 @@ const routes: RouteRecordRaw[] = [
         meta: {
             isRequiresAuth: true,
         },
-        component: () => import('@/views/DriveHomePage.vue'),
+        component: () => import('@/components/views/DriveHomePage.vue'),
         redirect: '/drive/my-drive',
         children: [
             {
                 path: 'my-drive',
                 name: 'my-drive',
-                component: () => import('@/views/HomePageView/MyDrive.vue'),
+                component: () => import('@/components/views/HomePageView/MyDrive.vue'),
             },
             {
                 path: 'folders/:folderId',
                 name: 'my-drive-folders',
-                component: () => import('@/views/HomePageView/MyDrive.vue'),
+                component: () => import('@/components/views/HomePageView/MyDrive.vue'),
             },
             {
                 path: 'search',
                 name: 'search-result-page',
-                component: () => import('@/views/HomePageView/SearchResult.vue'),
+                component: () => import('@/components/views/HomePageView/SearchResult.vue'),
             },
         ],
     },
     {
-        path: '/:catchAll(.*)', //在vue3中，如果偵測到有人亂打網址，就必須使用正規表達式去捕捉，跟vue2版 path:"*" 是一樣的
+        path: '/:catchAll(.*)',
         redirect: '/',
     },
 ];

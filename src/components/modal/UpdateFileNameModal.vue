@@ -16,7 +16,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
 import GoogleAPI from '@/apis/googleAPI.js';
 import { ref, inject, onMounted } from 'vue';
 const apis = new GoogleAPI();
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 const $t = inject('$t');
 const props = defineProps({
     pageState: Object,
@@ -57,8 +57,8 @@ function closeHandler() {
 }
 
 function onSeccess() {
-    $eventBus.$emit('show-success-msg', $t('File name update success'));
-    $eventBus.$emit('refresh-page');
+    $emitter.emit('show-success-msg', $t('File name update success'));
+    $emitter.emit('refresh-page');
     emit('closeModal');
 }
 </script>

@@ -1,21 +1,21 @@
 //如果想在非setup函式中使用router，不能使用useRouter 要使用單獨引入的方式
-import router from '@/router';
-import bus from '@/bus';
+import router from '../router';
+import { emitter } from '../main';
 
 export const globalFunction = {
-    openFileView: (viewLink) => {
+    openFileView: (viewLink: string) => {
         window.open(viewLink, '_blank');
     },
 
-    goToFolder: (folderId) => {
+    goToFolder: (folderId: string) => {
         router.push({ name: 'my-drive-folders', params: { folderId: folderId } });
     },
 
-    sendFileDatil: (mataData) => {
-        bus.$emit('send-file-data', mataData);
+    sendFileDatil: (mataData: string) => {
+        emitter.emit('send-file-data', mataData);
     },
 
-    copyLink: (link) => {
+    copyLink: (link: string) => {
         return navigator.clipboard.writeText(link);
     },
 };

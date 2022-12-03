@@ -52,13 +52,12 @@
 </template>
 <script setup>
 import { reactive, inject } from 'vue';
-import { Icon } from '@iconify/vue';
-const $eventBus = inject('$eventBus');
+const $emitter = inject('$emitter');
 const $t = inject('$t');
 const $TYPE = inject('$TYPE');
-
 const infoData = reactive({});
-$eventBus.$on('send-file-data', (data) => {
+
+$emitter.on('send-file-data', (data) => {
     infoData.data = data;
 });
 
