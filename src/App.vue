@@ -4,13 +4,5 @@ div.select-none(@contextmenu.prevent="")
 div
 </template>
 
-<script setup>
-import { useI18n } from 'vue-i18n';
-import { provide } from 'vue';
-
-const { t } = useI18n();
-
-provide('$t', t);
-</script>
-
+<script setup></script>
 <style scoped></style>

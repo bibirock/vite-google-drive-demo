@@ -10,6 +10,7 @@ export const lang = {
 };
 
 export const i18n = createI18n({
+    globalInjection: true,
     legacy: false,
     locale: defaultLocale,
     fallbackLocale: '中文',
