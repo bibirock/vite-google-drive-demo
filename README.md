@@ -1,6 +1,6 @@
 <div style=" width: fit-content;">
     <h1> Google drive demo<h1>
-    <img style="margin:0 auto; width: 50%; display: block;" src="./public/vite-drive.png">
+    <img style="margin:0 auto; max-width: 150px; display: block;" src="./public/vite-drive.png">
 </div>
 
 ## 此個人專案作品採用技術如下
