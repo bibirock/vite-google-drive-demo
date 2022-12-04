@@ -1,7 +1,13 @@
-# Vue 3 + Vite
+<div style=" width: fit-content;">
+    <h1> Google drive demo<h1>
+    <img style="margin:0 auto; width: 50%; display: block;" src="./public/vite-drive.png">
+</div>
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 此個人專案作品採用技術如下
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+-   前端框架： Vite + Vue3
+-   主要使用語言： TypeScript + javascript
+-   CSS 預處理器： Tailwind CSS + SASS
+-   UI library： ant-design-vue
+-   HTM 模板: PUG
+-   GitHub 部署：gh-pages
