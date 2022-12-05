@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-import GoogleAPI from '@/apis/googleAPI.js';
+import GoogleAPI from '@/apis/googleAPI.ts';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
 
 import { reactive, ref, inject } from 'vue';

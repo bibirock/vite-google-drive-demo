@@ -62,7 +62,7 @@ import Loading from '@/components/transitions/Loading.vue';
 import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
 import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
-import GoogleAPI from '@/apis/googleAPI.js';
+import GoogleAPI from '@/apis/googleAPI.ts';
 
 //全域方法
 const $globalF = inject('$globalF', () => {}, false);

@@ -1,6 +1,7 @@
-import { linStore } from '@/stores/lin';
+import { linStore } from '../stores/lin';
 import axios from 'axios';
-import router from '@/router';
+import router from '../router';
+import { createFolderParamsType, toUpdateFileParamsType } from './googleAPITypes';
 const baseURL = 'https://www.googleapis.com/drive/v3';
 const pinia = linStore();
 const clientByPinia = pinia.googleClientData;
@@ -9,7 +10,7 @@ function return404Page() {
     router.push({ name: '404Page' });
 }
 export default class GoogleAPI {
-    async getAccountTokenByAPI(params) {
+    async getAccountTokenByAPI(params: string): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'post',
@@ -32,7 +33,7 @@ export default class GoogleAPI {
         }
     }
 
-    async getDriveRootListByAPI() {
+    async getDriveRootListByAPI(): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'get',
@@ -50,7 +51,7 @@ export default class GoogleAPI {
         }
     }
 
-    async getFolderItemByAPI(folderId) {
+    async getFolderItemByAPI(folderId: string): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'get',
@@ -65,7 +66,7 @@ export default class GoogleAPI {
         }
     }
 
-    async searchFileByAPI(inputValue) {
+    async searchFileByAPI(inputValue: string): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'get',
@@ -80,7 +81,7 @@ export default class GoogleAPI {
         }
     }
 
-    async createFolderByAPI(params) {
+    async createFolderByAPI(params: createFolderParamsType): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'post',
@@ -98,26 +99,8 @@ export default class GoogleAPI {
             console.log(e);
         }
     }
-    /**
-     * 此方法先暫停使用
-     * @param {*} params
-     * @returns
-     */
-    async deleteFileByAPI(params) {
-        try {
-            const res = await axios({
-                method: 'delete',
-                baseURL: baseURL,
-                url: `files/${params}?key=${clientByPinia.apiKey}`,
-                headers: { authorization: `Bearer ${pinia.tokenData.access_token}` },
-            });
-            return res;
-        } catch (e) {
-            console.log(e);
-        }
-    }
 
-    async toUploadFileByAPI(fileMetadata, data) {
+    async toUploadFileByAPI(fileMetadata: Object, data: Uint8Array): Promise<void | object> {
         const form = new FormData();
         form.append('metadata', new Blob([JSON.stringify(fileMetadata)], { type: 'application/json' }));
         form.append('file', new Blob([new Uint8Array(data)]));
@@ -125,7 +108,7 @@ export default class GoogleAPI {
             const res = await axios({
                 onUploadProgress: (progressEvent) => {
                     let percentComplete = progressEvent.loaded / progressEvent.total;
-                    percentComplete = parseInt(percentComplete * 100);
+                    percentComplete = percentComplete * 100;
                     pinia.uploadProgress(percentComplete);
                 },
                 method: 'post',
@@ -139,7 +122,7 @@ export default class GoogleAPI {
         }
     }
 
-    async toTrashFileByAPI(params) {
+    async toTrashFileByAPI(params: string): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'post',
@@ -153,7 +136,7 @@ export default class GoogleAPI {
         }
     }
 
-    async toUpdateFileByAPI(params) {
+    async toUpdateFileByAPI(params: toUpdateFileParamsType): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'patch',

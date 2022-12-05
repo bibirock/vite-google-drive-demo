@@ -13,7 +13,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
 </template>
 
 <script setup>
-import GoogleAPI from '@/apis/googleAPI.js';
+import GoogleAPI from '@/apis/googleAPI.ts';
 import { ref, inject } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
