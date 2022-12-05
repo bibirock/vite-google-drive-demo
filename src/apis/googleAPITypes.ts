@@ -1,9 +1,9 @@
 export interface createFolderParamsType {
-    name: string;
+    name: string | number;
     parents: string;
 }
 
 export interface toUpdateFileParamsType {
     fileId: string;
-    name: string;
+    name: string | number;
 }

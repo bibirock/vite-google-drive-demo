@@ -6,7 +6,7 @@ const baseURL = 'https://www.googleapis.com/drive/v3';
 const pinia = linStore();
 const clientByPinia = pinia.googleClientData;
 
-function return404Page() {
+function return404Page(): void {
     router.push({ name: '404Page' });
 }
 export default class GoogleAPI {
@@ -66,7 +66,7 @@ export default class GoogleAPI {
         }
     }
 
-    async searchFileByAPI(inputValue: string): Promise<void | object> {
+    async searchFileByAPI(inputValue: string | number): Promise<void | object> {
         try {
             const res = await axios({
                 method: 'get',
