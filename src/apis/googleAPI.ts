@@ -1,7 +1,7 @@
 import { linStore } from '../stores/lin';
 import axios from 'axios';
 import router from '../router';
-import { createFolderParamsType, toUpdateFileParamsType } from './googleAPITypes';
+import { createFolderParamsType, toUpdateFileParamsType } from './types.mjs';
 const baseURL = 'https://www.googleapis.com/drive/v3';
 const pinia = linStore();
 const clientByPinia = pinia.googleClientData;

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import apiKey from './apiKey';
-import { tokenDataType } from './linTypes';
+import { tokenDataType } from './typs.mjs';
 export const linStore = defineStore('linStore', {
     state: () => ({
         googleClientData: {
