@@ -12,6 +12,7 @@ const app = createApp(App);
 //全域變數設置
 import { globalFunction, TYPE } from './globalMethods/global';
 import { i18n } from './locales/lang.js';
+// @ts-ignore：
 const { t } = i18n.global;
 import mitt from 'mitt';
 const emitter = mitt();
