@@ -14,7 +14,7 @@ export const linStore = defineStore('linStore', {
         onUploadProgress: <number>0,
     }),
     getters: {
-        getProgress(state) {
+        getProgress(state): number {
             return state.onUploadProgress;
         },
     },

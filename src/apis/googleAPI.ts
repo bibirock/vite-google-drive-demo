@@ -2,6 +2,7 @@ import { linStore } from '../stores/lin';
 import axios from 'axios';
 import router from '../router';
 import { createFolderParamsType, toUpdateFileParamsType } from './googleAPITypes';
+import { toNumber } from '@vue/shared';
 const baseURL = 'https://www.googleapis.com/drive/v3';
 const pinia = linStore();
 const clientByPinia = pinia.googleClientData;
@@ -108,7 +109,7 @@ export default class GoogleAPI {
             const res = await axios({
                 onUploadProgress: (progressEvent) => {
                     let percentComplete = progressEvent.loaded / progressEvent.total;
-                    percentComplete = percentComplete * 100;
+                    percentComplete = toNumber(percentComplete * 100).toFixed();
                     pinia.uploadProgress(percentComplete);
                 },
                 method: 'post',
