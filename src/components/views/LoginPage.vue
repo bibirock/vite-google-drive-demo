@@ -17,7 +17,6 @@ import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { linStore } from '../../stores/lin';
 import GoogleAPI from '../../apis/googleAPI';
-import { type } from 'os';
 const { userAgent } = navigator;
 const apis = new GoogleAPI();
 const pinia = linStore();
@@ -50,14 +49,13 @@ function loginGoogle() {
     initGoogle().requestCode();
 }
 
-type resCode = {
+type requestCode = {
     code: string;
     scope: string;
 };
 
-async function toGetTokenByAPI(code: resCode, res: any = null) {
-    res = await apis.getAccountTokenByAPI(code.code);
-    // console.log(res);
+async function toGetTokenByAPI(code: requestCode) {
+    const res = await apis.getAccountTokenByAPI(code.code);
     pinia.changeTokenData(res.data);
     loginSuccess(res.data);
 }
