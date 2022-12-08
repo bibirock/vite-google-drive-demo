@@ -20,7 +20,7 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { ref, watch, onMounted, inject } from 'vue';
-import GoogleAPI from '@/apis/googleAPI.js';
+import GoogleAPI from '@/apis/googleAPI.ts';
 import Loading from '@/components/transitions/Loading.vue';
 
 //全域方法

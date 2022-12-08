@@ -15,7 +15,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
     span(v-if="inputErr" :class="'text-red-600'") {{ $t("Name confrim error") }}
 </template>
 <script setup>
-import GoogleAPI from '@/apis/googleAPI.js';
+import GoogleAPI from '@/apis/googleAPI.ts';
 import { ref, inject } from 'vue';
 const apis = new GoogleAPI();
 const $emitter = inject('$emitter');

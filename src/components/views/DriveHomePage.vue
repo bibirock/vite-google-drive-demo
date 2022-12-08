@@ -12,7 +12,7 @@ message-modal
 upload-progress-modal
 </template>
 
-<script setup>
+<script setup lang="ts">
 import MessageModal from '@/components/modal/MessageModal.vue';
 import UploadProgressModal from '@/components/modal/UploadProgressModal.vue';
 import SideMenuVue from '@/components/layout/SideMenu.vue';
@@ -20,13 +20,13 @@ import navBarVue from '@/components/layout/navBar.vue';
 import BreadCrumbs from '@/components/layout/BreadCrumbs.vue';
 import InfoMenu from '@/components/layout/InfoMenu.vue';
 import { ref } from 'vue';
-import { linStore } from '@/stores/lin';
+import { linStore } from '../../stores/lin';
 const pinia = linStore();
 
 checkLoginState();
 function checkLoginState() {
     if (window.sessionStorage.getItem('token') == undefined) return;
-    const tokenDate = JSON.parse(window.sessionStorage.getItem('token'));
+    const tokenDate: object = JSON.parse(window.sessionStorage.getItem('token') || '{}');
     pinia.changeTokenData(tokenDate);
 }
 

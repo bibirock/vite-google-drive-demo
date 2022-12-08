@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import apiKey from './apiKey';
-
+import { tokenDataType } from './typs.mjs';
 export const linStore = defineStore('linStore', {
     state: () => ({
         googleClientData: {
@@ -10,19 +10,17 @@ export const linStore = defineStore('linStore', {
             redirecutURI: apiKey.googleClientData.redirecutURI,
             apiKey: apiKey.googleClientData.apiKey,
         },
-
-        tokenData: {},
-
-        onUploadProgress: 0,
+        tokenData: <tokenDataType>{},
+        onUploadProgress: <number>0,
     }),
     getters: {
-        getProgress(state) {
+        getProgress(state): number {
             return state.onUploadProgress;
         },
     },
     actions: {
         changeTokenData(tokenObj: object) {
-            this.tokenData = tokenObj;
+            this.tokenData = <tokenDataType>tokenObj;
         },
 
         uploadProgress(number: number) {
