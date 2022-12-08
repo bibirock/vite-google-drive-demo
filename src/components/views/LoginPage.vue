@@ -12,11 +12,12 @@ div(v-else)
         button(:class="'border-2 border-slate-500 h-13 p-2 px-5 hover:text-sky-400 hover:border-sky-400 rounded-lg text-slate-500'" @click='loginGoogle()') {{ "登入Google以使用雲端硬碟" }}
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
-import { linStore } from '@/stores/lin';
-import GoogleAPI from '@/apis/googleAPI.ts';
+import { linStore } from '../../stores/lin';
+import GoogleAPI from '../../apis/googleAPI';
+import { type } from 'os';
 const { userAgent } = navigator;
 const apis = new GoogleAPI();
 const pinia = linStore();
@@ -40,7 +41,7 @@ function initGoogle() {
         client_id: pinia.googleClientData.clientId,
         scope: pinia.googleClientData.scope,
         ux_mode: 'popup',
-        redirecut_uri: pinia.googleClientData.redirecutURL,
+        redirect_uri: pinia.googleClientData.redirecutURI,
         callback: toGetTokenByAPI,
     });
 }
@@ -49,13 +50,19 @@ function loginGoogle() {
     initGoogle().requestCode();
 }
 
-async function toGetTokenByAPI(code, res = null) {
+type resCode = {
+    code: string;
+    scope: string;
+};
+
+async function toGetTokenByAPI(code: resCode, res: any = null) {
     res = await apis.getAccountTokenByAPI(code.code);
+    // console.log(res);
     pinia.changeTokenData(res.data);
     loginSuccess(res.data);
 }
 
-function loginSuccess(tokenData) {
+function loginSuccess(tokenData: object) {
     router.replace('drive');
     window.sessionStorage.setItem('token', JSON.stringify(tokenData));
 }
