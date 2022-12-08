@@ -6,7 +6,8 @@
         "importHelpers": true,
         "isolatedModules": true,
         "noEmit": true,
-        "strict": true
+        "strict": true,
+        "types": ["google.accounts", "node"]
     },
     "vueCompilerOptions": {
         "plugins": ["@volar/vue-language-plugin-pug"]
