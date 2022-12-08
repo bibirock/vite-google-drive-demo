@@ -49,15 +49,10 @@ function loginGoogle() {
     initGoogle().requestCode();
 }
 
-type requestCode = {
-    code: string;
-    scope: string;
-};
-
-async function toGetTokenByAPI(code: requestCode) {
+async function toGetTokenByAPI(code: google.accounts.oauth2.CodeResponse) {
     const res = await apis.getAccountTokenByAPI(code.code);
-    pinia.changeTokenData(res.data);
-    loginSuccess(res.data);
+    pinia.changeTokenData(res);
+    loginSuccess(res);
 }
 
 function loginSuccess(tokenData: object) {

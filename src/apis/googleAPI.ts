@@ -1,7 +1,6 @@
 import { linStore } from '../stores/lin';
 import axios from 'axios';
 import router from '../router';
-import * as responseType from './responseTypes.mjs';
 import * as requireType from './requireTypes.mjs';
 
 const baseURL = 'https://www.googleapis.com/drive/v3';
@@ -12,7 +11,7 @@ function return404Page(): void {
     router.push({ name: '404Page' });
 }
 export default class GoogleAPI {
-    async getAccountTokenByAPI(params: string): Promise<responseType.googleTokenType> {
+    async getAccountTokenByAPI(params: google.accounts.oauth2.CodeResponse['code']): Promise<google.accounts.oauth2.TokenResponse> {
         const res = await axios({
             method: 'post',
             baseURL: 'https://www.googleapis.com/oauth2/v4/token',
@@ -28,7 +27,7 @@ export default class GoogleAPI {
                 code: params,
             },
         });
-        return res;
+        return res.data;
     }
 
     async getDriveRootListByAPI(): Promise<object> {
