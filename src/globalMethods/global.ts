@@ -1,6 +1,6 @@
 //如果想在非setup函式中使用router，不能使用useRouter 要使用單獨引入的方式
-import router from '../router';
-import { emitter } from '../main';
+import router from '@/router';
+import { emitter } from '@/main';
 
 export const globalFunction = {
     openFileView: (viewLink: string) => {

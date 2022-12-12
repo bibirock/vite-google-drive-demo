@@ -1,6 +1,6 @@
 import { linStore } from '../stores/lin';
 import axios from 'axios';
-import router from '../router';
+import router from '@/router';
 import * as requireType from './requireTypes.mjs';
 
 const baseURL = 'https://www.googleapis.com/drive/v3';
