@@ -11,7 +11,7 @@ export const globalFunction = {
         router.push({ name: 'my-drive-folders', params: { folderId: folderId } });
     },
 
-    sendFileDatil: (mataData: string) => {
+    sendFileDatil: (mataData: string | undefined) => {
         emitter.emit('send-file-data', mataData);
     },
 
