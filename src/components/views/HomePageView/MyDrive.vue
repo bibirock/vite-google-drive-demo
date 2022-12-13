@@ -55,23 +55,25 @@ a-dropdown(:trigger="['contextmenu']" )
             component(:is="current.meuns" :key="current.meuns" :fileData='fileData')
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, inject } from 'vue';
+import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw } from 'vue';
 import Loading from '@/components/transitions/Loading.vue';
 import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
 import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
-import GoogleAPI from '@/apis/googleAPI.ts';
+import GoogleAPI from '@/apis/googleAPI';
+import { globalMethod } from '@/stores/lin';
+const $globalMethod = globalMethod();
 
 //全域方法
-const $globalF = inject('$globalF', () => {}, false);
-const $TYPE = inject('$TYPE');
-const $emitter = inject('$emitter', () => {}, false);
+const $globalF = $globalMethod.$globalFunction;
+const $TYPE = $globalMethod.$TYPE;
+const $emitter = $globalMethod.$emitter;
 const apis = new GoogleAPI();
 
-const folderList = ref([]);
-const fileList = ref([]);
+const folderList = ref([] as any);
+const fileList = ref([] as any);
 const route = useRoute();
 const showLoading = ref(true);
 const fileData = ref({});
@@ -126,7 +128,7 @@ async function getDriveList() {
     setPageContent(res);
 }
 
-async function refreshPage(folderId) {
+async function refreshPage(folderId: string) {
     const res = await apis.getFolderItemByAPI(folderId);
     setPageContent(res);
 }
