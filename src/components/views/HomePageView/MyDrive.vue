@@ -56,13 +56,13 @@ a-dropdown(:trigger="['contextmenu']" )
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
-import Loading from '@/components/transitions/Loading.vue';
 import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
 import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
+import Loading from '@/components/transitions/Loading.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
+import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
 import GoogleAPI from '@/apis/googleAPI';
 import { globalMethod } from '@/stores/lin';
 const $globalMethod = globalMethod();
