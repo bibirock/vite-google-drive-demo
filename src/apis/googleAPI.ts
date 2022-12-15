@@ -2,7 +2,7 @@ import { linStore } from '../stores/lin';
 import axios from 'axios';
 import router from '@/router';
 import * as requireType from './requireTypes.mjs';
-
+import type { drive_v3 } from '@googleapis/drive/v3';
 const baseURL = 'https://www.googleapis.com/drive/v3';
 const pinia = linStore();
 const clientByPinia = pinia.googleClientData;
@@ -30,7 +30,7 @@ export default class GoogleAPI {
         return res.data;
     }
 
-    async getDriveRootListByAPI(): Promise<object> {
+    async getDriveRootListByAPI() {
         const res = await axios({
             method: 'get',
             baseURL: baseURL,
@@ -44,19 +44,15 @@ export default class GoogleAPI {
         return res?.data?.files;
     }
 
-    async getFolderItemByAPI(folderId: string): Promise<void | object> {
-        try {
-            const res = await axios({
-                method: 'get',
-                baseURL: baseURL,
-                url: `/files?key=${clientByPinia.apiKey}`,
-                headers: { authorization: `Bearer ${pinia.tokenData.access_token}` },
-                params: { q: `'${folderId}' in parents and trashed=false`, fields: '*' },
-            });
-            return res?.data?.files;
-        } catch (e) {
-            return404Page();
-        }
+    async getFolderItemByAPI(folderId: drive_v3.Params$Resource$Files$Get): Promise<drive_v3.Schema$FileList['files']> {
+        const res = await axios({
+            method: 'get',
+            baseURL: baseURL,
+            url: `/files?key=${clientByPinia.apiKey}`,
+            headers: { authorization: `Bearer ${pinia.tokenData.access_token}` },
+            params: { q: `'${folderId}' in parents and trashed=false`, fields: '*' },
+        });
+        return res?.data?.files;
     }
 
     async searchFileByAPI(inputValue: string | number): Promise<void | object> {
