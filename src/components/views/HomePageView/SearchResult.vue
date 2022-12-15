@@ -17,50 +17,52 @@
 					div(:class="'lg:w-[150px] truncate '") {{ item.name }}
 </template>
 
-<script setup>
-import { useRoute } from 'vue-router';
-import { ref, watch, onMounted, inject } from 'vue';
-import GoogleAPI from '@/apis/googleAPI.ts';
+<script setup lang="ts">
 import Loading from '@/components/transitions/Loading.vue';
-
-//全域方法
-const $globalF = inject('$globalF', () => {}, false);
-const $TYPE = inject('$TYPE');
-const $emitter = inject('$emitter');
-
+import type { drive_v3 } from '@googleapis/drive/v3';
+import { ref, watch, onMounted } from 'vue';
+import { globalMethod } from '@/stores/lin';
+import GoogleAPI from '@/apis/googleAPI';
+import { useRoute } from 'vue-router';
+const $globalMethod = globalMethod();
 const apis = new GoogleAPI();
-const fileList = ref([]);
 const route = useRoute();
-const showLoading = ref(true);
 
-function viewFileOrToFolder(item) {
+const $globalF = $globalMethod.$globalFunction;
+const $emitter = $globalMethod.$emitter;
+const $TYPE = $globalMethod.$TYPE;
+
+function viewFileOrToFolder(item: drive_v3.Schema$File) {
     if (item.mimeType === $TYPE.GOOGLE_FOLDER) return clickFolderRefreshPage(item);
     $globalF.openFileView(item.webViewLink);
 }
 
 onMounted(() => {
-    getSearchResult(route.query.q);
+    getSearchResult(route.query.q as drive_v3.Schema$Drive['name']);
 });
 
-async function getSearchResult(query) {
+async function getSearchResult(query: drive_v3.Schema$Drive['name']) {
     const res = await apis.searchFileByAPI(query);
-    setPageContent(res);
+    setPageContent(res as drive_v3.Schema$FileList['files']);
 }
 
+const showLoading = ref(true);
 watch(
     () => route.query.q,
     (newq) => {
         showLoading.value = true;
-        getSearchResult(newq);
+        getSearchResult(newq as drive_v3.Schema$Drive['name']);
     }
 );
 
-function setPageContent(res) {
+const fileList = ref([] as any);
+function setPageContent(res: drive_v3.Schema$FileList['files']) {
+    if (res === undefined) return;
     fileList.value = res;
     showLoading.value = false;
 }
 
-function clickFolderRefreshPage(item) {
+function clickFolderRefreshPage(item: drive_v3.Schema$File) {
     $globalF.goToFolder(item.id);
     $emitter.emit('refresh-page');
     $emitter.emit('clear-search-input');

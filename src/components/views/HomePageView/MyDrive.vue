@@ -55,28 +55,30 @@ a-dropdown(:trigger="['contextmenu']" )
             component(:is="current.meuns" :key="current.meuns" :fileData='fileData')
 </template>
 
-<script setup>
-import { useRoute } from 'vue-router';
-import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, inject } from 'vue';
-import Loading from '@/components/transitions/Loading.vue';
+<script setup lang="ts">
 import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
 import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
-import GoogleAPI from '@/apis/googleAPI.ts';
+import Loading from '@/components/transitions/Loading.vue';
+import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
+import type { drive_v3 } from '@googleapis/drive/v3';
+import { globalMethod } from '@/stores/lin';
+import GoogleAPI from '@/apis/googleAPI';
+import { useRoute } from 'vue-router';
 
-//全域方法
-const $globalF = inject('$globalF', () => {}, false);
-const $TYPE = inject('$TYPE');
-const $emitter = inject('$emitter', () => {}, false);
+const $globalMethod = globalMethod();
+const $globalF = $globalMethod.$globalFunction;
+const $emitter = $globalMethod.$emitter;
+const $TYPE = $globalMethod.$TYPE;
 const apis = new GoogleAPI();
-
-const folderList = ref([]);
-const fileList = ref([]);
 const route = useRoute();
-const showLoading = ref(true);
-const fileData = ref({});
 
-const menus = reactive([
+interface menus {
+    name: string;
+    component: ReturnType<typeof defineComponent>;
+}
+
+const menus: Array<menus> = reactive([
     {
         name: 'ContextMenuFile',
         component: markRaw(ContextMenuFile),
@@ -108,16 +110,17 @@ onBeforeUnmount(() => {
 
 function setCurrentPage() {
     if (route.params.folderId === undefined) return getDriveList();
-    refreshPage(route.params.folderId);
+    refreshPage(route.params.folderId as drive_v3.Params$Resource$Files$Get);
 }
 
+const showLoading = ref(true);
 watch(
     () => route.params.folderId,
     (newId) => {
         showLoading.value = true;
         $globalF.sendFileDatil(undefined);
         if (newId === undefined) return getDriveList();
-        refreshPage(newId);
+        refreshPage(newId as drive_v3.Params$Resource$Files$Get);
     }
 );
 
@@ -126,30 +129,33 @@ async function getDriveList() {
     setPageContent(res);
 }
 
-async function refreshPage(folderId) {
+async function refreshPage(folderId: drive_v3.Params$Resource$Files$Get) {
     const res = await apis.getFolderItemByAPI(folderId);
     setPageContent(res);
 }
 
-function setPageContent(res) {
+const folderList = ref([] as any);
+const fileList = ref([] as any);
+function setPageContent(res: drive_v3.Schema$FileList['files']) {
     folderList.value = filterFolder(res);
     fileList.value = filterFolder(res, true);
     showLoading.value = false;
 }
 
-function filterFolder(arr, file = false) {
-    if (file === false) return arr.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
-    if (file === true) return arr.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
+function filterFolder(arr: drive_v3.Schema$FileList['files'], file = false) {
+    if (file === false) return arr?.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
+    if (file === true) return arr?.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
 }
 
-function openContextMenu(data) {
+const fileData = ref({});
+function openContextMenu(data: Array<string> | undefined) {
     if (data === undefined) {
         current.meuns = menus[2].component;
         fileData.value = {};
         return;
     }
     fileData.value = data[1];
-    current.meuns = menus.find((item) => item.name == data[0]).component;
+    current.meuns = menus.find((item) => item.name == data[0])?.component;
 }
 
 const reverseIcon = ref('akar-icons:arrow-up');

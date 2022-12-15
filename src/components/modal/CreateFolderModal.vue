@@ -12,24 +12,30 @@ a-modal(v-model:visible="pageState.isShowMsg"
 	input( v-model.trim="newFolderName" @keypress.enter="createFolder()" :placeholder='$t("Untitled folder")' :class="'w-[100%] px-[10px] h-[40px] rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400'")
 </template>
 
-<script setup>
-import GoogleAPI from '@/apis/googleAPI.ts';
-import { ref, inject } from 'vue';
+<script setup lang="ts">
+import type { drive_v3 } from '@googleapis/drive/v3';
+import { globalMethod } from '@/stores/lin';
 import { useRoute } from 'vue-router';
-const route = useRoute();
+import { ref } from 'vue';
+import GoogleAPI from '@/apis/googleAPI';
+const $globalMethod = globalMethod();
+const $emitter = $globalMethod.$emitter;
+const $t = $globalMethod.$t;
 const apis = new GoogleAPI();
-const $emitter = inject('$emitter');
-const $t = inject('$t');
-const props = defineProps({
-    pageState: Object,
-});
+const route = useRoute();
+
+interface props {
+    pageState: {
+        isShowMsg: boolean;
+    };
+}
 
 const emit = defineEmits(['closeModal']);
+defineProps<props>();
 
 const isNewFolder = ref(false);
 const newFolderName = ref('');
 const isLock = ref(true);
-
 async function createFolder() {
     if (!isLock.value) return;
     isLock.value = false;
@@ -43,10 +49,12 @@ async function createFolder() {
 }
 
 function setFolderItem() {
+    const parents: Array<string> = [];
     if (newFolderName.value === '') newFolderName.value = 'Untitled';
-    const folderItem = {
+    if (route.params.folderId !== undefined) parents.push(route.params.folderId as string);
+    const folderItem: drive_v3.Params$Resource$Files$Create['requestBody'] = {
         name: newFolderName.value,
-        parents: route.params.folderId === undefined ? '' : route.params.folderId,
+        parents: parents,
     };
     return folderItem;
 }
