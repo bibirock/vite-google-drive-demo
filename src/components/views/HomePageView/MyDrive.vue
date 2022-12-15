@@ -60,24 +60,18 @@ import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue
 import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
 import Loading from '@/components/transitions/Loading.vue';
-import type { drive_v3 } from '@googleapis/drive/v3';
 import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
-import GoogleAPI from '@/apis/googleAPI';
+import type { drive_v3 } from '@googleapis/drive/v3';
 import { globalMethod } from '@/stores/lin';
+import GoogleAPI from '@/apis/googleAPI';
+import { useRoute } from 'vue-router';
+
 const $globalMethod = globalMethod();
-
-//全域方法
 const $globalF = $globalMethod.$globalFunction;
-const $TYPE = $globalMethod.$TYPE;
 const $emitter = $globalMethod.$emitter;
+const $TYPE = $globalMethod.$TYPE;
 const apis = new GoogleAPI();
-
-const folderList = ref([] as any);
-const fileList = ref([] as any);
 const route = useRoute();
-const showLoading = ref(true);
-const fileData = ref({});
 
 interface menus {
     name: string;
@@ -119,6 +113,7 @@ function setCurrentPage() {
     refreshPage(route.params.folderId as drive_v3.Params$Resource$Files$Get);
 }
 
+const showLoading = ref(true);
 watch(
     () => route.params.folderId,
     (newId) => {
@@ -139,6 +134,8 @@ async function refreshPage(folderId: drive_v3.Params$Resource$Files$Get) {
     setPageContent(res);
 }
 
+const folderList = ref([] as any);
+const fileList = ref([] as any);
 function setPageContent(res: drive_v3.Schema$FileList['files']) {
     folderList.value = filterFolder(res);
     fileList.value = filterFolder(res, true);
@@ -150,6 +147,7 @@ function filterFolder(arr: drive_v3.Schema$FileList['files'], file = false) {
     if (file === true) return arr?.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
 }
 
+const fileData = ref({});
 function openContextMenu(data: Array<string> | undefined) {
     if (data === undefined) {
         current.meuns = menus[2].component;
