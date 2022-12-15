@@ -55,19 +55,15 @@ export default class GoogleAPI {
         return res?.data?.files;
     }
 
-    async searchFileByAPI(inputValue: string | number): Promise<void | object> {
-        try {
-            const res = await axios({
-                method: 'get',
-                baseURL: baseURL,
-                url: `/files?key=${clientByPinia.apiKey}`,
-                headers: { authorization: `Bearer ${pinia.tokenData.access_token}` },
-                params: { q: `name contains '${inputValue}' and trashed=false`, fields: '*' },
-            });
-            return res?.data?.files;
-        } catch (e) {
-            return404Page();
-        }
+    async searchFileByAPI(inputValue: drive_v3.Schema$Drive['name']): Promise<drive_v3.Schema$FileList['files']> {
+        const res = await axios({
+            method: 'get',
+            baseURL: baseURL,
+            url: `/files?key=${clientByPinia.apiKey}`,
+            headers: { authorization: `Bearer ${pinia.tokenData.access_token}` },
+            params: { q: `name contains '${inputValue}' and trashed=false`, fields: '*' },
+        });
+        return res?.data?.files;
     }
 
     async createFolderByAPI(params: requireType.createFolderParamsType): Promise<void | object> {
