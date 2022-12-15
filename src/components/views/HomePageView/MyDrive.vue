@@ -57,11 +57,12 @@ a-dropdown(:trigger="['contextmenu']" )
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw } from 'vue';
+import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
 import Loading from '@/components/transitions/Loading.vue';
 import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
 import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
+import type { drive_v3 } from '@googleapis/drive/v3';
 import GoogleAPI from '@/apis/googleAPI';
 import { globalMethod } from '@/stores/lin';
 const $globalMethod = globalMethod();
@@ -78,7 +79,12 @@ const route = useRoute();
 const showLoading = ref(true);
 const fileData = ref({});
 
-const menus = reactive([
+interface menus {
+    name: string;
+    component: ReturnType<typeof defineComponent>;
+}
+
+const menus: Array<menus> = reactive([
     {
         name: 'ContextMenuFile',
         component: markRaw(ContextMenuFile),
@@ -110,7 +116,7 @@ onBeforeUnmount(() => {
 
 function setCurrentPage() {
     if (route.params.folderId === undefined) return getDriveList();
-    refreshPage(route.params.folderId);
+    refreshPage(route.params.folderId as drive_v3.Params$Resource$Files$Get);
 }
 
 watch(
@@ -119,7 +125,7 @@ watch(
         showLoading.value = true;
         $globalF.sendFileDatil(undefined);
         if (newId === undefined) return getDriveList();
-        refreshPage(newId);
+        refreshPage(newId as drive_v3.Params$Resource$Files$Get);
     }
 );
 
@@ -128,30 +134,30 @@ async function getDriveList() {
     setPageContent(res);
 }
 
-async function refreshPage(folderId: string) {
+async function refreshPage(folderId: drive_v3.Params$Resource$Files$Get) {
     const res = await apis.getFolderItemByAPI(folderId);
     setPageContent(res);
 }
 
-function setPageContent(res) {
+function setPageContent(res: drive_v3.Schema$FileList['files']) {
     folderList.value = filterFolder(res);
     fileList.value = filterFolder(res, true);
     showLoading.value = false;
 }
 
-function filterFolder(arr, file = false) {
-    if (file === false) return arr.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
-    if (file === true) return arr.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
+function filterFolder(arr: drive_v3.Schema$FileList['files'], file = false) {
+    if (file === false) return arr?.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
+    if (file === true) return arr?.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
 }
 
-function openContextMenu(data) {
+function openContextMenu(data: Array<string> | undefined) {
     if (data === undefined) {
         current.meuns = menus[2].component;
         fileData.value = {};
         return;
     }
     fileData.value = data[1];
-    current.meuns = menus.find((item) => item.name == data[0]).component;
+    current.meuns = menus.find((item) => item.name == data[0])?.component;
 }
 
 const reverseIcon = ref('akar-icons:arrow-up');
