@@ -7,9 +7,15 @@ const baseURL = 'https://www.googleapis.com/drive/v3';
 const pinia = linStore();
 const clientByPinia = pinia.googleClientData;
 
-function return404Page(): void {
-    router.push({ name: '404Page' });
-}
+axios.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (err) => {
+        router.push({ name: '404Page' });
+    }
+);
+
 export default class GoogleAPI {
     async getAccountTokenByAPI(params: google.accounts.oauth2.CodeResponse['code']): Promise<google.accounts.oauth2.TokenResponse> {
         const res = await axios({
@@ -66,15 +72,15 @@ export default class GoogleAPI {
         return res?.data?.files;
     }
 
-    async createFolderByAPI(params: requireType.createFolderParamsType): Promise<void | object> {
+    async createFolderByAPI(params: drive_v3.Params$Resource$Files$Create['requestBody']) {
         const res = await axios({
             method: 'post',
             baseURL: baseURL,
             url: `/files?uploadType=multipart`,
             data: {
                 mimeType: 'application/vnd.google-apps.folder',
-                name: params.name,
-                parents: params.parents !== '' ? [params.parents] : [],
+                name: params?.name,
+                parents: params?.parents?.length !== 0 ? [params?.parents] : [],
             },
             headers: { authorization: `Bearer ${pinia.tokenData.access_token}` },
         });
