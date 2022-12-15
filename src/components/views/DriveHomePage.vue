@@ -20,7 +20,7 @@ import navBarVue from '@/components/layout/navBar.vue';
 import BreadCrumbs from '@/components/layout/BreadCrumbs.vue';
 import InfoMenu from '@/components/layout/InfoMenu.vue';
 import { ref } from 'vue';
-import { linStore } from '../../stores/lin';
+import { linStore } from '@/stores/lin';
 const pinia = linStore();
 
 checkLoginState();

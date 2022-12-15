@@ -1,17 +1,17 @@
 import { createPinia } from 'pinia';
-import router from './router';
-import './index.css';
+import router from '@/router';
+import '@/index.css';
 
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
-import App from './App.vue';
+import App from '@/App.vue';
 import { createApp } from 'vue';
 const app = createApp(App);
 
 //全域變數設置
-import { globalFunction, TYPE } from './globalMethods/global';
-import { i18n } from './locales/lang.js';
+import { globalFunction, TYPE } from '@/globalMethods/global';
+import { i18n } from '@/locales/lang.js';
 // @ts-ignore：
 const { t } = i18n.global;
 import mitt from 'mitt';

@@ -15,8 +15,8 @@ div(v-else)
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
-import { linStore } from '../../stores/lin';
-import GoogleAPI from '../../apis/googleAPI';
+import { linStore } from '@/stores/lin';
+import GoogleAPI from '@/apis/googleAPI';
 const { userAgent } = navigator;
 const apis = new GoogleAPI();
 const pinia = linStore();
