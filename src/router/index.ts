@@ -32,7 +32,7 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('@/components/views/HomePageView/MyDrive.vue'),
             },
             {
-                path: 'folders/:folderId(\\d+)',
+                path: 'folders/:folderId',
                 name: 'my-drive-folders',
                 component: () => import('@/components/views/HomePageView/MyDrive.vue'),
             },
