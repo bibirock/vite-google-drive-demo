@@ -12,6 +12,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@googleapis/drive": "^4.0.0",
         "@types/google.accounts": "^0.0.4",
         "ant-design-vue": "^3.2.12",
         "axios": "^0.27.2",
