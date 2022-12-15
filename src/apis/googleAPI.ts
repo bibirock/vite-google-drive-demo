@@ -80,7 +80,7 @@ export default class GoogleAPI {
             data: {
                 mimeType: 'application/vnd.google-apps.folder',
                 name: params?.name,
-                parents: params?.parents?.length !== 0 ? [params?.parents] : [],
+                parents: params?.parents,
             },
             headers: { authorization: `Bearer ${pinia.tokenData.access_token}` },
         });
