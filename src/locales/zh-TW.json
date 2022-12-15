@@ -64,5 +64,6 @@
     "File upload success, your file name is": "檔案上傳完成，您的檔案名稱是",
     "File moved to trash": "檔案已移至垃圾桶",
     "File uploading...": "檔案上傳中...",
-    "File name update success": "檔名更新成功"
+    "File name update success": "檔名更新成功",
+    "404 result not fount!": "404找不到網頁！"
 }
