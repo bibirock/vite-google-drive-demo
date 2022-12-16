@@ -1,13 +1,14 @@
 <template lang="pug">
 a-space
 </template>
-<script setup>
-import { inject } from 'vue';
+<script setup lang="ts">
+import { globalMethod } from '@/stores/lin';
 import { message } from 'ant-design-vue';
-const $emitter = inject('$emitter');
+const $globalMethod = globalMethod();
+const $emitter = $globalMethod.$emitter;
 
 $emitter.on('show-success-msg', (msg) => {
-    message.success(msg);
+    message.success(msg as string);
 });
 
 message.config({
