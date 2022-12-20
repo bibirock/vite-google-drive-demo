@@ -50,7 +50,7 @@ export default class GoogleAPI {
         return res?.data?.files;
     }
 
-    async getFolderItemByAPI(folderId: drive_v3.Params$Resource$Files$Get): Promise<drive_v3.Schema$FileList['files']> {
+    async getFolderItemByAPI(folderId: drive_v3.Schema$File['id']): Promise<drive_v3.Schema$FileList['files']> {
         const res = await axios({
             method: 'get',
             baseURL: baseURL,

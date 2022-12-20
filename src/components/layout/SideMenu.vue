@@ -58,7 +58,7 @@ import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue
 import { globalMethod } from '@/stores/lin';
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { drive_v3 } from '@googleapis/drive/v3';
+import type { drive_v3 } from '@googleapis/drive/v3';
 const router = useRouter();
 const route = useRoute();
 const $globalMethod = globalMethod();
