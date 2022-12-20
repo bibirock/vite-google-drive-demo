@@ -1,5 +1,5 @@
 import { linStore } from '../stores/lin';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import router from '@/router';
 import * as requireType from './requireTypes.mjs';
 import type { drive_v3 } from '@googleapis/drive/v3';
@@ -36,7 +36,7 @@ export default class GoogleAPI {
         return res.data;
     }
 
-    async getDriveRootListByAPI() {
+    async getDriveRootListByAPI(): Promise<drive_v3.Schema$FileList['files']> {
         const res = await axios({
             method: 'get',
             baseURL: baseURL,
@@ -72,7 +72,7 @@ export default class GoogleAPI {
         return res?.data?.files;
     }
 
-    async createFolderByAPI(params: drive_v3.Params$Resource$Files$Create['requestBody']) {
+    async createFolderByAPI(params: drive_v3.Params$Resource$Files$Create['requestBody']): Promise<AxiosResponse> {
         const res = await axios({
             method: 'post',
             baseURL: baseURL,
@@ -87,7 +87,7 @@ export default class GoogleAPI {
         return res;
     }
 
-    async toUploadFileByAPI(fileMetadata: Object, data: Uint8Array): Promise<void | object> {
+    async toUploadFileByAPI(fileMetadata: Object, data: Uint8Array): Promise<AxiosResponse> {
         const form = new FormData();
         form.append('metadata', new Blob([JSON.stringify(fileMetadata)], { type: 'application/json' }));
         form.append('file', new Blob([new Uint8Array(data)]));
@@ -104,7 +104,7 @@ export default class GoogleAPI {
         return res;
     }
 
-    async toTrashFileByAPI(params: string): Promise<void | object> {
+    async toTrashFileByAPI(params: string): Promise<AxiosResponse> {
         const res = await axios({
             method: 'post',
             baseURL: `https://www.googleapis.com/drive/v2/files/${params}/trash`,
@@ -114,7 +114,7 @@ export default class GoogleAPI {
         return res;
     }
 
-    async toUpdateFileByAPI(params: requireType.toUpdateFileParamsType): Promise<void | object> {
+    async toUpdateFileNameByAPI(params: requireType.toUpdateFileParamsType): Promise<AxiosResponse> {
         const res = await axios({
             method: 'patch',
             baseURL: baseURL,
