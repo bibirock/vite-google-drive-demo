@@ -44,7 +44,7 @@ $emitter.on('clear-search-input', () => {
     inputValue.value = '';
 });
 
-function switchLanguage(e) {
+function switchLanguage(e: any) {
     locale.value = e.key;
 }
 
