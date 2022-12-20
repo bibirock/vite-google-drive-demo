@@ -30,7 +30,7 @@ function checkLoginState() {
     pinia.changeTokenData(tokenDate);
 }
 
-const isShowInfoMenu = ref(true);
+const isShowInfoMenu = ref<boolean>(true);
 
 function toggleInfoMenu() {
     isShowInfoMenu.value === true ? (isShowInfoMenu.value = false) : (isShowInfoMenu.value = true);
