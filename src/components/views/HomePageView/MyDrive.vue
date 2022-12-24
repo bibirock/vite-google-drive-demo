@@ -147,7 +147,7 @@ function filterFolder(arr: drive_v3.Schema$FileList['files'], file = false) {
     if (file === true) return arr?.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
 }
 
-const fileData = ref({});
+const fileData = ref<any>({});
 function openContextMenu(data: Array<string> | undefined) {
     if (data === undefined) {
         current.meuns = menus[2].component;
