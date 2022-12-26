@@ -133,9 +133,10 @@
     </div>
 </template>
 
-<script setup>
-const props = defineProps({
-    iconStr: String,
-});
+<script setup lang="ts">
+interface props {
+    iconStr: String;
+}
+const props = defineProps<props>();
 </script>
 <style scoped></style>

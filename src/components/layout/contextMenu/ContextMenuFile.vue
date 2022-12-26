@@ -30,15 +30,24 @@ delete-file-modal(:pageState="deleteFileModalProps" @closeModal="deleteFileModal
 update-file-name(:pageState="updateFileModalProps" @closeModal="updateFileModalProps.isShowMsg = false")
 </template>
 
-<script setup>
-import { reactive, inject } from 'vue';
+<script setup lang="ts">
+import { reactive } from 'vue';
 import DeleteFileModal from '@/components/modal/DeleteFileModal.vue';
 import UpdateFileName from '@/components/modal/UpdateFileNameModal.vue';
-const $globalF = inject('$globalF', () => {}, false);
+import { globalMethod } from '@/stores/lin';
+const $globalMethod = globalMethod();
+const $globalF = $globalMethod.$globalFunction;
 
-const props = defineProps({
-    fileData: Object,
-});
+const props = defineProps<props>();
+
+interface props {
+    fileData: {
+        isShowMsg?: boolean;
+        name: string;
+        id: string;
+        [propsName: string]: any;
+    };
+}
 
 const deleteFileModalProps = reactive({
     isShowMsg: false,
@@ -52,7 +61,7 @@ const updateFileModalProps = reactive({
     id: props.fileData.id,
 });
 
-function downloadFile(link) {
+function downloadFile(link: string) {
     window.location.assign(link);
 }
 </script>

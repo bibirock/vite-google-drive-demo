@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
 
 function setCurrentPage() {
     if (route.params.folderId === undefined) return getDriveList();
-    refreshPage(route.params.folderId as drive_v3.Params$Resource$Files$Get);
+    refreshPage(route.params.folderId as drive_v3.Schema$File['id']);
 }
 
 const showLoading = ref(true);
@@ -120,7 +120,7 @@ watch(
         showLoading.value = true;
         $globalF.sendFileDatil(undefined);
         if (newId === undefined) return getDriveList();
-        refreshPage(newId as drive_v3.Params$Resource$Files$Get);
+        refreshPage(newId as drive_v3.Schema$File['id']);
     }
 );
 
@@ -129,7 +129,7 @@ async function getDriveList() {
     setPageContent(res);
 }
 
-async function refreshPage(folderId: drive_v3.Params$Resource$Files$Get) {
+async function refreshPage(folderId: drive_v3.Schema$File['id']) {
     const res = await apis.getFolderItemByAPI(folderId);
     setPageContent(res);
 }
@@ -147,7 +147,7 @@ function filterFolder(arr: drive_v3.Schema$FileList['files'], file = false) {
     if (file === true) return arr?.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
 }
 
-const fileData = ref({});
+const fileData = ref<any>({});
 function openContextMenu(data: Array<string> | undefined) {
     if (data === undefined) {
         current.meuns = menus[2].component;

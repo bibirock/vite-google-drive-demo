@@ -20,17 +20,26 @@ delete-file-modal(:pageState="deleteFileModalProps" @closeModal="deleteFileModal
 update-file-name(:pageState="updateFileModalProps" @closeModal="updateFileModalProps.isShowMsg = false")
 </template>
 
-<script setup>
+<script setup lang="ts">
 import DeleteFileModal from '@/components/modal/DeleteFileModal.vue';
 import UpdateFileName from '@/components/modal/UpdateFileNameModal.vue';
-import { reactive, inject } from 'vue';
-const $t = inject('$t');
-const $globalF = inject('$globalF', () => {}, false);
-const $emitter = inject('$emitter');
+import { reactive } from 'vue';
+import { globalMethod } from '@/stores/lin';
+const $globalMethod = globalMethod();
+const $globalF = $globalMethod.$globalFunction;
+const $emitter = $globalMethod.$emitter;
+const $t = $globalMethod.$t;
 
-const props = defineProps({
-    fileData: Object,
-});
+const props = defineProps<props>();
+
+interface props {
+    fileData: {
+        isShowMsg?: boolean;
+        name: string;
+        id: string;
+        [propsName: string]: any;
+    };
+}
 
 const deleteFileModalProps = reactive({
     isShowMsg: false,

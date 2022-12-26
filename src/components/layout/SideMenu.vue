@@ -11,8 +11,8 @@
 					div(:class='"items-center"') {{$t('New')}} 
 		.select-area(:class='"mt-[10px]"')
 			a-menu(
-				v-model:openKeys="state.openKeysopenKeys" 
-				v-model:selectedKeys="state.selectedKeysselectedKeys" 
+				v-model:openKeys="state.openKeys" 
+				v-model:selectedKeys="state.selectedKeys" 
 				mode="inline" 
 				style="width: 240px; border: none; max-height: 100vh; overflow-y: overlay; overflow-x: hidden;"
 				:class='"relative left-[-20px]"'
@@ -52,17 +52,18 @@
 					span {{ $t('Storage') }}
 </template>
 
-<script setup>
-import GoogleAPI from '@/apis/googleAPI.ts';
+<script setup lang="ts">
+import GoogleAPI from '@/apis/googleAPI';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
-
-import { reactive, ref, inject } from 'vue';
+import { globalMethod } from '@/stores/lin';
+import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import type { drive_v3 } from '@googleapis/drive/v3';
 const router = useRouter();
 const route = useRoute();
-
-const $t = inject('$t');
-const $TYPE = inject('$TYPE');
+const $globalMethod = globalMethod();
+const $TYPE = $globalMethod.$TYPE;
+const $t = $globalMethod.$t;
 
 const apis = new GoogleAPI();
 const state = reactive({
@@ -71,13 +72,14 @@ const state = reactive({
     openKeys: ['sub1'],
 });
 
-async function getFolderItem(id) {
+async function getFolderItem(id: drive_v3.Schema$File['id']) {
     await apis.getFolderItemByAPI(id);
 }
 
-const folderList = ref([]);
+const folderList = ref<drive_v3.Schema$File[]>();
 async function getFileList() {
     const res = await apis.getDriveRootListByAPI();
+    if (res === undefined) return;
     const folderListArr = res.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
     folderList.value = folderListArr;
 }

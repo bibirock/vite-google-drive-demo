@@ -24,58 +24,63 @@ nav#nav-bar
             .profile(:class='"mr-10"')
 </template>
 
-<script setup>
-import GoogleAPI from '@/apis/googleAPI.ts';
+<script setup lang="ts">
+import GoogleAPI from '@/apis/googleAPI';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { inject } from 'vue';
-
-const $emitter = inject('$emitter');
-const $TYPE = inject('$TYPE');
-const $globalF = inject('$globalF', () => {}, false);
+import { globalMethod } from '@/stores/lin';
+import type { drive_v3 } from '@googleapis/drive/v3';
+const $globalMethod = globalMethod();
+const $globalF = $globalMethod.$globalFunction;
+const $emitter = $globalMethod.$emitter;
+const $TYPE = $globalMethod.$TYPE;
 const apis = new GoogleAPI();
-
 const { locale } = useI18n();
-const searchResult = ref([]);
-const inputValue = ref('');
-const searchInput = ref(null);
 const router = useRouter();
-const isFoucs = ref(false);
 
 $emitter.on('clear-search-input', () => {
     console.log('object');
     inputValue.value = '';
 });
 
-function switchLanguage(e) {
+function switchLanguage(e: any) {
     locale.value = e.key;
 }
 
+const isFoucs = ref(false);
 function onFocus() {
     isFoucs.value = !isFoucs.value;
 }
 
+const inputValue = ref<string>('');
+const searchResult = ref([] as any);
 async function getSearchData() {
     if (inputValue.value === '') return;
     const res = await apis.searchFileByAPI(inputValue.value);
     searchResult.value = res;
 }
 
+const searchInput = ref<HTMLInputElement>();
 function goToSearchResult() {
     searchResult.value = [];
     router.push({ path: '/drive/search', query: { q: inputValue.value } });
-    searchInput.value.blur();
+    inputBlur();
 }
 
 function goHome() {
     router.replace('/drive/my-drive');
 }
 
-function goToFile(item) {
+function inputBlur() {
+    if (searchInput.value === undefined) return;
     searchInput.value.blur();
+}
+
+function goToFile(item: drive_v3.Schema$File) {
     if (item.mimeType === $TYPE.GOOGLE_FOLDER) return $globalF.goToFolder(item.id);
     $globalF.openFileView(item.webViewLink);
+    inputBlur();
 }
 </script>
 

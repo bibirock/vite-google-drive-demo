@@ -36,10 +36,10 @@
                         td {{ formatBytes(infoData.data.quotaBytesUsed) }}
                     tr
                         td {{ $t("Location") }}
-                        td {{ infoData.data.spaces.join(",") }}
+                        td {{ infoData.data.spaces?.join(",") }}
                     tr
                         td {{ $t("Owner") }}
-                        td {{ infoData.data.owners[0].me? $t("Me") : ""}}
+                        td {{ formatOwner(infoData) }}
                     tr
                         td {{ $t("Modified") }}
                         td {{ formatDate(infoData.data.modifiedTime) }}
@@ -50,20 +50,28 @@
                         td {{ $t("Created") }}
                         td {{ formatDate(infoData.data.createdTime) }}
 </template>
-<script setup>
-import { reactive, inject } from 'vue';
-const $emitter = inject('$emitter');
-const $t = inject('$t');
-const $TYPE = inject('$TYPE');
-const infoData = reactive({});
+<script setup lang="ts">
+import { reactive } from 'vue';
+import { globalMethod } from '@/stores/lin';
+import type { drive_v3 } from '@googleapis/drive/v3';
+const $globalMethod = globalMethod();
+const $emitter = $globalMethod.$emitter;
+const $TYPE = $globalMethod.$TYPE;
+const $t = $globalMethod.$t;
+const infoData: infoData = reactive({});
+
+interface infoData {
+    data?: drive_v3.Schema$File;
+}
 
 $emitter.on('send-file-data', (data) => {
-    infoData.data = data;
+    infoData.data = data as infoData['data'];
 });
 
-function formatBytes(bytes, decimals = 1) {
-    if (bytes == 0) return '0 Bytes';
-    if (bytes == undefined) return false;
+function formatBytes(bytesStr: drive_v3.Schema$File['size'], decimals = 1) {
+    if (bytesStr === undefined) return false;
+    const bytes = parseInt(bytesStr as string);
+    if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -71,12 +79,12 @@ function formatBytes(bytes, decimals = 1) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-function formatDate(dateTime) {
-    const date = new Date(dateTime).toLocaleString();
+function formatDate(dateTime: drive_v3.Schema$File['modifiedTime']) {
+    const date = new Date(dateTime as string).toLocaleString();
     return date;
 }
 
-function formatType(type) {
+function formatType(type: drive_v3.Schema$File['mimeType']) {
     if (type === $TYPE.IMG) return $t('Image');
     if (type === $TYPE.WORD) return 'Word';
     if (type === $TYPE.GOOGLE_SHEETS) return $t('Google Sheets');
@@ -86,15 +94,15 @@ function formatType(type) {
     return $t('Other');
 }
 
-function formatDisplayName(user) {
+function formatDisplayName(user: drive_v3.Schema$Permission) {
     if (user.displayName === undefined) return $t('Anyone with link');
     if (user.displayName !== undefined && user.role === 'owner') return user.displayName + $t('is owner');
     return user.displayName;
 }
 
-function formatIcon(type) {
-    if (type === $TYPE.GOOGLE_FOLDER) return 'ant-design:folder-filled';
-    return 'bi:card-image';
+function formatOwner(infoData: infoData) {
+    const owners = infoData.data?.owners as Array<drive_v3.Schema$User>;
+    return owners[0].me ? $t('Me') : '';
 }
 </script>
 <style scoped></style>

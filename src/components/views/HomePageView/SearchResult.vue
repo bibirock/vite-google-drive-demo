@@ -46,7 +46,7 @@ async function getSearchResult(query: drive_v3.Schema$Drive['name']) {
     setPageContent(res as drive_v3.Schema$FileList['files']);
 }
 
-const showLoading = ref(true);
+const showLoading = ref<boolean>(true);
 watch(
     () => route.query.q,
     (newq) => {
@@ -55,7 +55,7 @@ watch(
     }
 );
 
-const fileList = ref([] as any);
+const fileList = ref<any>([]);
 function setPageContent(res: drive_v3.Schema$FileList['files']) {
     if (res === undefined) return;
     fileList.value = res;

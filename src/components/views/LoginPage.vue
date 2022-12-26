@@ -22,7 +22,7 @@ const apis = new GoogleAPI();
 const pinia = linStore();
 const router = useRouter();
 
-const notSupportBrowser = ref(false);
+const notSupportBrowser = ref<boolean>(false);
 
 onMounted(() => {
     detectBrowser();

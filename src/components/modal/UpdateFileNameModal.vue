@@ -12,25 +12,34 @@ a-modal(v-model:visible="pageState.isShowMsg"
     input( v-model.trim="pageState.name" @keypress.enter="updateFile()" :class="'w-[100%] px-[10px] h-[40px] rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400'")
 </template>
 
-<script setup>
-import GoogleAPI from '@/apis/googleAPI.ts';
-import { ref, inject, onMounted } from 'vue';
+<script setup lang="ts">
+import GoogleAPI from '@/apis/googleAPI';
+import { ref, onMounted } from 'vue';
+import { globalMethod } from '@/stores/lin';
 const apis = new GoogleAPI();
-const $emitter = inject('$emitter');
-const $t = inject('$t');
-const props = defineProps({
-    pageState: Object,
-});
+const $globalMethod = globalMethod();
+const $emitter = $globalMethod.$emitter;
+const $t = $globalMethod.$t;
+
+interface props {
+    pageState: {
+        isShowMsg: boolean;
+        name: string;
+        id: string;
+    };
+}
+
+const props = defineProps<props>();
 
 const emit = defineEmits(['closeModal']);
 
-const isLock = ref(true);
+const isLock = ref<boolean>(true);
 
 async function updateFile() {
     if (!isLock.value) return;
     isLock.value = false;
     const folderItem = setFolderItem();
-    const res = await apis.toUpdateFileByAPI(folderItem);
+    const res = await apis.toUpdateFileNameByAPI(folderItem);
     if (res.status === 200) onSeccess();
 
     setTimeout(() => {
