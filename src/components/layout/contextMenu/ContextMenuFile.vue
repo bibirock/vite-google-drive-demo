@@ -31,7 +31,7 @@ update-file-name(:pageState="updateFileModalProps" @closeModal="updateFileModalP
 </template>
 
 <script setup lang="ts">
-import { reactive, inject } from 'vue';
+import { reactive } from 'vue';
 import DeleteFileModal from '@/components/modal/DeleteFileModal.vue';
 import UpdateFileName from '@/components/modal/UpdateFileNameModal.vue';
 import { globalMethod } from '@/stores/lin';

@@ -25,19 +25,12 @@ import { globalMethod } from '@/stores/lin';
 const $globalMethod = globalMethod();
 const $t = $globalMethod.$t;
 const $emitter = $globalMethod.$emitter;
-
 const route = useRoute();
 const apis = new GoogleAPI();
-
 const props = defineProps<props>();
 
 interface props {
-    fileData: {
-        isShowMsg?: boolean;
-        name: string;
-        id: string;
-        [propsName: string]: any;
-    };
+    fileData?: {};
 }
 
 const inputElement = ref<HTMLInputElement>();
