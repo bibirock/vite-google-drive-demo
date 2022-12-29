@@ -8,7 +8,7 @@
                 Icon( icon="material-symbols:menu" color="grayText" width="25" height="25" :class="'ml-[18px] md:hidden'")
     .content(:class="'md:pl-[260px] pl-[25px] w-100 text-slate-500 text-[18px] shrink-0'") {{ setCurrentPageTitle() }}
     .control-icon(@click="openInfoMenu()" :class="'hidden md:block  2xl:ml-[65%] xl:ml-[55%] lg:ml-[45%] md:ml-[35%] cursor-pointer'")
-        custom-icon(:iconStr="'Info'")
+        custom-icon(:iconStr="'info'")
 </template>
 
 <script setup lang="ts">
