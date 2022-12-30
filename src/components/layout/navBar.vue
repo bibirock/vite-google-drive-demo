@@ -13,7 +13,7 @@ nav#nav-bar
                 .search-result-area(v-show="searchResult.length > 0 && inputValue !== '' && isFoucs" :class="'absolute top-[43px] border-solid border-2 border-gray-300  max-w-[500px] min-w-[230px] w-[100%] min-h-[50px] max-h-[200px] overflow-auto bg-white rounded-b-lg'")
                     .serch-result-item(v-for="(item,i) in searchResult" :key="i" ) 
                         .result-body(:class="'hover:bg-slate-100 h-[50px] flex items-center'" @click="goToFile(item)" @mousedown.prevent)
-                            img(:src="item.iconLink" :class="'h-[20px] w-[20px] ml-[10px] mr-[10px]'")
+                            img(:src="$globalF.setIcon(item.iconLink)" :class="'h-[20px] w-[20px] ml-[10px] mr-[10px]'")
                             .name {{ item.name }}
             .setting(:class='"ml-[30px]"')
                 a-dropdown(:trigger="['click']")

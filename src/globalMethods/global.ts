@@ -18,6 +18,10 @@ export const globalFunction = {
 
     copyLink: (link: drive_v3.Schema$File['webViewLink']) => {
         return navigator.clipboard.writeText(link as string);
+    },
+
+    setIcon: (url: string | null | undefined): string => {
+        return url as string;
     }
 };
 

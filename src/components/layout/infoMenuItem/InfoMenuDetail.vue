@@ -6,14 +6,14 @@
         .text.opacity-60.mx-auto(:class="'mt-[20px]'") {{ $t('Select a file or folder to view its details') }}
 .info-area(v-else)
     .img(:class="'h-[150px] w-[100%] border-1px set-item-center overflow-hidden'")
-        img(v-if="infoData.data.thumbnailLink !== undefined" :class="'h-[100%]'" referrerPolicy="no-referrer" :src="infoData.data.thumbnailLink")
+        img(v-if="infoData.data.thumbnailLink !== undefined" :class="'h-[100%]'" referrerPolicy="no-referrer" :src="$globalF.setIcon(infoData.data.thumbnailLink)")
         Icon(v-else icon="fluent:image-prohibited-20-regular" color="grayText" width="100" height="100%")
     .info-detail(:class="'p-[16px]'")
         .has-access(:class="'text-lg opacity-75'") {{ $t('Who has access') }}
         .access(:class="'mt-[20px] mb-[20px] overflow-auto max-h-[60px]'")
             .access-info(v-if="infoData.data.shared" v-for="user in infoData.data.permissions" :class="''")
                 .access-arr(:class="'set-item-start mb-[5px]'")
-                    img(v-if="user.photoLink !== undefined" :src="user.photoLink" :class="'h-[25px] mr-[5px] rounded-full'")
+                    img(v-if="user.photoLink !== undefined" :src="$globalF.setIcon(user.photoLink)" :class="'h-[25px] mr-[5px] rounded-full'")
                     Icon(v-else icon="ci:link" color="#FFFFFF" width="25" height="25" :class="'bg-lime-600 mr-[5px] rounded-full'")
                     .access {{ formatDisplayName(user) }}
             .access-info(v-else :class="'set-item-start h-[60px]'")
@@ -58,6 +58,7 @@ const $globalMethod = globalMethod();
 const $emitter = $globalMethod.$emitter;
 const $TYPE = $globalMethod.$TYPE;
 const $t = $globalMethod.$t;
+const $globalF = $globalMethod.$globalFunction;
 const infoData: infoData = reactive({});
 
 interface infoData {
