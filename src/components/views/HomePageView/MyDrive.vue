@@ -2,11 +2,11 @@
 a-dropdown(:trigger="['contextmenu']" )
     div
         #my-drive-page()
-            .empty-folder(v-if="folderList.length === 0 && fileList.length === 0 && !showLoading" :class="'set-item-center flex-col h-screen mt-[-50px]'")
+            .empty-folder(v-if="folderList?.length === 0 && fileList.length === 0 && !showLoading" :class="'set-item-center flex-col h-screen mt-[-50px]'")
                 Icon(icon="fluent-emoji-high-contrast:open-file-folder" :class="'opacity-90'" color="#6f6f6f" width="100" height="100")
                 span(:class="'mt-[5px] text-slate-500'") {{ $t('Empty folder you can use new') }}
             loading(v-if="showLoading")
-            .page-content(v-else-if="folderList.length !== 0 || fileList.length !== 0 " :class="'pr-[20px]'" @contextmenu.capture="openContextMenu(undefined)")
+            .page-content(v-else-if="folderList?.length !== 0 || fileList.length !== 0 " :class="'pr-[20px]'" @contextmenu.capture="openContextMenu(undefined)")
                 div(:class="'ml-[25px] md:ml-0 set-item-between mt-[8px] mb-[16px]  md:pr-[50px]'")
                     div {{ $t('Folder') }}
                     div.flex
@@ -134,7 +134,7 @@ async function refreshPage(folderId: drive_v3.Schema$File['id']) {
     setPageContent(res);
 }
 
-const folderList = ref([] as any);
+const folderList = ref<drive_v3.Schema$FileList['files']>();
 const fileList = ref([] as any);
 function setPageContent(res: drive_v3.Schema$FileList['files']) {
     folderList.value = filterFolder(res);
@@ -148,7 +148,7 @@ function filterFolder(arr: drive_v3.Schema$FileList['files'], file = false) {
 }
 
 const fileData = ref<any>({});
-function openContextMenu(data: Array<string> | undefined) {
+function openContextMenu(data: Array<string | drive_v3.Schema$FileList['files']> | undefined) {
     if (data === undefined) {
         current.meuns = menus[2].component;
         fileData.value = {};
@@ -160,7 +160,7 @@ function openContextMenu(data: Array<string> | undefined) {
 
 const reverseIcon = ref('akar-icons:arrow-up');
 function reverseList() {
-    folderList.value.reverse();
+    folderList.value?.reverse();
     fileList.value.reverse();
     reverseIcon.value === 'akar-icons:arrow-up' ? (reverseIcon.value = 'akar-icons:arrow-down') : (reverseIcon.value = 'akar-icons:arrow-up');
 }
