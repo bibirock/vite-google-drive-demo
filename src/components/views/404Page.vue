@@ -3,7 +3,5 @@
     img(src="/vite-drive.png")
     h1(:class="'mt-[20px] text-lg'") {{ $t("404 result not fount!") }}
 </template>
-<script setup>
-import { ref, reactive } from 'vue';
-</script>
+<script setup></script>
 <style scoped></style>

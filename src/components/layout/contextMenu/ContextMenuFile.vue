@@ -52,13 +52,13 @@ interface props {
 const deleteFileModalProps = reactive({
     isShowMsg: false,
     name: props.fileData.name,
-    id: props.fileData.id,
+    id: props.fileData.id
 });
 
 const updateFileModalProps = reactive({
     isShowMsg: false,
     name: props.fileData.name,
-    id: props.fileData.id,
+    id: props.fileData.id
 });
 
 function downloadFile(link: string) {

@@ -54,7 +54,7 @@ function setFolderItem() {
     if (route.params.folderId !== undefined) parents.push(route.params.folderId as string);
     const folderItem: drive_v3.Params$Resource$Files$Create['requestBody'] = {
         name: newFolderName.value,
-        parents: parents,
+        parents: parents
     };
     return folderItem;
 }

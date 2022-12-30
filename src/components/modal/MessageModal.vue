@@ -12,7 +12,7 @@ $emitter.on('show-success-msg', (msg) => {
 });
 
 message.config({
-    maxCount: 1,
+    maxCount: 1
 });
 </script>
 <style scoped></style>

@@ -30,6 +30,7 @@ const apis = new GoogleAPI();
 const props = defineProps<props>();
 
 interface props {
+    // eslint-disable-next-line @typescript-eslint/ban-types
     fileData?: {};
 }
 
@@ -53,7 +54,7 @@ interface fileMetadata {
 async function packageRequest(fileName: File['name'], data: Uint8Array) {
     const fileMetadata: fileMetadata = {
         name: fileName,
-        parents: route.params.folderId === undefined ? [] : [route.params.folderId],
+        parents: route.params.folderId === undefined ? [] : [route.params.folderId]
     };
     uploadFileAndRefresh(fileMetadata, data);
     refreshKey.value += 1;
@@ -73,7 +74,7 @@ function successUpload(fileMetadata: fileMetadata) {
 }
 
 const createFolderModalProps = reactive({
-    isShowMsg: false,
+    isShowMsg: false
 });
 </script>
 

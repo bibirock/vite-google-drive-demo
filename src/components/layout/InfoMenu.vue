@@ -42,19 +42,19 @@ interface infoData {
 const views: Array<views> = reactive([
     {
         name: 'Details',
-        component: markRaw(InfoMenuDetail),
+        component: markRaw(InfoMenuDetail)
     },
     {
         name: 'Activity',
-        component: markRaw(InfoMenuActivity),
-    },
+        component: markRaw(InfoMenuActivity)
+    }
 ]);
 function switchView(component: views['component']) {
     current.views = component;
 }
 
 const current = reactive({
-    views: views[0].component,
+    views: views[0].component
 });
 function showBookmark(page: views) {
     if (page === current.views) return true;

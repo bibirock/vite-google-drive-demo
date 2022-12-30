@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import Loading from '@/components/transitions/Loading.vue';
+import Loading from '@/components/transitions/LoadingIcon.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
 import { ref, watch, onMounted } from 'vue';
 import { globalMethod } from '@/stores/lin';

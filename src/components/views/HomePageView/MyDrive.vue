@@ -59,7 +59,7 @@ a-dropdown(:trigger="['contextmenu']" )
 import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
 import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
-import Loading from '@/components/transitions/Loading.vue';
+import Loading from '@/components/transitions/LoadingIcon.vue';
 import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
 import { globalMethod } from '@/stores/lin';
@@ -81,20 +81,20 @@ interface menus {
 const menus: Array<menus> = reactive([
     {
         name: 'ContextMenuFile',
-        component: markRaw(ContextMenuFile),
+        component: markRaw(ContextMenuFile)
     },
     {
         name: 'ContextMenuFolder',
-        component: markRaw(ContextMenuFolder),
+        component: markRaw(ContextMenuFolder)
     },
     {
         name: 'ContextMenuPage',
-        component: markRaw(ContextMenuPage),
-    },
+        component: markRaw(ContextMenuPage)
+    }
 ]);
 
 const current = reactive({
-    meuns: menus[2].component,
+    meuns: menus[2].component
 });
 
 onMounted(() => {

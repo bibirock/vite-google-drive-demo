@@ -69,7 +69,7 @@ const apis = new GoogleAPI();
 const state = reactive({
     theme: 'li',
     selectedKeys: ['1'],
-    openKeys: ['sub1'],
+    openKeys: ['sub1']
 });
 
 async function getFolderItem(id: drive_v3.Schema$File['id']) {
