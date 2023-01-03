@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             isRequiresAuth: false
         },
-        component: () => import('@/components/views/LoginPage.vue')
+        component: () => import('@/components/views/pages/LoginPage.vue')
     },
     {
         path: '/404-page',
@@ -15,7 +15,23 @@ const routes: RouteRecordRaw[] = [
         meta: {
             isRequiresAuth: false
         },
-        component: () => import('@/components/views/404Page.vue')
+        component: () => import('@/components/views/pages/404Page.vue')
+    },
+    {
+        path: '/privacy-policy',
+        name: 'privacy-policy',
+        meta: {
+            isRequiresAuth: false
+        },
+        component: () => import('@/components/views/pages/PrivacyPolicyPage.vue')
+    },
+    {
+        path: '/pub-server',
+        name: 'pub-server',
+        meta: {
+            isRequiresAuth: false
+        },
+        component: () => import('@/components/views/pages/PubServerPage.vue')
     },
     {
         path: '/drive',
@@ -23,7 +39,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             isRequiresAuth: true
         },
-        component: () => import('@/components/views/DriveHomePage.vue'),
+        component: () => import('@/components/views/pages/DriveHomePage.vue'),
         redirect: '/drive/my-drive',
         children: [
             {
