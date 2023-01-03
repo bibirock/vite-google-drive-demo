@@ -48,13 +48,14 @@ function getFileData() {
 
 interface fileMetadata {
     name: string;
-    parents: any;
+    parents: Array<string> | [];
 }
 
 async function packageRequest(fileName: File['name'], data: Uint8Array) {
+    const parentId: string | undefined = route.params.folderId as string;
     const fileMetadata: fileMetadata = {
         name: fileName,
-        parents: route.params.folderId === undefined ? [] : [route.params.folderId]
+        parents: parentId === undefined ? [] : [parentId]
     };
     uploadFileAndRefresh(fileMetadata, data);
     refreshKey.value += 1;
