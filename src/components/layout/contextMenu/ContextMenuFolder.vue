@@ -30,27 +30,29 @@ const $globalF = $globalMethod.$globalFunction;
 const $emitter = $globalMethod.$emitter;
 const $t = $globalMethod.$t;
 
-const props = defineProps<props>();
-
 interface props {
     fileData: {
         isShowMsg?: boolean;
         name: string;
         id: string;
-        [propsName: string]: any;
+        webViewLink: string;
+        webContentLink: string;
+        [propsName: string]: unknown;
     };
 }
+
+const props = defineProps<props>();
 
 const deleteFileModalProps = reactive({
     isShowMsg: false,
     name: props.fileData.name,
-    id: props.fileData.id,
+    id: props.fileData.id
 });
 
 const updateFileModalProps = reactive({
     isShowMsg: false,
     name: props.fileData.name,
-    id: props.fileData.id,
+    id: props.fileData.id
 });
 
 async function getLink() {

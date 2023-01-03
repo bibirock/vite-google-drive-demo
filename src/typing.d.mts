@@ -1,4 +1,5 @@
 declare module '*.json' {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const value: any;
     export default value;
 }
@@ -7,5 +8,3 @@ declare module '*.vue' {
     const Component: ReturnType<typeof defineComponent>;
     export default Component;
 }
-
-//此檔案宣告擴充套件模組，定義引入的檔案並導出給ts

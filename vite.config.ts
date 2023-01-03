@@ -12,20 +12,20 @@ export default defineConfig({
         vue(),
         vueI18n({
             include: path.resolve(__dirname, './src/locales/**'),
-            compositionOnly: true,
-        }),
+            compositionOnly: true
+        })
     ],
     base: process.env.NODE_ENV === 'production' ? '/vite-google-drive-demo/' : '/',
     resolve: {
         alias: {
-            '@': resolve(__dirname, './src'),
-        },
+            '@': resolve(__dirname, './src')
+        }
     },
     server: {
-        host: '0.0.0.0',
+        host: '0.0.0.0'
     },
     define: {
-        'process.env': {},
+        'process.env': {}
     },
     build: {
         rollupOptions: {
@@ -36,8 +36,8 @@ export default defineConfig({
                     const driveLetter = match ? match[0] : '';
                     // substr 是被淘汰語法，因此要改 slice
                     return driveLetter + name.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '');
-                },
-            },
-        },
-    },
+                }
+            }
+        }
+    }
 });

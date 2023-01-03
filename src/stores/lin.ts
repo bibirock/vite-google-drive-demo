@@ -12,8 +12,8 @@ export const globalMethod = defineStore('globalMethod', {
         $globalFunction: globalFunction,
         $TYPE: TYPE,
         $emitter: emitter,
-        $t: t,
-    }),
+        $t: t
+    })
 });
 
 export const linStore = defineStore('linStore', {
@@ -23,15 +23,15 @@ export const linStore = defineStore('linStore', {
             clientId: apiKey.googleClientData.clientId,
             clientSerect: apiKey.googleClientData.clientSerect,
             redirecutURI: apiKey.googleClientData.redirecutURI,
-            apiKey: apiKey.googleClientData.apiKey,
+            apiKey: apiKey.googleClientData.apiKey
         },
         tokenData: <tokenDataType>{},
-        onUploadProgress: <number>0,
+        onUploadProgress: <number>0
     }),
     getters: {
         getProgress(state): number {
             return state.onUploadProgress;
-        },
+        }
     },
     actions: {
         changeTokenData(tokenObj: object) {
@@ -40,6 +40,6 @@ export const linStore = defineStore('linStore', {
 
         uploadProgress(number: number) {
             this.onUploadProgress = number;
-        },
-    },
+        }
+    }
 });

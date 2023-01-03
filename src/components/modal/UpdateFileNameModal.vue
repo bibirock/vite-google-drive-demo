@@ -56,7 +56,7 @@ function setFolderItem() {
     if (newFileName.value === '') newFileName.value = props.pageState.name;
     const folderItem = {
         name: newFileName.value,
-        fileId: props.pageState.id,
+        fileId: props.pageState.id
     };
     return folderItem;
 }

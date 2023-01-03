@@ -50,11 +50,12 @@ async function createFolder() {
 
 function setFolderItem() {
     const parents: Array<string> = [];
+    const folderId: string | undefined = route.params.folderId as string;
     if (newFolderName.value === '') newFolderName.value = 'Untitled';
-    if (route.params.folderId !== undefined) parents.push(route.params.folderId as string);
+    if (folderId !== undefined) parents.push(folderId as string);
     const folderItem: drive_v3.Params$Resource$Files$Create['requestBody'] = {
         name: newFolderName.value,
-        parents: parents,
+        parents: parents
     };
     return folderItem;
 }

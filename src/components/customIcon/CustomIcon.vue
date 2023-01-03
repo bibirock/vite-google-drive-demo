@@ -135,7 +135,7 @@
 
 <script setup lang="ts">
 interface props {
-    iconStr: String;
+    iconStr: string;
 }
 const props = defineProps<props>();
 </script>

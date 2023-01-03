@@ -25,7 +25,7 @@ const pinia = linStore();
 const $emitter = $globalMethod.$emitter;
 const strokeColor = reactive({
     '0%': '#108ee9',
-    '100%': '#87d068',
+    '100%': '#87d068'
 });
 const maskClosable = ref<boolean>(false);
 const isShowModal = ref<boolean>(false);
@@ -34,15 +34,19 @@ $emitter.on('show-upload-progress', openUploadProgress);
 
 const uploadProgress = computed(() => {
     if (pinia.getProgress === 100) {
-        setTimeout(() => {
-            isShowModal.value = false;
-            setTimeout(() => {
-                pinia.uploadProgress(0);
-            }, 2000);
-        }, 1500);
+        clearProgree();
     }
     return pinia.getProgress;
 });
+
+function clearProgree() {
+    setTimeout(() => {
+        isShowModal.value = false;
+        setTimeout(() => {
+            pinia.uploadProgress(0);
+        }, 2000);
+    }, 1500);
+}
 
 function openUploadProgress() {
     isShowModal.value = true;

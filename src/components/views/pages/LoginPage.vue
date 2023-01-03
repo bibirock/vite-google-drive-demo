@@ -41,7 +41,7 @@ function initGoogle() {
         scope: pinia.googleClientData.scope,
         ux_mode: 'popup',
         redirect_uri: pinia.googleClientData.redirecutURI,
-        callback: toGetTokenByAPI,
+        callback: toGetTokenByAPI
     });
 }
 

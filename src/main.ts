@@ -9,13 +9,10 @@ import App from '@/App.vue';
 import { createApp } from 'vue';
 const app = createApp(App);
 
-//全域變數設置
 import { i18n } from '@/locales/lang.js';
-// @ts-ignore：
 import mitt from 'mitt';
 const emitter = mitt();
 
-//全域組件
 import CustomIcon from '@/components/customIcon/CustomIcon.vue';
 import { Icon } from '@iconify/vue';
 app.component('CustomIcon', CustomIcon).component('Icon', Icon);

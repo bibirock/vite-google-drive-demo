@@ -19,6 +19,10 @@ export const globalFunction = {
     copyLink: (link: drive_v3.Schema$File['webViewLink']) => {
         return navigator.clipboard.writeText(link as string);
     },
+
+    setIcon: (url: string | null | undefined): string => {
+        return url as string;
+    }
 };
 
 export const TYPE = {
@@ -27,5 +31,5 @@ export const TYPE = {
     PDF: 'application/pdf',
     GOOGLE_DOCS: 'application/vnd.google-apps.document',
     GOOGLE_FOLDER: 'application/vnd.google-apps.folder',
-    GOOGLE_SHEETS: 'application/vnd.google-apps.spreadsheet',
+    GOOGLE_SHEETS: 'application/vnd.google-apps.spreadsheet'
 };

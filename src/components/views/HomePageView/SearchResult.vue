@@ -1,24 +1,24 @@
 <template lang="pug">
 #search-result-page
-	.empty-folder(v-if="fileList.length === 0 && !showLoading" :class="'set-item-center flex-col h-screen mt-[-50px]'")
+	.empty-folder(v-if="fileList?.length === 0 && !showLoading" :class="'set-item-center flex-col h-screen mt-[-50px]'")
 		Icon(icon="fluent-emoji-high-contrast:open-file-folder" :class="'opacity-90'" color="#6f6f6f" width="100" height="100")
 		span(:class="'mt-[5px] text-slate-500'") {{ $t('Empty folder you can use new') }}
 	Loading(v-if="showLoading")
-	.page-content(v-else-if="fileList.length !== 0 " :class="'pr-[20px]'")
+	.page-content(v-else-if="fileList?.length !== 0 " :class="'pr-[20px]'")
 		div(:class="'set-item-between mt-[8px] mb-[16px] pr-[50px]'")
 			div(:class="'text-grayText'") {{ $t('File') }}
 		.file-area(:class="'flex flex-wrap pb-[100px]'")
 			.file(v-for='(item,i) in fileList' @click="$globalF.sendFileDatil(item)" @dblclick="viewFileOrToFolder(item)" :class="'flex flex-col mb-[14px] rounded-lg w-[100%] h-[40vw] min-w-[200px] min-h-[200px] max-h-[429px] lg:w-[228px] lg:mr-[20px] lg:h-[228px] 2xl:w-[228px] 2xl:h-[228px] justify-start cursor-pointer  items-center border-1px '")
 				.file-outside(:class="'h-[100%] w-[100%] set-item-center overflow-hidden'")
-					img(v-if="item.thumbnailLink !== undefined" :class="'scale-125'" :src="item.thumbnailLink" referrerPolicy="no-referrer")
+					img(v-if="item.thumbnailLink !== undefined" :class="'scale-125'" :src="$globalF.setIcon(item.thumbnailLink)" referrerPolicy="no-referrer")
 					Icon(v-else icon="fluent:image-prohibited-20-regular" color="grayText" width="100" height="100%")
 				.img-area(:class="'flex basis-[48px] items-center pr-[25px] pl-[25px]'")
-					img(:src="item.iconLink" :class="'w-[15px] mr-[10px]'")
+					img(:src="$globalF.setIcon(item.iconLink)" :class="'w-[15px] mr-[10px]'")
 					div(:class="'lg:w-[150px] truncate '") {{ item.name }}
 </template>
 
 <script setup lang="ts">
-import Loading from '@/components/transitions/Loading.vue';
+import Loading from '@/components/transitions/LoadingIcon.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
 import { ref, watch, onMounted } from 'vue';
 import { globalMethod } from '@/stores/lin';
@@ -55,7 +55,7 @@ watch(
     }
 );
 
-const fileList = ref<any>([]);
+const fileList = ref<drive_v3.Schema$FileList['files']>();
 function setPageContent(res: drive_v3.Schema$FileList['files']) {
     if (res === undefined) return;
     fileList.value = res;
