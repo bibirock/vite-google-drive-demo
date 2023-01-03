@@ -30,8 +30,7 @@ const apis = new GoogleAPI();
 const props = defineProps<props>();
 
 interface props {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    fileData?: {};
+    fileData?: object;
 }
 
 const inputElement = ref<HTMLInputElement>();
