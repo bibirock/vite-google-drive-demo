@@ -13,6 +13,14 @@ import { i18n } from '@/locales/lang.js';
 import mitt from 'mitt';
 const emitter = mitt();
 
+import { registerSW } from 'virtual:pwa-register';
+registerSW({
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onNeedRefresh() {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onOfflineReady() {}
+})();
+
 import CustomIcon from '@/components/customIcon/CustomIcon.vue';
 import { Icon } from '@iconify/vue';
 app.component('CustomIcon', CustomIcon).component('Icon', Icon);

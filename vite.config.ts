@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
+import { VitePWA } from 'vite-plugin-pwa';
 import { resolve } from 'path';
 
 const INVALID_CHAR_REGEX = /[\x00-\x1F\x7F<>*#"{}|^[\]`;?:&=+$,]/g;
@@ -13,6 +14,26 @@ export default defineConfig({
         vueI18n({
             include: path.resolve(__dirname, './src/locales/**'),
             compositionOnly: true
+        }),
+        VitePWA({
+            registerType: 'autoUpdate',
+            devOptions: {
+                enabled: true
+            },
+            manifest: {
+                name: 'Google Drive Demo',
+                theme_color: '#ffffff',
+                start_url: 'http://localhost:5173/',
+                display: 'standalone',
+                // icon 路徑，./ 代表 public
+                icons: [
+                    {
+                        src: './vite-drive.png',
+                        sizes: '64x64 32x32 24x24 16x16',
+                        type: 'image/png'
+                    }
+                ]
+            }
         })
     ],
     base: process.env.NODE_ENV === 'production' ? '/vite-google-drive-demo/' : '/',
