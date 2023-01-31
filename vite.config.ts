@@ -17,8 +17,28 @@ export default defineConfig({
         }),
         VitePWA({
             registerType: 'autoUpdate',
+            mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
             devOptions: {
                 enabled: true
+            },
+            includeAssets: ['favicon.svg'],
+            workbox: {
+                runtimeCaching: [
+                    {
+                        urlPattern: /(.*?)\.(js|css|ts|webmanifest)/, // js /css /ts静态资源缓存
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: 'js-css-cache'
+                        }
+                    },
+                    {
+                        urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/, // 图片缓存
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: 'image-cache'
+                        }
+                    }
+                ]
             },
             manifest: {
                 name: 'Google Drive Demo',
