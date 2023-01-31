@@ -25,14 +25,14 @@ export default defineConfig({
             workbox: {
                 runtimeCaching: [
                     {
-                        urlPattern: /(.*?)\.(js|css|ts|webmanifest)/, // js /css /ts静态资源缓存
+                        urlPattern: /(.*?)\.(js|css|ts)/,
                         handler: 'CacheFirst',
                         options: {
                             cacheName: 'js-css-cache'
                         }
                     },
                     {
-                        urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/, // 图片缓存
+                        urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/,
                         handler: 'CacheFirst',
                         options: {
                             cacheName: 'image-cache'
@@ -42,14 +42,16 @@ export default defineConfig({
             },
             manifest: {
                 name: 'Google Drive Demo',
+                short_name: 'use PWA',
                 theme_color: '#ffffff',
-                start_url: 'http://localhost:5173/',
+                start_url: process.env.NODE_ENV === '' ? 'https://bibirock.github.io/vite-google-drive-demo/#/' : 'http://localhost:5173/#/',
+                scope: './',
                 display: 'standalone',
-                // icon 路徑，./ 代表 public
+                prefer_related_applications: true,
                 icons: [
                     {
-                        src: './vite-drive.png',
-                        sizes: '64x64 32x32 24x24 16x16',
+                        src: './vite-drive-145x145.png',
+                        sizes: '145x145',
                         type: 'image/png'
                     }
                 ]

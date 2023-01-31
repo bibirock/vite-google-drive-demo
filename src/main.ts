@@ -16,6 +16,16 @@ const emitter = mitt();
 import { useRegisterSW } from 'virtual:pwa-register/vue';
 useRegisterSW();
 
+import { registerSW } from 'virtual:pwa-register';
+registerSW({
+    onNeedRefresh() {
+        console.log('onNeedRefresh');
+    },
+    onOfflineReady() {
+        console.log('onOfflineReady');
+    }
+})();
+
 import CustomIcon from '@/components/customIcon/CustomIcon.vue';
 import { Icon } from '@iconify/vue';
 app.component('CustomIcon', CustomIcon).component('Icon', Icon);
