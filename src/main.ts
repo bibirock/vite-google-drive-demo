@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { createPinia } from 'pinia';
 import router from '@/router';
 import '@/index.css';
@@ -18,12 +19,8 @@ useRegisterSW();
 
 import { registerSW } from 'virtual:pwa-register';
 registerSW({
-    onNeedRefresh() {
-        console.log('onNeedRefresh');
-    },
-    onOfflineReady() {
-        console.log('onOfflineReady');
-    }
+    onNeedRefresh() {},
+    onOfflineReady() {}
 })();
 
 import CustomIcon from '@/components/customIcon/CustomIcon.vue';
