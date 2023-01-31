@@ -40,7 +40,6 @@ const { locale } = useI18n();
 const router = useRouter();
 
 $emitter.on('clear-search-input', () => {
-    console.log('object');
     inputValue.value = '';
 });
 

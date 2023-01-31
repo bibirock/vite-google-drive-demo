@@ -1,3 +1,5 @@
+/// <reference types="vite-plugin-pwa/client" />
+
 declare module '*.json' {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const value: any;

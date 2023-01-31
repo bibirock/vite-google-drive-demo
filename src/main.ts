@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { createPinia } from 'pinia';
 import router from '@/router';
 import '@/index.css';
@@ -12,6 +13,15 @@ const app = createApp(App);
 import { i18n } from '@/locales/lang.js';
 import mitt from 'mitt';
 const emitter = mitt();
+
+import { useRegisterSW } from 'virtual:pwa-register/vue';
+useRegisterSW();
+
+import { registerSW } from 'virtual:pwa-register';
+registerSW({
+    onNeedRefresh() {},
+    onOfflineReady() {}
+})();
 
 import CustomIcon from '@/components/customIcon/CustomIcon.vue';
 import { Icon } from '@iconify/vue';
