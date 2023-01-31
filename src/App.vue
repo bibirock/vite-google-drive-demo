@@ -1,6 +1,6 @@
 <template lang="pug">
-div.select-none(@contextmenu.prevent="" :class="''")
-    router-view(:class="'overflow-hidden'")
+div.select-none(@contextmenu.prevent="" :class="'overflow-hidden'")
+    router-view
 div
 </template>
 
