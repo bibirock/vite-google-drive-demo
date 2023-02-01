@@ -42,7 +42,7 @@ export default defineConfig({
             },
             manifest: {
                 name: 'Google Drive Demo',
-                short_name: 'use PWA',
+                short_name: 'Vite Drive',
                 theme_color: '#ffffff',
                 start_url: process.env.NODE_ENV === 'production' ? 'https://bibirock.github.io/vite-google-drive-demo/#/' : 'http://localhost:5173/#/',
                 scope: './',
