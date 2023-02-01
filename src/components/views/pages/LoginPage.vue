@@ -7,7 +7,7 @@ div(v-if="notSupportBrowser")
         img(src="@/assets/img/noSupport.png" :class="'w-[95%]'")
         a(href="https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html?fbclid=IwAR2KDyMTyHkv1iik96VarrFpfjp8Y6T78J1_sYwV30FV_Uo0ITV0WZw2LYY") 詳情請見
 div(v-else)
-    article(:class="'flex mt-[35%] w-screen justify-center flex-col items-center'")
+    article(:class="'flex sm:min-h-screen sm:mt-0 w-screen mt-[35%] justify-center flex-col items-center'")
         img(src="/vite-drive.png" :class="'mb-[20px]'")
         button(:class="'border-2 border-slate-500 h-13 p-2 px-5 hover:text-sky-400 hover:border-sky-400 rounded-lg text-slate-500'" @click='loginGoogle()') {{ "登入Google以使用雲端硬碟" }}
 </template>
