@@ -4,6 +4,7 @@ import path from 'path';
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
 import { VitePWA } from 'vite-plugin-pwa';
 import { resolve } from 'path';
+import fs from 'fs';
 
 const INVALID_CHAR_REGEX = /[\x00-\x1F\x7F<>*#"{}|^[\]`;?:&=+$,]/g;
 const DRIVE_LETTER_REGEX = /^[a-z]:/i;
@@ -17,7 +18,6 @@ export default defineConfig({
         }),
         VitePWA({
             registerType: 'autoUpdate',
-            mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
             devOptions: {
                 enabled: true
             },
@@ -42,7 +42,7 @@ export default defineConfig({
             },
             manifest: {
                 name: 'Google Drive Demo',
-                short_name: 'use PWA',
+                short_name: 'Vite Drive',
                 theme_color: '#ffffff',
                 start_url: process.env.NODE_ENV === 'production' ? 'https://bibirock.github.io/vite-google-drive-demo/#/' : 'http://localhost:5173/#/',
                 scope: './',
@@ -64,8 +64,12 @@ export default defineConfig({
             '@': resolve(__dirname, './src')
         }
     },
+    // https憑證套用，用於正常運行PWA網頁
     server: {
-        host: '0.0.0.0'
+        https: {
+            key: fs.readFileSync(`${__dirname}/src/assets/pem/localhost-key.pem`),
+            cert: fs.readFileSync(`${__dirname}/src/assets/pem/localhost.pem`)
+        }
     },
     define: {
         'process.env': {}
@@ -77,7 +81,6 @@ export default defineConfig({
                 sanitizeFileName(name) {
                     const match = DRIVE_LETTER_REGEX.exec(name);
                     const driveLetter = match ? match[0] : '';
-                    // substr 是被淘汰語法，因此要改 slice
                     return driveLetter + name.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '');
                 }
             }
