@@ -30,7 +30,7 @@ const $globalF = $globalMethod.$globalFunction;
 const $emitter = $globalMethod.$emitter;
 const $t = $globalMethod.$t;
 
-interface props {
+interface Props {
     fileData: {
         isShowMsg?: boolean;
         name: string;
@@ -41,7 +41,7 @@ interface props {
     };
 }
 
-const props = defineProps<props>();
+const props = defineProps<Props>();
 
 const deleteFileModalProps = reactive({
     isShowMsg: false,

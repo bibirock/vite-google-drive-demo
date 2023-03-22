@@ -10,8 +10,8 @@ nav#nav-bar
                     input(type="text" v-model="inputValue" ref="searchInput" @keyup="getSearchData()" @focus="onFocus()" @blur="onFocus()" @keypress.enter="goToSearchResult()" :placeholder="$t('Search from Google Drive')" :class='"border max-w-[500px] min-w-[230px] w-[100%] h-12 px-14 rounded-lg bg-slate-100 focus:bg-inherit placeholder:text-base"')
                     Icon(icon="carbon:search" color="grayText" width="25" height="25").absolute.top-3.left-3
                     Icon(v-if="inputValue !== ''" @click="inputValue = ''" icon="iconoir:cancel" color="grayText" width="25" height="25" :class="'cursor-pointer ml-[-50px]'")
-                .search-result-area(v-show="searchResult !== undefined && searchResult.length > 0 && inputValue !== '' && isFoucs" :class="'absolute top-[43px] border-solid border-2 border-gray-300  max-w-[500px] min-w-[230px] w-[100%] min-h-[50px] max-h-[200px] overflow-auto bg-white rounded-b-lg'")
-                    .serch-result-item(v-for="(item,i) in searchResult" :key="i" )
+                .search-result-area(v-show="searchResult !== undefined && searchResult.length > 0 && inputValue !== '' && isFocus" :class="'absolute top-[43px] border-solid border-2 border-gray-300  max-w-[500px] min-w-[230px] w-[100%] min-h-[50px] max-h-[200px] overflow-auto bg-white rounded-b-lg'")
+                    .search-result-item(v-for="(item,i) in searchResult" :key="i" )
                         .result-body(:class="'hover:bg-slate-100 h-[50px] flex items-center'" @click="goToFile(item)" @mousedown.prevent)
                             img(:src="$globalF.setIcon(item.iconLink)" :class="'h-[20px] w-[20px] ml-[10px] mr-[10px]'")
                             .name {{ item.name }}
@@ -47,9 +47,9 @@ function switchLanguage(e: { key: string }) {
     locale.value = e.key;
 }
 
-const isFoucs = ref(false);
+const isFocus = ref(false);
 function onFocus() {
-    isFoucs.value = !isFoucs.value;
+    isFocus.value = !isFocus.value;
 }
 
 const inputValue = ref<string>('');
@@ -82,5 +82,3 @@ function goToFile(item: drive_v3.Schema$File) {
     inputBlur();
 }
 </script>
-
-<style scoped></style>

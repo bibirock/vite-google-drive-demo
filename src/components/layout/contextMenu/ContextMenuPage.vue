@@ -27,9 +27,9 @@ const $t = $globalMethod.$t;
 const $emitter = $globalMethod.$emitter;
 const route = useRoute();
 const apis = new GoogleAPI();
-const props = defineProps<props>();
+defineProps<Props>();
 
-interface props {
+interface Props {
     fileData?: object;
 }
 
@@ -45,14 +45,14 @@ function getFileData() {
     };
 }
 
-interface fileMetadata {
+interface FileMetadata {
     name: string;
     parents: Array<string> | [];
 }
 
 async function packageRequest(fileName: File['name'], data: Uint8Array) {
     const parentId: string | undefined = route.params.folderId as string;
-    const fileMetadata: fileMetadata = {
+    const fileMetadata: FileMetadata = {
         name: fileName,
         parents: parentId === undefined ? [] : [parentId]
     };
@@ -60,7 +60,7 @@ async function packageRequest(fileName: File['name'], data: Uint8Array) {
     refreshKey.value += 1;
 }
 
-async function uploadFileAndRefresh(fileMetadata: fileMetadata, data: Uint8Array) {
+async function uploadFileAndRefresh(fileMetadata: FileMetadata, data: Uint8Array) {
     $emitter.emit('show-upload-progress');
     const res = await apis.toUploadFileByAPI(fileMetadata, data);
     if (res.status === 200) {
@@ -68,7 +68,7 @@ async function uploadFileAndRefresh(fileMetadata: fileMetadata, data: Uint8Array
     }
 }
 
-function successUpload(fileMetadata: fileMetadata) {
+function successUpload(fileMetadata: FileMetadata) {
     $emitter.emit('refresh-page');
     $emitter.emit('show-success-msg', $t('File upload success, your file name is') + ':' + fileMetadata.name);
 }

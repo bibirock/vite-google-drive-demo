@@ -59,14 +59,14 @@ const $emitter = $globalMethod.$emitter;
 const $TYPE = $globalMethod.$TYPE;
 const $t = $globalMethod.$t;
 const $globalF = $globalMethod.$globalFunction;
-const infoData: infoData = reactive({});
+const infoData: InfoData = reactive({});
 
-interface infoData {
+interface InfoData {
     data?: drive_v3.Schema$File;
 }
 
 $emitter.on('send-file-data', (data) => {
-    infoData.data = data as infoData['data'];
+    infoData.data = data as InfoData['data'];
 });
 
 function formatBytes(bytesStr: drive_v3.Schema$File['size'], decimals = 1) {
@@ -101,9 +101,8 @@ function formatDisplayName(user: drive_v3.Schema$Permission) {
     return user.displayName;
 }
 
-function formatOwner(infoData: infoData) {
+function formatOwner(infoData: InfoData) {
     const owners = infoData.data?.owners as Array<drive_v3.Schema$User>;
     return owners[0].me ? $t('Me') : '';
 }
 </script>
-<style scoped></style>

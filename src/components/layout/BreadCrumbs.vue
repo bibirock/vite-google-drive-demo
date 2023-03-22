@@ -29,5 +29,3 @@ function openInfoMenu() {
     emit('openInfoMenu');
 }
 </script>
-
-<style scoped></style>

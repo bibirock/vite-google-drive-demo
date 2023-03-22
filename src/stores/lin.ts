@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import apiKey from './apiKey';
-import { tokenDataType } from './typs.mjs';
+import { TokenDataType } from './typs.mjs';
 import { globalFunction, TYPE } from '@/globalMethods/global';
 import { emitter } from '@/main';
 import { i18n } from '@/locales/lang.js';
@@ -25,7 +25,7 @@ export const linStore = defineStore('linStore', {
             redirecutURI: apiKey.googleClientData.redirecutURI,
             apiKey: apiKey.googleClientData.apiKey
         },
-        tokenData: <tokenDataType>{},
+        tokenData: <TokenDataType>{},
         onUploadProgress: <number>0
     }),
     getters: {
@@ -35,7 +35,7 @@ export const linStore = defineStore('linStore', {
     },
     actions: {
         changeTokenData(tokenObj: object) {
-            this.tokenData = <tokenDataType>tokenObj;
+            this.tokenData = <TokenDataType>tokenObj;
         },
 
         uploadProgress(number: number) {

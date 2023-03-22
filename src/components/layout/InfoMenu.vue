@@ -31,16 +31,16 @@ const $globalF = $globalMethod.$globalFunction;
 const $emitter = $globalMethod.$emitter;
 const emit = defineEmits(['closeInfoMenu']);
 
-interface views {
+interface Views {
     name: string;
     component: ReturnType<typeof defineComponent>;
 }
 
-interface infoData {
+interface InfoData {
     data?: drive_v3.Schema$File;
 }
 
-const views: Array<views> = reactive([
+const views: Array<Views> = reactive([
     {
         name: 'Details',
         component: markRaw(InfoMenuDetail)
@@ -50,20 +50,20 @@ const views: Array<views> = reactive([
         component: markRaw(InfoMenuActivity)
     }
 ]);
-function switchView(component: views['component']) {
+function switchView(component: Views['component']) {
     current.views = component;
 }
 
 const current = reactive({
     views: views[0].component
 });
-function showBookmark(page: views) {
+function showBookmark(page: Views) {
     if (page === current.views) return true;
 }
 
-const infoData: infoData = reactive({});
+const infoData: InfoData = reactive({});
 $emitter.on('send-file-data', (data) => {
-    infoData.data = data as infoData['data'];
+    infoData.data = data as InfoData['data'];
 });
 
 function closeInfoMenu() {

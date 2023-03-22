@@ -38,7 +38,7 @@ import { globalMethod } from '@/stores/lin';
 const $globalMethod = globalMethod();
 const $globalF = $globalMethod.$globalFunction;
 
-interface props {
+interface Props {
     fileData: {
         isShowMsg?: boolean;
         name: string;
@@ -49,7 +49,7 @@ interface props {
     };
 }
 
-const props = defineProps<props>();
+const props = defineProps<Props>();
 
 const deleteFileModalProps = reactive({
     isShowMsg: false,
