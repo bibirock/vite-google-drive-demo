@@ -40,7 +40,7 @@
 				a-menu-item(key="5")
 					template(#icon)
 						custom-icon(:iconStr="'starrted'")
-					span {{$t('Starrted')}}
+					span {{$t('Starred')}}
 				a-menu-item(key="6")
 					template(#icon)
 						custom-icon(:iconStr="'trash'")
