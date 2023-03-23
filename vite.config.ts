@@ -26,7 +26,7 @@ export default defineConfig({
                 runtimeCaching: [
                     {
                         urlPattern: /(.*?)\.(js|css|ts)/,
-                        handler: 'CacheFirst',
+                        handler: 'NetworkFirst',
                         options: {
                             cacheName: 'js-css-cache'
                         }
@@ -44,7 +44,7 @@ export default defineConfig({
                 name: 'Google Drive Demo',
                 short_name: 'Vite Drive',
                 theme_color: '#ffffff',
-                start_url: process.env.NODE_ENV === 'production' ? 'https://bibirock.github.io/vite-google-drive-demo/#/' : 'http://localhost:5173/#/',
+                start_url: process.env.NODE_ENV === 'production' ? 'https://bibirock.github.io/vite-google-drive-demo/#/' : 'https://localhost:5173/#/',
                 scope: './',
                 display: 'standalone',
                 prefer_related_applications: true,
