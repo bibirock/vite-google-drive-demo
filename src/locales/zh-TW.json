@@ -53,7 +53,7 @@
     "Get link": "取得連結",
     "File upload": "檔案上傳",
     "Folder upload": "資料夾上傳",
-    "This action will trash your google drive file to Bin, you need to enter file name confirm.": "這個動作會將您的檔案移至垃圾桶，請輸入檔名確認",
+    "This action will trash your google drive file to the Bin, you need to enter file name confirm": "這個動作會將您的檔案移至垃圾桶，請輸入檔名確認",
     "OK": "確認",
     "Name confirm error": "名稱輸入錯誤",
     "Your file name is :": "您的檔案名稱是:",
