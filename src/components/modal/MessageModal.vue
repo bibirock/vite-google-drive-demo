@@ -15,4 +15,3 @@ message.config({
     maxCount: 1
 });
 </script>
-<style scoped></style>

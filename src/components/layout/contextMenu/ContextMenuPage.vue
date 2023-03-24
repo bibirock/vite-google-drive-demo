@@ -1,5 +1,5 @@
 <template lang="pug">
-div(:class="'w-[250px]'")
+div(class="w-[250px]")
     .control-area
         a-menu-item
             .control-item(@click="createFolderModalProps.isShowMsg = true")
@@ -7,12 +7,12 @@ div(:class="'w-[250px]'")
                     custom-icon(:iconStr="'newFolder'")
                 span {{ $t("New folder") }}
         a-menu-item
-            label(form="fileUpload" :class="'cursor-pointer'")
+            label(form="fileUpload" class="cursor-pointer")
                 .control-item
                     .icon
                         custom-icon(:iconStr="'fileUpload'")
                     span {{ $t("File upload") }}
-                    input(:key="refreshKey" type="file" id="fileUpload" multiple :class="'hidden'" @change="getFileData()" ref="inputElement")
+                    input(:key="refreshKey" type="file" id="fileUpload" multiple class="hidden" @change="getFileData()" ref="inputElement")
 create-folder-modal(:pageState="createFolderModalProps" @closeModal="createFolderModalProps.isShowMsg = false")
 </template>
 

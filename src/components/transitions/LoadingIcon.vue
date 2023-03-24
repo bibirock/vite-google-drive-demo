@@ -13,7 +13,7 @@
     .sk-circle11.sk-circle
     .sk-circle12.sk-circle
 </template>
-<script setup></script>
+
 <style scoped>
 .sk-fading-circle {
     margin: 100px auto;

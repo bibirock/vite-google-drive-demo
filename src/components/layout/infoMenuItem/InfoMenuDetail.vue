@@ -1,30 +1,30 @@
 <template lang="pug">
 .noChooseFile(v-if="infoData.data == undefined")
-    .img-area(:class="'flex flex-col mt-[20px]'")
+    .img-area(class="flex flex-col mt-5")
         .img
             custom-icon(:iconStr="'fileDeatil'")
-        .text.opacity-60.mx-auto(:class="'mt-[20px]'") {{ $t('Select a file or folder to view its details') }}
+        .text(class="mt-5 opacity-60 mx-auto") {{ $t('Select a file or folder to view its details') }}
 .info-area(v-else)
-    .img(:class="'h-[150px] w-[100%] border-1px set-item-center overflow-hidden'")
-        img(v-if="infoData.data.thumbnailLink !== undefined" :class="'h-[100%]'" referrerPolicy="no-referrer" :src="$globalF.setIcon(infoData.data.thumbnailLink)")
+    .img(class="h-36 w-full border-1px set-item-center overflow-hidden")
+        img(v-if="infoData.data.thumbnailLink !== undefined" class="h-full" referrerPolicy="no-referrer" :src="$globalF.setIcon(infoData.data.thumbnailLink)")
         Icon(v-else icon="fluent:image-prohibited-20-regular" color="grayText" width="100" height="100%")
-    .info-detail(:class="'p-[16px]'")
-        .has-access(:class="'text-lg opacity-75'") {{ $t('Who has access') }}
-        .access(:class="'mt-[20px] mb-[20px] overflow-auto max-h-[60px]'")
-            .access-info(v-if="infoData.data.shared" v-for="user in infoData.data.permissions" :class="''")
-                .access-arr(:class="'set-item-start mb-[5px]'")
-                    img(v-if="user.photoLink !== undefined" :src="$globalF.setIcon(user.photoLink)" :class="'h-[25px] mr-[5px] rounded-full'")
-                    Icon(v-else icon="ci:link" color="#FFFFFF" width="25" height="25" :class="'bg-lime-600 mr-[5px] rounded-full'")
+    .info-detail(class="p-4")
+        .has-access(class="text-lg opacity-75") {{ $t('Who has access') }}
+        .access(class="mt-5 mb-5 overflow-auto max-h-[60px]")
+            .access-info(v-if="infoData.data.shared" v-for="user in infoData.data.permissions")
+                .access-arr(class="set-item-start  mb-1")
+                    img(v-if="user.photoLink !== undefined" :src="$globalF.setIcon(user.photoLink)" class="h-6 mr-1 rounded-full")
+                    Icon(v-else icon="ci:link" color="#FFFFFF" width="25" height="25" class="bg-lime-600 mr-1 rounded-full")
                     .access {{ formatDisplayName(user) }}
-            .access-info(v-else :class="'set-item-start h-[60px]'")
+            .access-info(v-else class="set-item-start h-14")
                 custom-icon(:iconStr="'noShare'")
-                .no-shared(:class="'ml-[15px]'") {{ $t("Not shared") }}
+                .no-shared(class="ml-4") {{ $t("Not shared") }}
         .system-properties
-            .title(:class="'text-lg opacity-75 title-color mb-[10px]'") {{ $t("System properties") }}
+            .title(class="text-lg opacity-75 title-color mb-2") {{ $t("System properties") }}
             table
                 tbody
                     tr
-                        td(:class="'w-[110px]'") {{ $t("Type") }}
+                        td(class="w-28") {{ $t("Type") }}
                         a-tooltip(placement="bottom")
                             template(#title) {{ infoData.data.mimeType }}
                             td {{ formatType(infoData.data.mimeType) }}

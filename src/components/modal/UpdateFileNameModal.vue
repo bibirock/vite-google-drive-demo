@@ -9,7 +9,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
     width="340px"
     centered=true
     @ok="updateFile()")
-    input( v-model.trim="pageState.name" @keypress.enter="updateFile()" :class="'w-[100%] px-[10px] h-[40px] rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400'")
+    input( v-model.trim="pageState.name" @keypress.enter="updateFile()" class="w-full px-[10px] h-10 rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400")
 </template>
 
 <script setup lang="ts">

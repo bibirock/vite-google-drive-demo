@@ -1,20 +1,20 @@
 <template lang="pug">
 #search-result-page
-	.empty-folder(v-if="fileList?.length === 0 && !showLoading" :class="'set-item-center flex-col h-screen mt-[-50px]'")
-		Icon(icon="fluent-emoji-high-contrast:open-file-folder" :class="'opacity-90'" color="#6f6f6f" width="100" height="100")
-		span(:class="'mt-[5px] text-slate-500'") {{ $t('Empty folder you can use new') }}
+	.empty-folder(v-if="fileList?.length === 0 && !showLoading" class="set-item-center flex-col h-screen mt-[-50px]")
+		Icon(icon="fluent-emoji-high-contrast:open-file-folder" class="opacity-90" color="#6f6f6f" width="100" height="100")
+		span(class="mt-[5px] text-slate-500") {{ $t('Empty folder you can use new') }}
 	Loading(v-if="showLoading")
-	.page-content(v-else-if="fileList?.length !== 0 " :class="'pr-[20px]'")
-		div(:class="'set-item-between mt-[8px] mb-[16px] pr-[50px]'")
-			div(:class="'text-grayText'") {{ $t('File') }}
-		.file-area(:class="'flex flex-wrap pb-[100px]'")
-			.file(v-for='(item,i) in fileList' @click="$globalF.sendFileDatil(item)" @dblclick="viewFileOrToFolder(item)" :class="'flex flex-col mb-[14px] rounded-lg w-[100%] h-[40vw] min-w-[200px] min-h-[200px] max-h-[429px] lg:w-[228px] lg:mr-[20px] lg:h-[228px] 2xl:w-[228px] 2xl:h-[228px] justify-start cursor-pointer  items-center border-1px '")
-				.file-outside(:class="'h-[100%] w-[100%] set-item-center overflow-hidden'")
-					img(v-if="item.thumbnailLink !== undefined" :class="'scale-125'" :src="$globalF.setIcon(item.thumbnailLink)" referrerPolicy="no-referrer")
+	.page-content(v-else-if="fileList?.length !== 0 " class="pr-5")
+		div(class="set-item-between mt-2 mb-4 pr-[50px]")
+			div(class="text-grayText") {{ $t('File') }}
+		.file-area(class="flex flex-wrap pb-24")
+			.file(v-for='item in fileList' @click="$globalF.sendFileDatil(item)" @dblclick="viewFileOrToFolder(item)" class="flex flex-col mb-[14px] rounded-lg w-full h-[40vw] min-w-[200px] min-h-[200px] max-h-[429px] lg:w-[228px] lg:mr-5 lg:h-[228px] 2xl:w-[228px] 2xl:h-[228px] justify-start cursor-pointer items-center border-1px")
+				.file-outside(class="h-full w-full set-item-center overflow-hidden")
+					img(v-if="item.thumbnailLink !== undefined" class="scale-125" :src="$globalF.setIcon(item.thumbnailLink)" referrerPolicy="no-referrer")
 					Icon(v-else icon="fluent:image-prohibited-20-regular" color="grayText" width="100" height="100%")
-				.img-area(:class="'flex basis-[48px] items-center pr-[25px] pl-[25px]'")
-					img(:src="$globalF.setIcon(item.iconLink)" :class="'w-[15px] mr-[10px]'")
-					div(:class="'lg:w-[150px] truncate '") {{ item.name }}
+				.img-area(class="flex basis-12 items-center pr-6 pl-6")
+					img(:src="$globalF.setIcon(item.iconLink)" class="w-[15px] mr-[10px]")
+					div(class="lg:w-[150px] truncate") {{ item.name }}
 </template>
 
 <script setup lang="ts">

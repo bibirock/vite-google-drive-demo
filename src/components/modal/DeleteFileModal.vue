@@ -8,11 +8,11 @@ a-modal(v-model:visible="pageState.isShowMsg"
     width="340px"
     centered=true
     @ok="confirmInput()")
-    p(:class="'text-orange-600'") {{ $t("This action will trash your google drive file to the Bin, you need to enter file name confirm") }}
+    p(class="text-orange-600") {{ $t("This action will trash your google drive file to the Bin, you need to enter file name confirm") }}
     p {{ $t("Your file name is :") }} 
-        span(:class="'text-red-600'") {{ pageState.name }}
-    input(v-model.trim="inputVal" @keyup.enter="confirmInput()" :placeholder='$t("Please enter file name")' :class="'w-[100%] px-[10px] h-[40px] rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400'")
-    span(v-if="inputErr" :class="'text-red-600'") {{ $t("Name confirm error") }}
+        span(class="text-red-600") {{ pageState.name }}
+    input(v-model.trim="inputVal" @keyup.enter="confirmInput()" :placeholder='$t("Please enter file name")' class="w-full px-[10px] h-10 rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400")
+    span(v-if="inputErr" class="text-red-600") {{ $t("Name confirm error") }}
 </template>
 <script setup lang="ts">
 import { globalMethod } from '@/stores/lin';

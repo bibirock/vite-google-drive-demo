@@ -8,7 +8,7 @@ a-modal(v-model:visible="isShowModal"
     :maskClosable="maskClosable"
     closable=true
     )
-    .info(:class="'set-item-center flex-col'")
+    .info(class="set-item-center flex-col")
         p {{ $t("File uploading...") }}
         a-progress(
             type="circle"

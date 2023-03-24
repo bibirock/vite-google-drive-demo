@@ -1,5 +1,5 @@
 <template lang="pug">
-div(:class="'w-[250px]'")
+div(class="w-[250px]")
     .control-area
         a-menu-item
             .control-item(@click="$globalF.openFileView(fileData.webViewLink)")
