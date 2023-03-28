@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
 import { useRoute } from 'vue-router';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 const $globalMethod = globalMethod();
 const $t = $globalMethod.$t;
 const route = useRoute();

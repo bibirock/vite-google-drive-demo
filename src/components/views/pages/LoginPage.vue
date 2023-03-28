@@ -15,7 +15,7 @@ div(v-else)
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
-import { linStore } from '@/stores/lin';
+import { linStore } from '@/stores/useStore';
 import GoogleAPI from '@/apis/googleAPI';
 const { userAgent } = navigator;
 const apis = new GoogleAPI();

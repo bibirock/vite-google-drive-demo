@@ -62,7 +62,7 @@ import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue
 import Loading from '@/components/transitions/LoadingIcon.vue';
 import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import GoogleAPI from '@/apis/googleAPI';
 import { useRoute } from 'vue-router';
 

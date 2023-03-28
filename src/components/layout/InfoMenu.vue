@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { reactive, markRaw, defineComponent } from 'vue';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import InfoMenuDetail from '@/components/layout/infoMenuItem/InfoMenuDetail.vue';
 import InfoMenuActivity from '@/components/layout/infoMenuItem/InfoMenuActivity.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';

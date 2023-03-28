@@ -19,7 +19,7 @@ a-modal(v-model:visible="isShowModal"
 
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
-import { linStore, globalMethod } from '@/stores/lin';
+import { linStore, globalMethod } from '@/stores/useStore';
 const $globalMethod = globalMethod();
 const pinia = linStore();
 const $emitter = $globalMethod.$emitter;

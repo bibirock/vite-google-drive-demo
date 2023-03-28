@@ -52,7 +52,7 @@
 </template>
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import type { drive_v3 } from '@googleapis/drive/v3';
 const $globalMethod = globalMethod();
 const $emitter = $globalMethod.$emitter;

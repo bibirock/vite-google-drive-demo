@@ -15,7 +15,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
     span(v-if="inputErr" class="text-red-600") {{ $t("Name confirm error") }}
 </template>
 <script setup lang="ts">
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import GoogleAPI from '@/apis/googleAPI';
 import { ref } from 'vue';
 const apis = new GoogleAPI();

@@ -29,7 +29,7 @@ import GoogleAPI from '@/apis/googleAPI';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import type { drive_v3 } from '@googleapis/drive/v3';
 const $globalMethod = globalMethod();
 const $globalF = $globalMethod.$globalFunction;

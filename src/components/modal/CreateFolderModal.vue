@@ -14,7 +14,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
 
 <script setup lang="ts">
 import type { drive_v3 } from '@googleapis/drive/v3';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import { useRoute } from 'vue-router';
 import { ref } from 'vue';
 import GoogleAPI from '@/apis/googleAPI';

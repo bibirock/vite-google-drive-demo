@@ -15,7 +15,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
 <script setup lang="ts">
 import GoogleAPI from '@/apis/googleAPI';
 import { ref, onMounted } from 'vue';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 const apis = new GoogleAPI();
 const $globalMethod = globalMethod();
 const $emitter = $globalMethod.$emitter;

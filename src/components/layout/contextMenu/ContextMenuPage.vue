@@ -21,7 +21,7 @@ import CreateFolderModal from '@/components/modal/CreateFolderModal.vue';
 import GoogleAPI from '@/apis/googleAPI';
 import { ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 const $globalMethod = globalMethod();
 const $t = $globalMethod.$t;
 const $emitter = $globalMethod.$emitter;

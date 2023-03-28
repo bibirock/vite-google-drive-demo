@@ -4,6 +4,7 @@ import { TokenDataType } from './typs.mjs';
 import { globalFunction, TYPE } from '@/globalMethods/global';
 import { emitter } from '@/main';
 import { i18n } from '@/locales/lang.js';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore：
 const { t } = i18n.global;
 

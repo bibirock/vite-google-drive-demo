@@ -21,7 +21,7 @@
 import Loading from '@/components/transitions/LoadingIcon.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
 import { ref, watch, onMounted } from 'vue';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import GoogleAPI from '@/apis/googleAPI';
 import { useRoute } from 'vue-router';
 const $globalMethod = globalMethod();

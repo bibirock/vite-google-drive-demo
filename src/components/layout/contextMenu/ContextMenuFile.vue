@@ -34,7 +34,7 @@ update-file-name(:pageState="updateFileModalProps" @closeModal="updateFileModalP
 import { reactive } from 'vue';
 import DeleteFileModal from '@/components/modal/DeleteFileModal.vue';
 import UpdateFileName from '@/components/modal/UpdateFileNameModal.vue';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 const $globalMethod = globalMethod();
 const $globalF = $globalMethod.$globalFunction;
 

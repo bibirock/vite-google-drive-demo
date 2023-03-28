@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import GoogleAPI from '@/apis/googleAPI';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
-import { globalMethod } from '@/stores/lin';
+import { globalMethod } from '@/stores/useStore';
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import type { drive_v3 } from '@googleapis/drive/v3';
