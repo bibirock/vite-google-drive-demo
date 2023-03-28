@@ -2,18 +2,18 @@
 .noChooseFile(v-if="infoData.data == undefined")
     .img-area(class="flex flex-col mt-5")
         .img
-            custom-icon(:iconStr="'fileDeatil'")
+            custom-icon(:iconStr="'fileDetail'")
         .text(class="mt-5 opacity-60 mx-auto") {{ $t('Select a file or folder to view its details') }}
 .info-area(v-else)
     .img(class="h-36 w-full border-1px set-item-center overflow-hidden")
-        img(v-if="infoData.data.thumbnailLink !== undefined" class="h-full" referrerPolicy="no-referrer" :src="$globalF.setIcon(infoData.data.thumbnailLink)")
+        img(v-if="infoData.data.thumbnailLink !== undefined" class="h-full" referrerPolicy="no-referrer" :src="$utils.setIcon(infoData.data.thumbnailLink)")
         Icon(v-else icon="fluent:image-prohibited-20-regular" color="grayText" width="100" height="100%")
     .info-detail(class="p-4")
         .has-access(class="text-lg opacity-75") {{ $t('Who has access') }}
         .access(class="mt-5 mb-5 overflow-auto max-h-[60px]")
             .access-info(v-if="infoData.data.shared" v-for="user in infoData.data.permissions")
                 .access-arr(class="set-item-start  mb-1")
-                    img(v-if="user.photoLink !== undefined" :src="$globalF.setIcon(user.photoLink)" class="h-6 mr-1 rounded-full")
+                    img(v-if="user.photoLink !== undefined" :src="$utils.setIcon(user.photoLink)" class="h-6 mr-1 rounded-full")
                     Icon(v-else icon="ci:link" color="#FFFFFF" width="25" height="25" class="bg-lime-600 mr-1 rounded-full")
                     .access {{ formatDisplayName(user) }}
             .access-info(v-else class="set-item-start h-14")
@@ -52,13 +52,13 @@
 </template>
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { globalMethod } from '@/stores/useStore';
+import { commonUtilities } from '@/stores/useStore';
 import type { drive_v3 } from '@googleapis/drive/v3';
-const $globalMethod = globalMethod();
-const $emitter = $globalMethod.$emitter;
-const $TYPE = $globalMethod.$TYPE;
-const $t = $globalMethod.$t;
-const $globalF = $globalMethod.$globalFunction;
+const $commonUtilities = commonUtilities();
+const $emitter = $commonUtilities.$emitter;
+const $TYPE = $commonUtilities.$TYPE;
+const $t = $commonUtilities.$t;
+const $utils = $commonUtilities.$utils;
 const infoData: InfoData = reactive({});
 
 interface InfoData {

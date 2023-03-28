@@ -15,11 +15,11 @@ a-modal(v-model:visible="pageState.isShowMsg"
 <script setup lang="ts">
 import GoogleAPI from '@/apis/googleAPI';
 import { ref, onMounted } from 'vue';
-import { globalMethod } from '@/stores/useStore';
+import { commonUtilities } from '@/stores/useStore';
 const apis = new GoogleAPI();
-const $globalMethod = globalMethod();
-const $emitter = $globalMethod.$emitter;
-const $t = $globalMethod.$t;
+const $commonUtilities = commonUtilities();
+const $emitter = $commonUtilities.$emitter;
+const $t = $commonUtilities.$t;
 
 interface props {
     pageState: {

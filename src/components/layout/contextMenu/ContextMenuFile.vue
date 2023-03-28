@@ -2,7 +2,7 @@
 div(class="w-[250px]")
     .control-area
         a-menu-item
-            .control-item(@click="$globalF.openFileView(fileData.webViewLink)")
+            .control-item(@click="$utils.openFileView(fileData.webViewLink)")
                 .icon
                     custom-icon(:iconStr="'preview'")
                 span {{ $t("Preview") }}
@@ -34,9 +34,9 @@ update-file-name(:pageState="updateFileModalProps" @closeModal="updateFileModalP
 import { reactive } from 'vue';
 import DeleteFileModal from '@/components/modal/DeleteFileModal.vue';
 import UpdateFileName from '@/components/modal/UpdateFileNameModal.vue';
-import { globalMethod } from '@/stores/useStore';
-const $globalMethod = globalMethod();
-const $globalF = $globalMethod.$globalFunction;
+import { commonUtilities } from '@/stores/useStore';
+const $commonUtilities = commonUtilities();
+const $utils = $commonUtilities.$utils;
 
 interface Props {
     fileData: {

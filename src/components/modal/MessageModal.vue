@@ -2,10 +2,10 @@
 a-space
 </template>
 <script setup lang="ts">
-import { globalMethod } from '@/stores/useStore';
+import { commonUtilities } from '@/stores/useStore';
 import { message } from 'ant-design-vue';
-const $globalMethod = globalMethod();
-const $emitter = $globalMethod.$emitter;
+const $commonUtilities = commonUtilities();
+const $emitter = $commonUtilities.$emitter;
 
 $emitter.on('show-success-msg', (msg) => {
     message.success(msg as string);

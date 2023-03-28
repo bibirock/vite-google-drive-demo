@@ -8,7 +8,7 @@
                         custom-icon(:iconStr="'myDrive'")
                         .title(class="text-[22px] text-slate-500") {{ $t('My Drive') }}
                     .has-data(v-else class="flex")
-                        img(:src="$globalF.setIcon(infoData.data.iconLink)" class="w-5 h-5 mt-2 mr-[10px] set-item-start")
+                        img(:src="$utils.setIcon(infoData.data.iconLink)" class="w-5 h-5 mt-2 mr-[10px] set-item-start")
                         a-tooltip(placement="bottom")
                             template(#title) {{ infoData.data.name }}
                             .title(class="text-[22px] text-slate-500 w-40 truncate") {{ infoData.data.name }}
@@ -22,13 +22,13 @@
 
 <script setup lang="ts">
 import { reactive, markRaw, defineComponent } from 'vue';
-import { globalMethod } from '@/stores/useStore';
+import { commonUtilities } from '@/stores/useStore';
 import InfoMenuDetail from '@/components/layout/infoMenuItem/InfoMenuDetail.vue';
 import InfoMenuActivity from '@/components/layout/infoMenuItem/InfoMenuActivity.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
-const $globalMethod = globalMethod();
-const $globalF = $globalMethod.$globalFunction;
-const $emitter = $globalMethod.$emitter;
+const $commonUtilities = commonUtilities();
+const $utils = $commonUtilities.$utils;
+const $emitter = $commonUtilities.$emitter;
 const emit = defineEmits(['closeInfoMenu']);
 
 interface Views {

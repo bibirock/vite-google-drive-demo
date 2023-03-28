@@ -14,9 +14,9 @@
 <script setup lang="ts">
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
 import { useRoute } from 'vue-router';
-import { globalMethod } from '@/stores/useStore';
-const $globalMethod = globalMethod();
-const $t = $globalMethod.$t;
+import { commonUtilities } from '@/stores/useStore';
+const $commonUtilities = commonUtilities();
+const $t = $commonUtilities.$t;
 const route = useRoute();
 const emit = defineEmits(['openInfoMenu']);
 

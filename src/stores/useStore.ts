@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia';
 import apiKey from './apiKey';
-import { TokenDataType } from './typs.mjs';
-import { globalFunction, TYPE } from '@/globalMethods/global';
+import { TokenDataType } from './type.js';
+import { utils, TYPE } from '@/utils/utils';
 import { emitter } from '@/main';
 import { i18n } from '@/locales/lang.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore：
 const { t } = i18n.global;
 
-export const globalMethod = defineStore('globalMethod', {
+export const commonUtilities = defineStore('commonUtilities', {
     state: () => ({
-        $globalFunction: globalFunction,
+        $utils: utils,
         $TYPE: TYPE,
         $emitter: emitter,
         $t: t

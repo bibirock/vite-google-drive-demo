@@ -39,7 +39,7 @@
 					span {{$t('Recent')}}
 				a-menu-item(key="5")
 					template(#icon)
-						custom-icon(:iconStr="'starrted'")
+						custom-icon(:iconStr="'starred'")
 					span {{$t('Starred')}}
 				a-menu-item(key="6")
 					template(#icon)
@@ -55,15 +55,15 @@
 <script setup lang="ts">
 import GoogleAPI from '@/apis/googleAPI';
 import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
-import { globalMethod } from '@/stores/useStore';
+import { commonUtilities } from '@/stores/useStore';
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import type { drive_v3 } from '@googleapis/drive/v3';
 const router = useRouter();
 const route = useRoute();
-const $globalMethod = globalMethod();
-const $TYPE = $globalMethod.$TYPE;
-const $t = $globalMethod.$t;
+const $commonUtilities = commonUtilities();
+const $TYPE = $commonUtilities.$TYPE;
+const $t = $commonUtilities.$t;
 
 const apis = new GoogleAPI();
 const state = reactive({

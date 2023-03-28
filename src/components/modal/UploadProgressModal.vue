@@ -19,10 +19,10 @@ a-modal(v-model:visible="isShowModal"
 
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
-import { linStore, globalMethod } from '@/stores/useStore';
-const $globalMethod = globalMethod();
+import { linStore, commonUtilities } from '@/stores/useStore';
+const $commonUtilities = commonUtilities();
 const pinia = linStore();
-const $emitter = $globalMethod.$emitter;
+const $emitter = $commonUtilities.$emitter;
 const strokeColor = reactive({
     '0%': '#108ee9',
     '100%': '#87d068'
@@ -34,12 +34,12 @@ $emitter.on('show-upload-progress', openUploadProgress);
 
 const uploadProgress = computed(() => {
     if (pinia.getProgress === 100) {
-        clearProgree();
+        clearProgress();
     }
     return pinia.getProgress;
 });
 
-function clearProgree() {
+function clearProgress() {
     setTimeout(() => {
         isShowModal.value = false;
         setTimeout(() => {

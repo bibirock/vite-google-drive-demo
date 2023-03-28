@@ -13,7 +13,7 @@ nav#nav-bar
                 .search-result-area(v-show="searchResult !== undefined && searchResult.length > 0 && inputValue !== '' && isFocus" class="absolute top-11 border-solid border-2 border-gray-300 max-w-[500px] min-w-[230px] w-full min-h-[50px] max-h-[200px] overflow-auto bg-white rounded-b-lg")
                     .search-result-item(v-for="(item,i) in searchResult" :key="i" )
                         .result-body(class="hover:bg-slate-100 h-[50px] flex items-center" @click="goToFile(item)" @mousedown.prevent)
-                            img(:src="$globalF.setIcon(item.iconLink)" class="h-5 w-5 ml-[10px] mr-[10px]")
+                            img(:src="$utils.setIcon(item.iconLink)" class="h-5 w-5 ml-[10px] mr-[10px]")
                             .name {{ item.name }}
             .setting(class="ml-7")
                 a-dropdown(:trigger="['click']")
@@ -29,12 +29,12 @@ import GoogleAPI from '@/apis/googleAPI';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { globalMethod } from '@/stores/useStore';
+import { commonUtilities } from '@/stores/useStore';
 import type { drive_v3 } from '@googleapis/drive/v3';
-const $globalMethod = globalMethod();
-const $globalF = $globalMethod.$globalFunction;
-const $emitter = $globalMethod.$emitter;
-const $TYPE = $globalMethod.$TYPE;
+const $commonUtilities = commonUtilities();
+const $utils = $commonUtilities.$utils;
+const $emitter = $commonUtilities.$emitter;
+const $TYPE = $commonUtilities.$TYPE;
 const apis = new GoogleAPI();
 const { locale } = useI18n();
 const router = useRouter();
@@ -77,8 +77,8 @@ function inputBlur() {
 }
 
 function goToFile(item: drive_v3.Schema$File) {
-    if (item.mimeType === $TYPE.GOOGLE_FOLDER) return $globalF.goToFolder(item.id);
-    $globalF.openFileView(item.webViewLink);
+    if (item.mimeType === $TYPE.GOOGLE_FOLDER) return $utils.goToFolder(item.id);
+    $utils.openFileView(item.webViewLink);
     inputBlur();
 }
 </script>

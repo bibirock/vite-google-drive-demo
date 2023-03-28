@@ -15,13 +15,13 @@ a-modal(v-model:visible="pageState.isShowMsg"
     span(v-if="inputErr" class="text-red-600") {{ $t("Name confirm error") }}
 </template>
 <script setup lang="ts">
-import { globalMethod } from '@/stores/useStore';
+import { commonUtilities } from '@/stores/useStore';
 import GoogleAPI from '@/apis/googleAPI';
 import { ref } from 'vue';
 const apis = new GoogleAPI();
-const $globalMethod = globalMethod();
-const $emitter = $globalMethod.$emitter;
-const $t = $globalMethod.$t;
+const $commonUtilities = commonUtilities();
+const $emitter = $commonUtilities.$emitter;
+const $t = $commonUtilities.$t;
 
 interface props {
     pageState: {
@@ -52,4 +52,3 @@ async function confirmInput() {
     inputErr.value = true;
 }
 </script>
-<style scoped></style>
