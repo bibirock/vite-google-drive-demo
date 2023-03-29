@@ -2,11 +2,11 @@
 a-dropdown(:trigger="['contextmenu']" )
     div
         #my-drive-page()
-            .empty-folder(v-if="folderList?.length === 0 && fileList?.length === 0 && !showLoading" class="set-item-center flex-col h-screen mt-[-50px]")
+            .empty-folder(v-if="folderList.length === 0 && fileList.length === 0 && !showLoading" class="set-item-center flex-col h-screen mt-[-50px]")
                 Icon(icon="fluent-emoji-high-contrast:open-file-folder" :class="'opacity-90'" color="#6f6f6f" width="100" height="100")
                 span(class="mt-1 text-slate-500") {{ $t('Empty folder you can use new') }}
             loading(v-if="showLoading")
-            .page-content(v-else-if="folderList?.length !== 0 || fileList?.length !== 0 " class="pr-5" @contextmenu.capture="openContextMenu(['toOmit'])")
+            .page-content(v-else-if="folderList.length !== 0 || fileList.length !== 0 " class="pr-5" @contextmenu.capture="openContextMenu(['toOmit'])")
                 div(class="ml-6 md:ml-0 set-item-between mt-2 mb-5 md:pr-[50px]")
                     div {{ $t('Folder') }}
                     div(class="flex")
@@ -124,27 +124,30 @@ watch(
     }
 );
 
+type FileList = NonNullable<drive_v3.Schema$FileList['files']>;
+
 async function getDriveList() {
     const res = await apis.getDriveRootListByAPI();
-    setPageContent(res);
+    setPageContent(res as FileList);
 }
 
 async function refreshPage(folderId: drive_v3.Schema$File['id']) {
     const res = await apis.getFolderItemByAPI(folderId);
-    setPageContent(res);
+    setPageContent(res as FileList);
 }
 
-const folderList = ref<drive_v3.Schema$FileList['files']>();
-const fileList = ref<drive_v3.Schema$FileList['files']>();
-function setPageContent(res: drive_v3.Schema$FileList['files']) {
+const folderList = ref<FileList>([]);
+const fileList = ref<FileList>([]);
+function setPageContent(res: FileList) {
     folderList.value = filterFolder(res);
     fileList.value = filterFolder(res, true);
     showLoading.value = false;
 }
 
-function filterFolder(arr: drive_v3.Schema$FileList['files'], file = false) {
-    if (file === false) return arr?.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
-    if (file === true) return arr?.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
+function filterFolder(arr: FileList, file = false) {
+    if (file === false) return arr.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
+    if (file === true) return arr.filter((item) => item.mimeType !== $TYPE.GOOGLE_FOLDER);
+    return [];
 }
 
 const fileData = ref();
@@ -160,8 +163,8 @@ function openContextMenu(data: Array<string | drive_v3.Schema$File>) {
 
 const reverseIcon = ref('akar-icons:arrow-up');
 function reverseList() {
-    folderList.value?.reverse();
-    fileList.value?.reverse();
+    folderList.value.reverse();
+    fileList.value.reverse();
     reverseIcon.value === 'akar-icons:arrow-up' ? (reverseIcon.value = 'akar-icons:arrow-down') : (reverseIcon.value = 'akar-icons:arrow-up');
 }
 </script>
