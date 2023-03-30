@@ -9,29 +9,29 @@ a-modal(v-model:visible="pageState.isShowMsg"
 	width="340px"
 	centered=true
 	@ok="createFolder()")
-	input( v-model.trim="newFolderName" @keypress.enter="createFolder()" :placeholder='$t("Untitled folder")' :class="'w-[100%] px-[10px] h-[40px] rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400'")
+	input(v-model.trim="newFolderName" @keypress.enter="createFolder()" :placeholder='$t("Untitled folder")' class="w-full px-[10px] h-10 rounded-md border-2 border-slate-300 hover:border-slate-400 active:border-sky-400")
 </template>
 
 <script setup lang="ts">
 import type { drive_v3 } from '@googleapis/drive/v3';
-import { globalMethod } from '@/stores/lin';
+import { commonUtilities } from '@/stores/useStore';
 import { useRoute } from 'vue-router';
 import { ref } from 'vue';
 import GoogleAPI from '@/apis/googleAPI';
-const $globalMethod = globalMethod();
-const $emitter = $globalMethod.$emitter;
-const $t = $globalMethod.$t;
+const $commonUtilities = commonUtilities();
+const $emitter = $commonUtilities.$emitter;
+const $t = $commonUtilities.$t;
 const apis = new GoogleAPI();
 const route = useRoute();
 
-interface props {
+interface Props {
     pageState: {
         isShowMsg: boolean;
     };
 }
 
 const emit = defineEmits(['closeModal']);
-defineProps<props>();
+defineProps<Props>();
 
 const isNewFolder = ref(false);
 const newFolderName = ref('');
@@ -41,7 +41,7 @@ async function createFolder() {
     isLock.value = false;
     const folderItem = setFolderItem();
     const res = await apis.createFolderByAPI(folderItem);
-    if (res.status === 200) onSeccess();
+    if (res.status === 200) onSuccess();
 
     setTimeout(() => {
         isLock.value = true;
@@ -64,7 +64,7 @@ function closeHandler() {
     newFolderName.value = '';
 }
 
-function onSeccess() {
+function onSuccess() {
     isNewFolder.value = false;
     $emitter.emit('show-success-msg', $t('Folder create success'));
     $emitter.emit('refresh-page');

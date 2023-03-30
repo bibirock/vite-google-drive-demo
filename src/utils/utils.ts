@@ -3,7 +3,7 @@ import type { drive_v3 } from '@googleapis/drive/v3';
 import { emitter } from '@/main';
 import router from '@/router';
 
-export const globalFunction = {
+export const utils = {
     openFileView: (viewLink: drive_v3.Schema$File['webViewLink']) => {
         window.open(viewLink as string, '_blank');
     },
@@ -12,8 +12,8 @@ export const globalFunction = {
         router.push({ name: 'my-drive-folders', params: { folderId: folderId } });
     },
 
-    sendFileDatil: (mataData: drive_v3.Schema$File | undefined) => {
-        emitter.emit('send-file-data', mataData);
+    sendFileDetail: (metaData: drive_v3.Schema$File | undefined) => {
+        emitter.emit('send-file-data', metaData);
     },
 
     copyLink: (link: drive_v3.Schema$File['webViewLink']) => {

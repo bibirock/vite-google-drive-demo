@@ -1,4 +1,4 @@
-import { linStore } from '../stores/lin';
+import { linStore } from '../stores/useStore';
 import axios, { AxiosResponse } from 'axios';
 import router from '@/router';
 import * as requireType from './requireTypes.mjs';

@@ -1,12 +1,12 @@
 <template lang="pug">
-.home-page.z-50.relative(:class="'h-screen overflow-hidden'")
-	nav-bar-vue(:class="'sticky top-0 z-50 bg-white shadow-md'")
-	bread-crumbs(@openInfoMenu='toggleInfoMenu()' :class="'sticky top-[60px] h-[50px]'")
+.home-page(class="h-screen overflow-hidden relative z-50")
+	nav-bar-vue(class="sticky top-0 z-50 bg-white shadow-md")
+	bread-crumbs(@openInfoMenu='toggleInfoMenu()' class="sticky top-[60px] h-[50px]")
 	.page-content.flex
-		side-menu-vue(:class="'shrink-0 '")
-		.conter(:class="'w-[100%] h-screen overflow-auto'")
+		side-menu-vue(class="shrink-0")
+		.conter(class="w-full h-screen overflow-auto")
 			router-view
-		.right-menu(v-show="isShowInfoMenu" :class="'hidden border-1px sticky top-0 md:block md:basis-[500px]'")
+		.right-menu(v-show="isShowInfoMenu" class="hidden border-1px sticky top-0 md:block md:basis-[500px]")
 			info-menu(@closeInfoMenu="isShowInfoMenu = false")
 message-modal
 upload-progress-modal
@@ -20,7 +20,7 @@ import navBarVue from '@/components/layout/navBar.vue';
 import BreadCrumbs from '@/components/layout/BreadCrumbs.vue';
 import InfoMenu from '@/components/layout/InfoMenu.vue';
 import { ref } from 'vue';
-import { linStore } from '@/stores/lin';
+import { linStore } from '@/stores/useStore';
 const pinia = linStore();
 
 checkLoginState();
