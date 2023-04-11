@@ -18,7 +18,7 @@ create-folder-modal(:pageState="createFolderModalProps" @closeModal="createFolde
 
 <script setup lang="ts">
 import CreateFolderModal from '@/components/modal/CreateFolderModal.vue';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import { commonUtilities } from '@/stores/useStore';
@@ -26,7 +26,6 @@ const $commonUtilities = commonUtilities();
 const $t = $commonUtilities.$t;
 const $emitter = $commonUtilities.$emitter;
 const route = useRoute();
-const apis = new GoogleAPI();
 defineProps<Props>();
 
 interface Props {
@@ -62,7 +61,7 @@ async function packageRequest(fileName: File['name'], data: Uint8Array) {
 
 async function uploadFileAndRefresh(fileMetadata: FileMetadata, data: Uint8Array) {
     $emitter.emit('show-upload-progress');
-    const res = await apis.toUploadFileByAPI(fileMetadata, data);
+    const res = await googleApi.toUploadFileByAPI(fileMetadata, data);
     if (res.status === 200) {
         successUpload(fileMetadata);
     }

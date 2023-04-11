@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import ContextMenuPage from '@/components/navigation/contextMenu/ContextMenuPage.vue';
 import { commonUtilities } from '@/stores/useStore';
 import { reactive, ref } from 'vue';
@@ -65,7 +65,6 @@ const $commonUtilities = commonUtilities();
 const $TYPE = $commonUtilities.$TYPE;
 const $t = $commonUtilities.$t;
 
-const apis = new GoogleAPI();
 const state = reactive({
     theme: 'li',
     selectedKeys: ['1'],
@@ -73,12 +72,12 @@ const state = reactive({
 });
 
 async function getFolderItem(id: drive_v3.Schema$File['id']) {
-    await apis.getFolderItemByAPI(id);
+    await googleApi.getFolderItemByAPI(id);
 }
 
 const folderList = ref<drive_v3.Schema$File[]>();
 async function getFileList() {
-    const res = await apis.getDriveRootListByAPI();
+    const res = await googleApi.getDriveRootListByAPI();
     if (res === undefined) return;
     const folderListArr = res.filter((item) => item.mimeType === $TYPE.GOOGLE_FOLDER);
     folderList.value = folderListArr;
@@ -89,5 +88,3 @@ function goMyDrive() {
     router.push('/drive/my-drive');
 }
 </script>
-
-<style lang="scss"></style>

@@ -25,7 +25,7 @@ nav#nav-bar
 </template>
 
 <script setup lang="ts">
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
@@ -35,7 +35,6 @@ const $commonUtilities = commonUtilities();
 const $utils = $commonUtilities.$utils;
 const $emitter = $commonUtilities.$emitter;
 const $TYPE = $commonUtilities.$TYPE;
-const apis = new GoogleAPI();
 const { locale } = useI18n();
 const router = useRouter();
 
@@ -56,7 +55,7 @@ const inputValue = ref<string>('');
 const searchResult = ref<drive_v3.Schema$FileList['files']>();
 async function getSearchData() {
     if (inputValue.value === '') return;
-    const res = await apis.searchFileByAPI(inputValue.value);
+    const res = await googleApi.searchFileByAPI(inputValue.value);
     searchResult.value = res;
 }
 

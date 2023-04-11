@@ -20,12 +20,11 @@
 <script setup lang="ts">
 import Loading from '@/components/transitions/LoadingIcon.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
-import { ref, watch, onMounted, Ref } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { commonUtilities } from '@/stores/useStore';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { useRoute } from 'vue-router';
 const $commonUtilities = commonUtilities();
-const apis = new GoogleAPI();
 const route = useRoute();
 
 const $utils = $commonUtilities.$utils;
@@ -42,7 +41,7 @@ onMounted(() => {
 });
 
 async function getSearchResult(query: drive_v3.Schema$Drive['name']) {
-    const res = await apis.searchFileByAPI(query);
+    const res = await googleApi.searchFileByAPI(query);
     setPageContent(res as drive_v3.Schema$FileList['files']);
 }
 

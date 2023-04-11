@@ -16,9 +16,8 @@ div(v-else)
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { linStore } from '@/stores/useStore';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 const { userAgent } = navigator;
-const apis = new GoogleAPI();
 const pinia = linStore();
 const router = useRouter();
 
@@ -50,7 +49,7 @@ function loginGoogle() {
 }
 
 async function toGetTokenByAPI(code: google.accounts.oauth2.CodeResponse) {
-    const res = await apis.getAccountTokenByAPI(code.code);
+    const res = await googleApi.getAccountTokenByAPI(code.code);
     pinia.changeTokenData(res);
     loginSuccess(res);
 }

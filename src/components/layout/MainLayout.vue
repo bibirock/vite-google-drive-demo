@@ -36,5 +36,3 @@ function toggleInfoMenu() {
     isShowInfoMenu.value === true ? (isShowInfoMenu.value = false) : (isShowInfoMenu.value = true);
 }
 </script>
-
-<style scoped></style>

@@ -17,11 +17,10 @@ import type { drive_v3 } from '@googleapis/drive/v3';
 import { commonUtilities } from '@/stores/useStore';
 import { useRoute } from 'vue-router';
 import { ref } from 'vue';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 const $commonUtilities = commonUtilities();
 const $emitter = $commonUtilities.$emitter;
 const $t = $commonUtilities.$t;
-const apis = new GoogleAPI();
 const route = useRoute();
 
 interface Props {
@@ -40,7 +39,7 @@ async function createFolder() {
     if (!isLock.value) return;
     isLock.value = false;
     const folderItem = setFolderItem();
-    const res = await apis.createFolderByAPI(folderItem);
+    const res = await googleApi.createFolderByAPI(folderItem);
     if (res.status === 200) onSuccess();
 
     setTimeout(() => {
@@ -71,6 +70,7 @@ function onSuccess() {
     emit('closeModal');
 }
 </script>
+
 <style lang="scss">
 .newFolderModal {
     .ant-modal-title {

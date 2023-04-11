@@ -13,10 +13,9 @@ a-modal(v-model:visible="pageState.isShowMsg"
 </template>
 
 <script setup lang="ts">
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { ref, onMounted } from 'vue';
 import { commonUtilities } from '@/stores/useStore';
-const apis = new GoogleAPI();
 const $commonUtilities = commonUtilities();
 const $emitter = $commonUtilities.$emitter;
 const $t = $commonUtilities.$t;
@@ -39,8 +38,8 @@ async function updateFile() {
     if (!isLock.value) return;
     isLock.value = false;
     const folderItem = setFolderItem();
-    const res = await apis.toUpdateFileNameByAPI(folderItem);
-    if (res.status === 200) onSeccess();
+    const res = await googleApi.toUpdateFileNameByAPI(folderItem);
+    if (res.status === 200) onSuccess();
 
     setTimeout(() => {
         isLock.value = true;
@@ -65,7 +64,7 @@ function closeHandler() {
     newFileName.value = '';
 }
 
-function onSeccess() {
+function onSuccess() {
     $emitter.emit('show-success-msg', $t('File name update success'));
     $emitter.emit('refresh-page');
     emit('closeModal');

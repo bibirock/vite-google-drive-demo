@@ -16,9 +16,8 @@ a-modal(v-model:visible="pageState.isShowMsg"
 </template>
 <script setup lang="ts">
 import { commonUtilities } from '@/stores/useStore';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { ref } from 'vue';
-const apis = new GoogleAPI();
 const $commonUtilities = commonUtilities();
 const $emitter = $commonUtilities.$emitter;
 const $t = $commonUtilities.$t;
@@ -36,7 +35,7 @@ const props = defineProps<props>();
 const emit = defineEmits(['closeModal']);
 
 async function deleteFile(fileId: string) {
-    await apis.toTrashFileByAPI(fileId);
+    await googleApi.toTrashFileByAPI(fileId);
     $emitter.emit('show-success-msg', $t('File moved to trash'));
     $emitter.emit('refresh-page');
 }

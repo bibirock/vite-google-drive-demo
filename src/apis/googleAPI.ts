@@ -1,11 +1,14 @@
 import { linStore } from '../stores/useStore';
 import axios, { AxiosResponse } from 'axios';
 import router from '@/router';
-import * as requireType from './requireTypes.mjs';
 import type { drive_v3 } from '@googleapis/drive/v3';
 const baseURL = 'https://www.googleapis.com/drive/v3';
 const pinia = linStore();
 const clientByPinia = pinia.googleClientData;
+export interface UpdateFileParamsType {
+    fileId: string;
+    name: string | number;
+}
 
 axios.interceptors.response.use(
     (response) => {
@@ -16,7 +19,7 @@ axios.interceptors.response.use(
     }
 );
 
-export default class GoogleAPI {
+export const googleApi = {
     async getAccountTokenByAPI(params: google.accounts.oauth2.CodeResponse['code']): Promise<google.accounts.oauth2.TokenResponse> {
         const res = await axios({
             method: 'post',
@@ -34,7 +37,7 @@ export default class GoogleAPI {
             }
         });
         return res.data;
-    }
+    },
 
     async getDriveRootListByAPI(): Promise<drive_v3.Schema$FileList['files']> {
         const res = await axios({
@@ -48,7 +51,7 @@ export default class GoogleAPI {
             params: { q: `'root' in parents and trashed=false`, fields: '*' }
         });
         return res?.data?.files;
-    }
+    },
 
     async getFolderItemByAPI(folderId: drive_v3.Schema$File['id']): Promise<drive_v3.Schema$FileList['files']> {
         const res = await axios({
@@ -59,7 +62,7 @@ export default class GoogleAPI {
             params: { q: `'${folderId}' in parents and trashed=false`, fields: '*' }
         });
         return res?.data?.files;
-    }
+    },
 
     async searchFileByAPI(inputValue: drive_v3.Schema$Drive['name']): Promise<drive_v3.Schema$FileList['files']> {
         const res = await axios({
@@ -70,7 +73,7 @@ export default class GoogleAPI {
             params: { q: `name contains '${inputValue}' and trashed=false`, fields: '*' }
         });
         return res?.data?.files;
-    }
+    },
 
     async createFolderByAPI(params: drive_v3.Params$Resource$Files$Create['requestBody']): Promise<AxiosResponse> {
         const res = await axios({
@@ -85,7 +88,7 @@ export default class GoogleAPI {
             headers: { authorization: `Bearer ${pinia.tokenData.access_token}` }
         });
         return res;
-    }
+    },
 
     async toUploadFileByAPI(fileMetadata: unknown, data: Uint8Array): Promise<AxiosResponse> {
         const form = new FormData();
@@ -102,7 +105,7 @@ export default class GoogleAPI {
             headers: { authorization: `Bearer ${pinia.tokenData.access_token}` }
         });
         return res;
-    }
+    },
 
     async toTrashFileByAPI(params: string): Promise<AxiosResponse> {
         const res = await axios({
@@ -112,9 +115,9 @@ export default class GoogleAPI {
             headers: { authorization: `Bearer ${pinia.tokenData.access_token}` }
         });
         return res;
-    }
+    },
 
-    async toUpdateFileNameByAPI(params: requireType.toUpdateFileParamsType): Promise<AxiosResponse> {
+    async toUpdateFileNameByAPI(params: UpdateFileParamsType): Promise<AxiosResponse> {
         const res = await axios({
             method: 'patch',
             baseURL: baseURL,
@@ -126,4 +129,4 @@ export default class GoogleAPI {
         });
         return res;
     }
-}
+};
