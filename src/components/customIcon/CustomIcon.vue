@@ -139,4 +139,3 @@ interface props {
 }
 const props = defineProps<props>();
 </script>
-<style scoped></style>

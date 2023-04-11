@@ -1,9 +1,11 @@
 span {
     color: titleColor;
 }
-.control-item{
-    @apply set-item-start my-[5px] ml-[10px]
+
+.control-item {
+    @apply set-item-start my-1 ml-2
 }
-.icon{
-    @apply mr-[10px]
+
+.icon {
+    @apply mr-2
 }

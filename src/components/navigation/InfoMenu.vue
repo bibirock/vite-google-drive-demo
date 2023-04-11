@@ -14,7 +14,7 @@
                             .title(class="text-[22px] text-slate-500 w-40 truncate") {{ infoData.data.name }}
                 Icon(@click="closeInfoMenu()" icon="iconoir:cancel" color="grayText" width="25" height="25" class="cursor-pointer")
             .header-control(class="h-12 w-full set-item-around border-b-2")
-                .view(@click="switchView(view.component)" v-for="(view,i) in views" :key="i" class="w-[48%] h-[50px] set-item-center cursor-pointer opacity-80 border-b-4 border-transparent hover:border-b-4 hover:border-gray-500" :class="{ 'in-this-page': showBookmark(view.component)}") {{ $t(view.name) }}
+                .view(@click="switchView(view.component)" v-for="(view,i) in views" :key="i" class="w-[48%] h-[50px] set-item-center cursor-pointer opacity-80 border-b-4 border-transparent hover:border-b-4 hover:border-gray-500" :class="{ 'book-mark': showBookmark(view.component)}") {{ $t(view.name) }}
         .body 
             keep-alive
                 component(:is="current.views" :key="current.views")
@@ -72,8 +72,7 @@ function closeInfoMenu() {
 </script>
 
 <style scoped>
-.in-this-page {
-    border-color: #1a73e8;
-    color: #1a73e8;
+.book-mark {
+    @apply border-lightLight text-lightLight;
 }
 </style>

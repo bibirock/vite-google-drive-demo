@@ -3,7 +3,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
     :title='$t("Rename")'
     :ok-text='$t("OK")'
     :cancel-text='$t("Cancel")'
-    wrapClassName="newFolderModal"
+    wrapClassName="input-modal"
     :afterClose="closeHandler()"
     okType="create"
     width="340px"
@@ -70,44 +70,3 @@ function onSuccess() {
     emit('closeModal');
 }
 </script>
-<style lang="scss">
-.newFolderModal {
-    .ant-modal-title {
-        font-size: 1.375rem;
-        font-weight: 500;
-        line-height: 1.5rem;
-        margin-top: 0;
-    }
-
-    .ant-modal-header {
-        border-bottom: none;
-        border-radius: 8px;
-        padding-bottom: 0;
-    }
-
-    .ant-modal-content {
-        border-radius: 8px;
-    }
-
-    .ant-modal-close-x {
-        display: none;
-    }
-
-    .ant-modal-footer {
-        border: none;
-
-        .ant-btn {
-            border: none;
-            letter-spacing: -1px;
-
-            &:hover {
-                background-color: rgb(244, 243, 243);
-            }
-        }
-
-        .ant-btn-create {
-            color: #1967d2;
-        }
-    }
-}
-</style>

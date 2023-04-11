@@ -52,13 +52,3 @@ function openUploadProgress() {
     isShowModal.value = true;
 }
 </script>
-<style lang="scss">
-.loading-modal {
-    .ant-modal-content {
-        border-radius: 6px;
-    }
-    .ant-modal-close-x {
-        display: none;
-    }
-}
-</style>
