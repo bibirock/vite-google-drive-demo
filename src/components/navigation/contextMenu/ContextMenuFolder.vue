@@ -5,17 +5,17 @@ div(class="w-[250px]")
             .control-item(@click="updateFileModalProps.isShowMsg = true")
                 .icon
                     custom-icon(:iconStr="'rename'")
-                span {{ $t("Rename") }}
+                span(class="menu-item") {{ $t("Rename") }}
         a-menu-item
             .control-item(@click="deleteFileModalProps.isShowMsg = true")
                 .icon
                     custom-icon(:iconStr="'delete'")
-                span {{ $t("Delete") }}
+                span(class="menu-item") {{ $t("Delete") }}
         a-menu-item
             .control-item(@click="getLink()")
                 .icon
                     custom-icon(:iconStr="'getLink'")
-                span {{ $t("Get link") }}
+                span(class="menu-item") {{ $t("Get link") }}
 delete-file-modal(:pageState="deleteFileModalProps" @closeModal="deleteFileModalProps.isShowMsg = false")
 update-file-name(:pageState="updateFileModalProps" @closeModal="updateFileModalProps.isShowMsg = false")
 </template>
@@ -60,6 +60,3 @@ async function getLink() {
     $emitter.emit('show-success-msg', $t('Link copied to clipboard'));
 }
 </script>
-<style lang="scss" scoped>
-@import './ContextMenu.scss';
-</style>

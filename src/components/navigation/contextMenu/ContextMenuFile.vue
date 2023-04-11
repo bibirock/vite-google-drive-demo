@@ -5,27 +5,27 @@ div(class="w-[250px]")
             .control-item(@click="$utils.openFileView(fileData.webViewLink)")
                 .icon
                     custom-icon(:iconStr="'preview'")
-                span {{ $t("Preview") }}
+                span(class="menu-item") {{ $t("Preview") }}
         a-menu-item
             .control-item(@click="downloadFile(fileData.webContentLink)")
                 .icon
                     custom-icon(:iconStr="'download'")
-                span {{ $t("Download") }}
+                span(class="menu-item") {{ $t("Download") }}
         a-menu-item
             .control-item(@click="updateFileModalProps.isShowMsg = true")
                 .icon
                     custom-icon(:iconStr="'rename'")
-                span {{ $t("Rename") }}
+                span(class="menu-item") {{ $t("Rename") }}
         a-menu-item
             .control-item(@click="deleteFileModalProps.isShowMsg = true")
                 .icon
                     custom-icon(:iconStr="'delete'")
-                span {{ $t("Delete") }}
-        a-menu-item|
+                span(class="menu-item") {{ $t("Delete") }}
+        a-menu-item
             .control-item
                 .icon
                     custom-icon(:iconStr="'getLink'")
-                span {{ $t("Get link") }}
+                span(class="menu-item") {{ $t("Get link") }}
 delete-file-modal(:pageState="deleteFileModalProps" @closeModal="deleteFileModalProps.isShowMsg = false")
 update-file-name(:pageState="updateFileModalProps" @closeModal="updateFileModalProps.isShowMsg = false")
 </template>
@@ -67,7 +67,3 @@ function downloadFile(link: string) {
     window.location.assign(link);
 }
 </script>
-
-<style lang="scss" scoped>
-@import './ContextMenu.scss';
-</style>

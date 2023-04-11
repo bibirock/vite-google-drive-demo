@@ -5,13 +5,13 @@ div(class="w-[250px]")
             .control-item(@click="createFolderModalProps.isShowMsg = true")
                 .icon
                     custom-icon(:iconStr="'newFolder'")
-                span {{ $t("New folder") }}
+                span(class="menu-item") {{ $t("New folder") }}
         a-menu-item
             label(form="fileUpload" class="cursor-pointer")
                 .control-item
                     .icon
                         custom-icon(:iconStr="'fileUpload'")
-                    span {{ $t("File upload") }}
+                    span(class="menu-item") {{ $t("File upload") }}
                     input(:key="refreshKey" type="file" id="fileUpload" multiple class="hidden" @change="getFileData()" ref="inputElement")
 create-folder-modal(:pageState="createFolderModalProps" @closeModal="createFolderModalProps.isShowMsg = false")
 </template>
@@ -76,7 +76,3 @@ const createFolderModalProps = reactive({
     isShowMsg: false
 });
 </script>
-
-<style lang="scss" scoped>
-@import './ContextMenu.scss';
-</style>
