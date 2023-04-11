@@ -4,14 +4,14 @@
         .header
             .header-info(class="h-[72px] set-item-around")
                 .file-name
-                    .no-chose-data(v-if="infoData.data == undefined" class="flex")
+                    .no-chose-data(v-if="infoData == undefined" class="flex")
                         custom-icon(:iconStr="'myDrive'")
                         .title(class="text-[22px] text-slate-500") {{ $t('My Drive') }}
                     .has-data(v-else class="flex")
-                        img(:src="$utils.setIcon(infoData.data.iconLink)" class="w-5 h-5 mt-2 mr-[10px] set-item-start")
+                        img(:src="$utils.setIcon(infoData.iconLink)" class="w-5 h-5 mt-2 mr-[10px] set-item-start")
                         a-tooltip(placement="bottom")
-                            template(#title) {{ infoData.data.name }}
-                            .title(class="text-[22px] text-slate-500 w-40 truncate") {{ infoData.data.name }}
+                            template(#title) {{ infoData.name }}
+                            .title(class="text-[22px] text-slate-500 w-40 truncate") {{ infoData.name }}
                 Icon(@click="closeInfoMenu()" icon="iconoir:cancel" color="grayText" width="25" height="25" class="cursor-pointer")
             .header-control(class="h-12 w-full set-item-around border-b-2")
                 .view(@click="switchView(view.component)" v-for="(view,i) in views" :key="i" class="w-[48%] h-[50px] set-item-center cursor-pointer opacity-80 border-b-4 border-transparent hover:border-b-4 hover:border-gray-500" :class="{ 'book-mark': showBookmark(view.component)}") {{ $t(view.name) }}
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, markRaw, defineComponent } from 'vue';
+import { reactive, markRaw, defineComponent, ref } from 'vue';
 import { commonUtilities } from '@/stores/useStore';
 import InfoMenuDetail from '@/components/navigation/infoMenuItem/InfoMenuDetail.vue';
 import InfoMenuActivity from '@/components/navigation/infoMenuItem/InfoMenuActivity.vue';
@@ -36,10 +36,6 @@ interface Views {
     component: ReturnType<typeof defineComponent>;
 }
 
-interface InfoData {
-    data?: drive_v3.Schema$File;
-}
-
 const views: Array<Views> = reactive([
     {
         name: 'Details',
@@ -50,6 +46,7 @@ const views: Array<Views> = reactive([
         component: markRaw(InfoMenuActivity)
     }
 ]);
+
 function switchView(component: Views['component']) {
     current.views = component;
 }
@@ -61,9 +58,9 @@ function showBookmark(page: Views) {
     if (page === current.views) return true;
 }
 
-const infoData: InfoData = reactive({});
+const infoData = ref();
 $emitter.on('send-file-data', (data) => {
-    infoData.data = data as InfoData['data'];
+    infoData.value = data as drive_v3.Schema$File;
 });
 
 function closeInfoMenu() {
