@@ -1,0 +1,14 @@
+@layer components {
+
+    .control-item {
+        @apply set-item-start my-1 ml-2;
+    }
+
+    .icon {
+        @apply mr-2;
+    }
+
+    .menu-item {
+        @apply text-titleColor;
+    }
+}

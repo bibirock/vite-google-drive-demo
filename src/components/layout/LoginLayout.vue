@@ -16,9 +16,8 @@ div(v-else)
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { linStore } from '@/stores/useStore';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 const { userAgent } = navigator;
-const apis = new GoogleAPI();
 const pinia = linStore();
 const router = useRouter();
 
@@ -50,7 +49,7 @@ function loginGoogle() {
 }
 
 async function toGetTokenByAPI(code: google.accounts.oauth2.CodeResponse) {
-    const res = await apis.getAccountTokenByAPI(code.code);
+    const res = await googleApi.getAccountTokenByAPI(code.code);
     pinia.changeTokenData(res);
     loginSuccess(res);
 }
@@ -60,33 +59,3 @@ function loginSuccess(tokenData: object) {
     window.sessionStorage.setItem('token', JSON.stringify(tokenData));
 }
 </script>
-
-<style lang="scss" scoped>
-.ant-carousel :deep(.slick-slide) {
-    text-align: center;
-    height: 100vh;
-    overflow: hidden;
-}
-.ant-carousel :deep(.slick-arrow.custom-slick-arrow) {
-    width: 25px;
-    height: 25px;
-    font-size: 25px;
-    color: black;
-    background-color: rgba(31, 45, 61, 0.11);
-    opacity: 0.3;
-    z-index: 1;
-}
-.ant-carousel :deep(.custom-slick-arrow:before) {
-    display: none;
-}
-.ant-carousel :deep(.custom-slick-arrow:hover) {
-    opacity: 0.5;
-}
-</style>
-
-<style>
-.ant-carousel .slick-dots-bottom li button {
-    background-color: black !important;
-    color: black;
-}
-</style>

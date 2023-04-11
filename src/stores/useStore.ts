@@ -1,12 +1,15 @@
 import { defineStore } from 'pinia';
 import apiKey from './apiKey';
-import { TokenDataType } from './type.js';
 import { utils, TYPE } from '@/utils/utils';
 import { emitter } from '@/main';
 import { i18n } from '@/locales/lang.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore：
 const { t } = i18n.global;
+
+export interface TokenDataType {
+    access_token: string;
+}
 
 export const commonUtilities = defineStore('commonUtilities', {
     state: () => ({

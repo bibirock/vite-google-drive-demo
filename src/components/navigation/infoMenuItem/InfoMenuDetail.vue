@@ -1,17 +1,17 @@
 <template lang="pug">
-.noChooseFile(v-if="infoData.data == undefined")
+.noChooseFile(v-if="infoData == undefined")
     .img-area(class="flex flex-col mt-5")
         .img
             custom-icon(:iconStr="'fileDetail'")
         .text(class="mt-5 opacity-60 mx-auto") {{ $t('Select a file or folder to view its details') }}
 .info-area(v-else)
     .img(class="h-36 w-full border-1px set-item-center overflow-hidden")
-        img(v-if="infoData.data.thumbnailLink !== undefined" class="h-full" referrerPolicy="no-referrer" :src="$utils.setIcon(infoData.data.thumbnailLink)")
+        img(v-if="infoData.thumbnailLink !== undefined" class="h-full" referrerPolicy="no-referrer" :src="$utils.setIcon(infoData.thumbnailLink)")
         Icon(v-else icon="fluent:image-prohibited-20-regular" color="grayText" width="100" height="100%")
     .info-detail(class="p-4")
         .has-access(class="text-lg opacity-75") {{ $t('Who has access') }}
         .access(class="mt-5 mb-5 overflow-auto max-h-[60px]")
-            .access-info(v-if="infoData.data.shared" v-for="user in infoData.data.permissions")
+            .access-info(v-if="infoData.shared" v-for="user in infoData.permissions")
                 .access-arr(class="set-item-start  mb-1")
                     img(v-if="user.photoLink !== undefined" :src="$utils.setIcon(user.photoLink)" class="h-6 mr-1 rounded-full")
                     Icon(v-else icon="ci:link" color="#FFFFFF" width="25" height="25" class="bg-lime-600 mr-1 rounded-full")
@@ -26,32 +26,32 @@
                     tr
                         td(class="w-28") {{ $t("Type") }}
                         a-tooltip(placement="bottom")
-                            template(#title) {{ infoData.data.mimeType }}
-                            td {{ formatType(infoData.data.mimeType) }}
-                    tr(v-if="formatBytes(infoData.data.size) !== false")
+                            template(#title) {{ infoData.mimeType }}
+                            td {{ formatType(infoData.mimeType) }}
+                    tr(v-if="formatBytes(infoData.size) !== false")
                         td {{ $t("Size") }}
-                        td {{ formatBytes(infoData.data.size) }}
-                    tr(v-if="formatBytes(infoData.data.quotaBytesUsed) !== false")
+                        td {{ formatBytes(infoData.size) }}
+                    tr(v-if="formatBytes(infoData.quotaBytesUsed) !== false")
                         td {{ $t("Storage used") }}
-                        td {{ formatBytes(infoData.data.quotaBytesUsed) }}
+                        td {{ formatBytes(infoData.quotaBytesUsed) }}
                     tr
                         td {{ $t("Location") }}
-                        td {{ infoData.data.spaces?.join(",") }}
+                        td {{ infoData.spaces?.join(",") }}
                     tr
                         td {{ $t("Owner") }}
                         td {{ formatOwner(infoData) }}
                     tr
                         td {{ $t("Modified") }}
-                        td {{ formatDate(infoData.data.modifiedTime) }}
+                        td {{ formatDate(infoData.modifiedTime) }}
                     tr
                         td {{ $t("Opened") }}
-                        td {{ formatDate(infoData.data.viewedByMeTime) }}
+                        td {{ formatDate(infoData.viewedByMeTime) }}
                     tr
                         td {{ $t("Created") }}
-                        td {{ formatDate(infoData.data.createdTime) }}
+                        td {{ formatDate(infoData.createdTime) }}
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { ref } from 'vue';
 import { commonUtilities } from '@/stores/useStore';
 import type { drive_v3 } from '@googleapis/drive/v3';
 const $commonUtilities = commonUtilities();
@@ -59,14 +59,10 @@ const $emitter = $commonUtilities.$emitter;
 const $TYPE = $commonUtilities.$TYPE;
 const $t = $commonUtilities.$t;
 const $utils = $commonUtilities.$utils;
-const infoData: InfoData = reactive({});
-
-interface InfoData {
-    data?: drive_v3.Schema$File;
-}
+const infoData = ref();
 
 $emitter.on('send-file-data', (data) => {
-    infoData.data = data as InfoData['data'];
+    infoData.value = data as drive_v3.Schema$File;
 });
 
 function formatBytes(bytesStr: drive_v3.Schema$File['size'], decimals = 1) {
@@ -101,8 +97,8 @@ function formatDisplayName(user: drive_v3.Schema$Permission) {
     return user.displayName;
 }
 
-function formatOwner(infoData: InfoData) {
-    const owners = infoData.data?.owners as Array<drive_v3.Schema$User>;
+function formatOwner(infoData: drive_v3.Schema$File) {
+    const owners = infoData.owners as Array<drive_v3.Schema$User>;
     return owners[0].me ? $t('Me') : '';
 }
 </script>

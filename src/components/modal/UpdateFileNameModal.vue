@@ -3,7 +3,7 @@ a-modal(v-model:visible="pageState.isShowMsg"
     :title='$t("Rename")'
     :ok-text='$t("OK")'
     :cancel-text='$t("Cancel")'
-    wrapClassName="newFolderModal"
+    wrapClassName="input-modal"
     :afterClose="closeHandler()"
     okType="create"
     width="340px"
@@ -13,10 +13,9 @@ a-modal(v-model:visible="pageState.isShowMsg"
 </template>
 
 <script setup lang="ts">
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { ref, onMounted } from 'vue';
 import { commonUtilities } from '@/stores/useStore';
-const apis = new GoogleAPI();
 const $commonUtilities = commonUtilities();
 const $emitter = $commonUtilities.$emitter;
 const $t = $commonUtilities.$t;
@@ -39,8 +38,8 @@ async function updateFile() {
     if (!isLock.value) return;
     isLock.value = false;
     const folderItem = setFolderItem();
-    const res = await apis.toUpdateFileNameByAPI(folderItem);
-    if (res.status === 200) onSeccess();
+    const res = await googleApi.toUpdateFileNameByAPI(folderItem);
+    if (res.status === 200) onSuccess();
 
     setTimeout(() => {
         isLock.value = true;
@@ -65,50 +64,9 @@ function closeHandler() {
     newFileName.value = '';
 }
 
-function onSeccess() {
+function onSuccess() {
     $emitter.emit('show-success-msg', $t('File name update success'));
     $emitter.emit('refresh-page');
     emit('closeModal');
 }
 </script>
-<style lang="scss">
-.newFolderModal {
-    .ant-modal-title {
-        font-size: 1.375rem;
-        font-weight: 500;
-        line-height: 1.5rem;
-        margin-top: 0;
-    }
-
-    .ant-modal-header {
-        border-bottom: none;
-        border-radius: 8px;
-        padding-bottom: 0;
-    }
-
-    .ant-modal-content {
-        border-radius: 8px;
-    }
-
-    .ant-modal-close-x {
-        display: none;
-    }
-
-    .ant-modal-footer {
-        border: none;
-
-        .ant-btn {
-            border: none;
-            letter-spacing: -1px;
-
-            &:hover {
-                background-color: rgb(244, 243, 243);
-            }
-        }
-
-        .ant-btn-create {
-            color: #1967d2;
-        }
-    }
-}
-</style>

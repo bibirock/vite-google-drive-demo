@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createPinia } from 'pinia';
 import router from '@/router';
-import '@/index.css';
+import '@/index.scss';
 
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';

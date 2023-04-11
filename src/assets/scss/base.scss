@@ -1,20 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer components {
     .set-item-center {
         @apply flex justify-center items-center;
     }
+
     .set-item-between {
         @apply flex justify-between items-center;
     }
+
     .set-item-around {
         @apply flex justify-around items-center;
     }
+
     .set-item-start {
         @apply flex justify-start items-center;
     }
+
     .border-1px {
         @apply border-solid border border-gray-200;
     }
@@ -24,6 +24,7 @@
     html {
         font-family: 'Google Sans', Roboto, sans-serif;
     }
+
     td {
         @apply text-[13px] text-slate-500 pr-[15px] pt-[4px];
     }

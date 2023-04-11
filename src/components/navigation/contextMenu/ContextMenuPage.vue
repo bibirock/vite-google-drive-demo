@@ -5,20 +5,20 @@ div(class="w-[250px]")
             .control-item(@click="createFolderModalProps.isShowMsg = true")
                 .icon
                     custom-icon(:iconStr="'newFolder'")
-                span {{ $t("New folder") }}
+                span(class="menu-item") {{ $t("New folder") }}
         a-menu-item
             label(form="fileUpload" class="cursor-pointer")
                 .control-item
                     .icon
                         custom-icon(:iconStr="'fileUpload'")
-                    span {{ $t("File upload") }}
+                    span(class="menu-item") {{ $t("File upload") }}
                     input(:key="refreshKey" type="file" id="fileUpload" multiple class="hidden" @change="getFileData()" ref="inputElement")
 create-folder-modal(:pageState="createFolderModalProps" @closeModal="createFolderModalProps.isShowMsg = false")
 </template>
 
 <script setup lang="ts">
 import CreateFolderModal from '@/components/modal/CreateFolderModal.vue';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import { commonUtilities } from '@/stores/useStore';
@@ -26,7 +26,6 @@ const $commonUtilities = commonUtilities();
 const $t = $commonUtilities.$t;
 const $emitter = $commonUtilities.$emitter;
 const route = useRoute();
-const apis = new GoogleAPI();
 defineProps<Props>();
 
 interface Props {
@@ -62,7 +61,7 @@ async function packageRequest(fileName: File['name'], data: Uint8Array) {
 
 async function uploadFileAndRefresh(fileMetadata: FileMetadata, data: Uint8Array) {
     $emitter.emit('show-upload-progress');
-    const res = await apis.toUploadFileByAPI(fileMetadata, data);
+    const res = await googleApi.toUploadFileByAPI(fileMetadata, data);
     if (res.status === 200) {
         successUpload(fileMetadata);
     }
@@ -77,7 +76,3 @@ const createFolderModalProps = reactive({
     isShowMsg: false
 });
 </script>
-
-<style lang="scss" scoped>
-@import './ContextMenu.scss';
-</style>

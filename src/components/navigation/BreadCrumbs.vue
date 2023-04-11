@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
+import ContextMenuPage from '@/components/navigation/contextMenu/ContextMenuPage.vue';
 import { useRoute } from 'vue-router';
 import { commonUtilities } from '@/stores/useStore';
 const $commonUtilities = commonUtilities();

@@ -56,21 +56,20 @@ a-dropdown(:trigger="['contextmenu']" )
 </template>
 
 <script setup lang="ts">
-import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
-import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
-import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
+import ContextMenuFile from '@/components/navigation/contextMenu/ContextMenuFile.vue';
+import ContextMenuFolder from '@/components/navigation/contextMenu/ContextMenuFolder.vue';
+import ContextMenuPage from '@/components/navigation/contextMenu/ContextMenuPage.vue';
 import Loading from '@/components/transitions/LoadingIcon.vue';
 import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
 import { commonUtilities } from '@/stores/useStore';
-import GoogleAPI from '@/apis/googleAPI';
+import { googleApi } from '@/apis/googleApi.js';
 import { useRoute } from 'vue-router';
 
 const $commonUtilities = commonUtilities();
 const $utils = $commonUtilities.$utils;
 const $emitter = $commonUtilities.$emitter;
 const $TYPE = $commonUtilities.$TYPE;
-const apis = new GoogleAPI();
 const route = useRoute();
 
 interface menus {
@@ -127,12 +126,12 @@ watch(
 type FileList = NonNullable<drive_v3.Schema$FileList['files']>;
 
 async function getDriveList() {
-    const res = await apis.getDriveRootListByAPI();
+    const res = await googleApi.getDriveRootListByAPI();
     setPageContent(res as FileList);
 }
 
 async function refreshPage(folderId: drive_v3.Schema$File['id']) {
-    const res = await apis.getFolderItemByAPI(folderId);
+    const res = await googleApi.getFolderItemByAPI(folderId);
     setPageContent(res as FileList);
 }
 
