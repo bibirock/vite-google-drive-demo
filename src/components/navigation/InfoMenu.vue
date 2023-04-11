@@ -23,8 +23,8 @@
 <script setup lang="ts">
 import { reactive, markRaw, defineComponent } from 'vue';
 import { commonUtilities } from '@/stores/useStore';
-import InfoMenuDetail from '@/components/layout/infoMenuItem/InfoMenuDetail.vue';
-import InfoMenuActivity from '@/components/layout/infoMenuItem/InfoMenuActivity.vue';
+import InfoMenuDetail from '@/components/navigation/infoMenuItem/InfoMenuDetail.vue';
+import InfoMenuActivity from '@/components/navigation/infoMenuItem/InfoMenuActivity.vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
 const $commonUtilities = commonUtilities();
 const $utils = $commonUtilities.$utils;

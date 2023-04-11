@@ -56,9 +56,9 @@ a-dropdown(:trigger="['contextmenu']" )
 </template>
 
 <script setup lang="ts">
-import ContextMenuFile from '@/components/layout/contextMenu/ContextMenuFile.vue';
-import ContextMenuFolder from '@/components/layout/contextMenu/ContextMenuFolder.vue';
-import ContextMenuPage from '@/components/layout/contextMenu/ContextMenuPage.vue';
+import ContextMenuFile from '@/components/navigation/contextMenu/ContextMenuFile.vue';
+import ContextMenuFolder from '@/components/navigation/contextMenu/ContextMenuFolder.vue';
+import ContextMenuPage from '@/components/navigation/contextMenu/ContextMenuPage.vue';
 import Loading from '@/components/transitions/LoadingIcon.vue';
 import { ref, watch, onMounted, onBeforeUnmount, reactive, markRaw, defineComponent } from 'vue';
 import type { drive_v3 } from '@googleapis/drive/v3';
