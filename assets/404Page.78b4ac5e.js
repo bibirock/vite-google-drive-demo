@@ -1,1 +1,0 @@
-import{c as s,a as e,t as o,o as c,_ as n}from"./index.7f1a4e70.js";const r="/vite-google-drive-demo/vite-drive.png",i={class:"404-img flex flex-col justify-center items-center h-screen"},a=e("img",{src:r},null,-1),l={class:"mt-5 text-lg"};function _(t,m){return c(),s("div",i,[a,e("h1",l,o(t.$t("404 result not fount!")),1)])}const d={},g=n(d,[["render",_]]);export{g as default};
