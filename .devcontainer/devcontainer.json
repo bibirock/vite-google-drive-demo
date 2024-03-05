@@ -1,0 +1,63 @@
+/**
+* 參考資料：https://learn.microsoft.com/zh-tw/training/modules/use-docker-container-dev-env-vs-code/5-customize-settings
+*/
+{
+	"dockerComposeFile": "../docker/docker-compose.yml",
+	// 指定要打開的 docker-compose 服務
+	"service": "vite-google-drive-demo",
+	// 指定工作目錄
+	"workspaceFolder": "/root/drive-dev",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": ".."
+	},
+	"mounts": [
+		// 拷貝 .npmrc 中的登入資訊到開發容器中
+    "source=${env:HOME}/.npmrc,target=/root/.npmrc,type=bind",
+		// 拷貝 .gitconfig 相關資訊到開發容器中
+		"source=${env:HOME}/.gitconfig,target=/root/.gitconfig,type=bind",
+		// 拷貝 ssh 金鑰到開發容器中
+		"source=${env:HOME}/.ssh/,target=/root/.ssh,readonly,type=bind"
+  ],
+	"customizations": {
+		// 定義開發容器中的 extensions
+		"vscode": {
+			"extensions": [
+				"sdras.vue-vscode-snippets",
+				"Vue.volar",
+				"hollowtree.vue-snippets",
+				"ZixuanChen.vitest-explorer",
+				"antfu.vite",
+				"Vue.vscode-typescript-vue-plugin",
+				"shardulm94.trailing-spaces",
+				"xshrim.txt-syntax",
+				"Gruntfuggly.todo-tree",
+				"wayou.vscode-todo-highlight",
+				"bradlc.vscode-tailwindcss",
+				"SimonSiefke.svg-preview",
+				"jock.svg",
+				"SonarSource.sonarlint-vscode",
+				"yoavbls.pretty-ts-errors",
+				"IBM.output-colorizer",
+				"alefragnani.numbered-bookmarks",
+				"bierner.markdown-preview-github-styles",
+				"ms-vsliveshare.vsliveshare",
+				"OBKoro1.korofileheader",
+				"lokalise.i18n-ally",
+				"mhutchie.git-graph",
+				"dbaeumer.vscode-eslint",
+				"EditorConfig.EditorConfig",
+				"mikestead.dotenv",
+				"formulahendry.docker-explorer",
+				"ms-azuretools.vscode-docker",
+				"ms-vscode-remote.remote-containers",
+				"adam-bender.commit-message-editor",
+				"intellsmi.comment-translate",
+				"naumovs.color-highlight",
+				"streetsidesoftware.code-spell-checker",
+				"MS-CEINTL.vscode-language-pack-zh-hant",
+				"formulahendry.auto-rename-tag"
+			]
+		}
+	}
+}
