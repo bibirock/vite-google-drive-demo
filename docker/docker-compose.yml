@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  vite-google-drive-demo:
+    image: node:20
+    # 設定開發容器名稱
+    container_name: drive-dev
+    restart: "no"
+    # 指定工作目錄
+    working_dir: /root/drive-dev
+    volumes:
+      # 掛載根目錄下資料夾到容器中
+      - ../:/root/drive-dev
+    # 安裝 pm2 及 持久化容器
+    command: sh -c "npm i pm2 -g && tail -f /dev/null"
