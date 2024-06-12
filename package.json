@@ -21,7 +21,7 @@
         "ant-design-vue": "^3.2.12",
         "axios": "^0.27.2",
         "eslint-friendly-formatter": "^4.0.1",
-        "gh-pages": "^4.0.0",
+        "gh-pages": "^5.0.0",
         "mitt": "^3.0.0",
         "petite-vue-i18n": "^9.2.2",
         "pinia": "^2.0.21",
