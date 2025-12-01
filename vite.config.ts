@@ -66,10 +66,13 @@ export default defineConfig({
     },
     // https憑證套用，用於正常運行PWA網頁
     server: {
-        https: {
-            key: fs.readFileSync(`${__dirname}/src/assets/pem/localhost-key.pem`),
-            cert: fs.readFileSync(`${__dirname}/src/assets/pem/localhost.pem`)
-        }
+        https:
+            fs.existsSync(`${__dirname}/src/assets/pem/localhost-key.pem`) && fs.existsSync(`${__dirname}/src/assets/pem/localhost.pem`)
+                ? {
+                      key: fs.readFileSync(`${__dirname}/src/assets/pem/localhost-key.pem`),
+                      cert: fs.readFileSync(`${__dirname}/src/assets/pem/localhost.pem`)
+                  }
+                : undefined
     },
     define: {
         'process.env': {}
