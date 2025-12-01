@@ -13,6 +13,8 @@ dist-ssr
 dev-dist
 *.local
 apiKey.ts
+.env
+src/assets/pem/
 
 # Editor directories and files
 .vscode/*

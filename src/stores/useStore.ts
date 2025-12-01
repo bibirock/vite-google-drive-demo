@@ -1,5 +1,12 @@
+/*
+ * @Author: JoeChen
+ * @Date: 2025-11-27 15:06:25
+ * @LastEditors: JoeChen bibirock0104@gmail.com
+ * @LastEditTime: 2025-12-01 09:44:38
+ * @Description:
+ */
 import { defineStore } from 'pinia';
-import apiKey from './apiKey';
+import apiKey from './scope';
 import { utils, TYPE } from '@/utils/utils';
 import { emitter } from '@/main';
 import { i18n } from '@/locales/lang.js';
